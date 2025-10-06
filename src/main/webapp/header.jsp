@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <header class="bg-dark-subtle p-3">
     <div class="container d-flex justify-content-between align-items-center">
@@ -7,7 +7,7 @@
 
         <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
         
-        <a class="nav-link " href="consultaPropuesta.jsp">Consulta Propuesta</a>
+        <a class="nav-link " href="mostrarPropuestas.jsp">Consulta Propuesta</a>
 
         <a class="nav-link " href="consultaUsuario.jsp">Consulta Usuario</a>
 
