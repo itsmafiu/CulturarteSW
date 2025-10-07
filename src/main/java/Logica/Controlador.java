@@ -363,6 +363,35 @@ public class Controlador implements IControlador{
         return listaNombres;
     }
     
+     public List<DataUsuario> getDataUsuarios(){
+        ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
+        DataUsuario data = new DataUsuario();
+        List<DataUsuario> ListaDTUsuario = new ArrayList<>(); 
+        for(Usuario u : listaUsuarios){
+          
+          data.setNickname(u.getNickname());
+          data.setNombre(u.getNombre());
+          data.setApellido(u.getApellido());
+          data.setImagen(u.getImagen());
+          
+          if (u instanceof Proponente){
+              Proponente p = (Proponente) u;
+              data.setBiografia(p.getBiografia());
+              data.setTipo("Proponente");
+          }else if (u instanceof Colaborador){
+              Colaborador c = (Colaborador) u;
+              data.setTipo("Colaborador");
+              data.setBiografia(null);
+          }else {
+              System.out.println("ERROR usuario sin tipo asignado?");
+          }
+          
+          ListaDTUsuario.add(data);
+        }
+        return ListaDTUsuario;
+    }
+    
+    
      @Override
     public List<String> getColaboradores() {
         
@@ -663,6 +692,17 @@ public class Controlador implements IControlador{
         }
         return DP;
         
+    }
+    
+    public List<DataPropuesta> getPropuestasPorCategoria(String Categoria){
+        Categoria cat = cp.findCategoria(Categoria);
+        List<DataPropuesta> ListaPropuestasCat = new ArrayList<>();
+        DataPropuesta dataProp;
+        for (Propuesta prop : cat.getPropuestas()) {
+            dataProp = new DataPropuesta(prop.getAlcanzada(), prop.getTitulo(), prop.getEstadoActual(), prop.getLugar());
+            ListaPropuestasCat.add(dataProp);
+        }
+        return ListaPropuestasCat;
     }
     
     @Override

@@ -21,7 +21,11 @@ public interface IControlador {
         
     List<String> getUsuarios(); 
     
+    List<DataUsuario> getDataUsuarios();
+    
     List<String> getUsuariosProponentes();
+    
+    List<DataPropuesta> getPropuestasPorCategoria(String Categoria);
     
     DataProponente consultaDeProponente(String NickName);
     
