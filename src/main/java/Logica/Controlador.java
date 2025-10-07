@@ -318,9 +318,10 @@ public class Controlador implements IControlador{
     }
      public List<DataUsuario> getDataUsuarios(){
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
-        DataUsuario data = new DataUsuario();
         List<DataUsuario> ListaDTUsuario = new ArrayList<>(); 
         for(Usuario u : listaUsuarios){
+          
+          DataUsuario data = new DataUsuario();
           
           data.setNickname(u.getNickname());
           data.setNombre(u.getNombre());
