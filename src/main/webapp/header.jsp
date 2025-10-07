@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <header class="bg-dark-subtle p-3">
@@ -16,9 +17,21 @@
             <button class="btn btn-light" type="submit">Buscar</button>
         </form>
 
-        <a class="nav-link " href="iniciarSesion.jsp">Iniciar Sesión</a>
+        <c:choose>
+            <c:when test="${empty nick}">
+                <a class="nav-link " href="inicioSesion.jsp">Iniciar Sesión</a>
+                
+                <a class="nav-link " href="altaUsuario.jsp">Registrarse</a>
+            </c:when>
+            <c:otherwise>
+                <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
 
-        <a class="nav-link " href="registrarse.jsp">Registrarse</a>
+                <form action="cerrarSesion" method="GET">
+                    <button type="submit" class="btn">Cerrar Sesión</button>
+                </form>
+                <!--<a class="nav-link active " href="#">Cierre Sesión</a>-->
+            </c:otherwise>
+        </c:choose>
 
 
         

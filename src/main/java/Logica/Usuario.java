@@ -25,6 +25,7 @@ public class Usuario implements Serializable {
     String nickname;
     @Basic(optional = false)
     String email;
+    String contraseña;
     String nombre;
     String apellido;
     LocalDate fecNac;
@@ -37,13 +38,14 @@ public class Usuario implements Serializable {
     }
 
     
-    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen) {
+    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña) {
         this.nickname = nickname;
         this.email = email;
         this.nombre = nombre;
         this.apellido = apellido;
         this.fecNac = fecNac;
         this.imagen = imagen;
+        this.contraseña = contraseña;
     }
 
     public String getNickname() {
@@ -82,6 +84,10 @@ public class Usuario implements Serializable {
         return fecNac;
     }
 
+    public String getFecNacString(){
+        return fecNac.toString();
+    }
+    
     public void setFecNac(LocalDate fecNac) {
         this.fecNac = fecNac;
     }
@@ -89,6 +95,16 @@ public class Usuario implements Serializable {
     public String getImagen(){
         return imagen;
     }
+
+    public String getContraseña() {
+        return contraseña;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
+    
+    
     
     public int seguirUsuario(Usuario nick){
         for(Usuario u : this.misSeguidos){

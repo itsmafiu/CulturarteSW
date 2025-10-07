@@ -7,9 +7,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 public interface IControlador {
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb);
     
-    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen);
+    int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña);
     
     int altaCategoria(String nombreCat);
     
@@ -22,6 +22,10 @@ public interface IControlador {
     List<String> getUsuarios(); 
     
     List<String> getUsuariosProponentes();
+    
+    List<Proponente> getProponentes();
+    
+    List<Colaborador> getUsuariosColaboradores();
     
     DataProponente consultaDeProponente(String NickName);
     
@@ -64,4 +68,8 @@ public interface IControlador {
     List<String> getColabsProp(String titulo);
     
     boolean seleccionaCategoria(String categoria);
+    
+    int verificarUsuario(String usuario, String contraseña);
+    
+    String getUsuarioPorMail(String nick);
 }

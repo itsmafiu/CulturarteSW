@@ -24,108 +24,52 @@ public class Controlador implements IControlador{
     ControladoraPersistencia cp = new ControladoraPersistencia();
     
     @Override //colaborador
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña){
         String nickNuevo = nick;
         String correoNuevo = correo;
-        Boolean nickExiste = false;
-        Boolean correoExiste = false;
         
-        //con memoria local
-//        for(Usuario u : misUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : misUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
-        
-        //con peristencia
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         
         for(Usuario u : listaUsuarios){
             if(u.getNickname().equals(nickNuevo)){
-                nickExiste = true;
-                break;
+                return 0;
             }
         }
         
         for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
-                correoExiste = true;
-                break;
+                return 2;
             }
         }
         
-        if(nickExiste == true || correoExiste == true){
-            System.out.println("ERROR: Nickname o Correo existen en el sistema!");
-            return 0;
-        }else{
-            Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen);
-            misUsuarios.add(colaNuevo);
-//            misColaboradores.add(colaNuevo);
-//            peristencia
-            cp.añadirUsuario(colaNuevo);
-            
-            return 1;
-        }
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        misUsuarios.add(colaNuevo);
+        cp.añadirUsuario(colaNuevo);
+        return 1;
     }
     
     @Override //proponente
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
-        Boolean nickExiste = false;
-        Boolean correoExiste = false;
-        
-        //con memoria local
-//        for(Usuario u : misUsuarios){
-//            if(u.getNickname().equals(nickNuevo)){
-//                nickExiste = true;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : misUsuarios){
-//            if(u.getEmail().equals(correoNuevo)){
-//                correoExiste = true;
-//                break;
-//            }
-//        }
 
-        //con persistencia
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         
         for(Usuario u : listaUsuarios){
             if(u.getNickname().equals(nickNuevo)){
-                nickExiste = true;
-                break;
+                return 0;
             }
         }
         
         for(Usuario u : listaUsuarios){
             if(u.getEmail().equals(correoNuevo)){
-                correoExiste = true;
-                break;
+                return 2;
             }
         }
         
-        if(nickExiste == true || correoExiste == true){
-            System.out.println("ERROR: Nickname o Correo existen en el sistema!");
-            return 0;
-        }else{
-            Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen);
-//            misUsuarios.add(propNuevo);
-//            misProponentes.add(propNuevo);
-//            persistencia
-            cp.añadirUsuario(propNuevo);
-            return 1;
-        }
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        cp.añadirUsuario(propNuevo);
+        return 1;
     }
     @Override
     public int altaCategoria(String nombreCat){
@@ -361,6 +305,16 @@ public class Controlador implements IControlador{
         }
         
         return listaNombres;
+    }
+    
+    @Override
+    public List<Proponente> getProponentes(){
+        return cp.getListaProponentes();
+    }
+    
+    @Override
+    public List<Colaborador> getUsuariosColaboradores(){
+        return cp.getColaboradores();
     }
     
      @Override
@@ -855,4 +809,38 @@ public class Controlador implements IControlador{
         
         return encontrado;
     }
+    
+    @Override
+    public int verificarUsuario(String usuario, String contraseña){
+        List<Usuario> listaUsuarios = cp.getListaUsuarios();
+        if(listaUsuarios != null){
+            for(Usuario u : listaUsuarios){
+                if(u.getNickname().equals(usuario)){
+                    if(u.getContraseña().equals(contraseña)){
+                        return 1;
+                    }
+                }
+                if(u.getEmail().equals(usuario)){
+                    if(u.getContraseña().equals(contraseña)){
+                        return 2;
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+    
+    @Override
+    public String getUsuarioPorMail(String email){
+        List<Usuario> listaUsuarios = cp.getListaUsuarios();
+        for(Usuario u : listaUsuarios){
+            if(u.getEmail().equals(email)){
+                return u.getNickname();
+            }
+        }
+        return null;
+    }
+
 }
+
+    
