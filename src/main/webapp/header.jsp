@@ -8,9 +8,9 @@
 
         <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
         
-        <a class="nav-link " href="mostrarPropuestas.jsp">Consulta Propuesta</a>
+        <a class="nav-link " href="SvConsultaPropuesta">Consulta Propuesta</a>
 
-        <a class="nav-link " href="consultaUsuario.jsp">Consulta Usuario</a>
+        <a class="nav-link " href="SvConsultaUsuario">Consulta Usuario</a>
 
         <form class="d-flex" role="search">
             <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar">

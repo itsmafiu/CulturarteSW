@@ -39,7 +39,7 @@ public class SvConsultaUsuario extends HttpServlet {
         HttpSession misesion = request.getSession();
         misesion.setAttribute("DtU", listaUsuarios);
         
-        response.sendRedirect("conulstaUsuario.jsp");
+        response.sendRedirect("consultaUsuario.jsp");
     }
 
   

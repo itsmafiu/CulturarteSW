@@ -62,20 +62,12 @@ public class SvInicioSesion extends HttpServlet {
             case 1: //existe, por nick
                 misesion.setAttribute("nick", usuario);
                 response.sendRedirect("index.jsp");
+                return;
             case 2: // existe, por mail
                 String nick = ic.getUsuarioPorMail(usuario);
                 misesion.setAttribute("nick", nick);
                 response.sendRedirect("index.jsp");
-                break;
         }
-//        if(existe){
-//            HttpSession misesion = request.getSession();
-//            misesion.setAttribute("nick", usuario);
-//            response.sendRedirect("index.jsp");
-//        }else{
-//            request.setAttribute("error", "Usuario o contraseña incorrecta.");
-//            request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
-//        }
     }
     
     @Override

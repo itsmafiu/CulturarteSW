@@ -854,12 +854,12 @@ public class Controlador implements IControlador{
         List<Usuario> listaUsuarios = cp.getListaUsuarios();
         if(listaUsuarios != null){
             for(Usuario u : listaUsuarios){
-                if(u.getNickname().equals(usuario)){
+                if(usuario.equals(u.getNickname())){
                     if(u.getContraseña().equals(contraseña)){
                         return 1;
                     }
                 }
-                if(u.getEmail().equals(usuario)){
+                if(usuario.equals(u.getEmail())){
                     if(u.getContraseña().equals(contraseña)){
                         return 2;
                     }
