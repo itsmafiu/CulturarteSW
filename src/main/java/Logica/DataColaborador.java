@@ -19,6 +19,8 @@ public class DataColaborador {
     LocalDate fecNac;
     String imagen = "";
     List<DataPropuesta> propuestasColaboradas;
+    List<DataUsuario> meSiguen;
+    List<DataUsuario> losSigo;
     public DataColaborador(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen) {
         this.nickname = nickname;
         this.nombre = nombre;
@@ -63,4 +65,21 @@ public class DataColaborador {
     public List<DataPropuesta> getPropuestas(){
         return this.propuestasColaboradas;
     }
+
+    public void setMeSiguen(List<DataUsuario> meSiguen) {
+        this.meSiguen = meSiguen;
+    }
+
+    public void setLosSigo(List<DataUsuario> losSigo) {
+        this.losSigo = losSigo;
+    }
+
+    public List<DataUsuario> getMeSiguen() {
+        return meSiguen;
+    }
+
+    public List<DataUsuario> getLosSigo() {
+        return losSigo;
+    }
+    
 }

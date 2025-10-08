@@ -35,6 +35,8 @@ public class SvCerrarSesion extends HttpServlet {
 
         HttpSession misesion = request.getSession();
         misesion.setAttribute("nick", null);
+        misesion.setAttribute("tipoUsuario", null);
+        misesion.setAttribute("datosUsuario", null);
         
         response.sendRedirect("index.jsp");
     }

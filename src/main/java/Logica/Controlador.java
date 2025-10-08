@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class Controlador implements IControlador{
@@ -24,7 +25,7 @@ public class Controlador implements IControlador{
     ControladoraPersistencia cp = new ControladoraPersistencia();
     
     @Override //colaborador
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String imagenWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
         
@@ -42,14 +43,14 @@ public class Controlador implements IControlador{
             }
         }
         
-        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
         return 1;
     }
     
     @Override //proponente
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
 
@@ -67,7 +68,7 @@ public class Controlador implements IControlador{
             }
         }
         
-        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         cp.añadirUsuario(propNuevo);
         return 1;
     }
@@ -174,6 +175,7 @@ public class Controlador implements IControlador{
         
         return nodoRaiz;
     }
+    
     private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode raiz, String nombre){
         Enumeration<?> en = raiz.breadthFirstEnumeration();
         while(en.hasMoreElements()){
@@ -185,6 +187,7 @@ public class Controlador implements IControlador{
         }
         return null;
     }
+    
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
         //CON MEMORIA LOCAL
@@ -305,6 +308,11 @@ public class Controlador implements IControlador{
         }
         
         return listaNombres;
+    }
+    
+    @Override
+    public Usuario getUsuario(String nick){
+        return cp.buscarUsuario(nick);
     }
     
     @Override
@@ -668,6 +676,7 @@ public class Controlador implements IControlador{
                 DataPropuesta dataProp;
                 for(Propuesta prop : p.getPropuestas()){
                     dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
+                    dataProp.setDesc(prop.getDescripcion());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -683,6 +692,83 @@ public class Controlador implements IControlador{
         return DCola;
         
     }
+    
+    public List<DataUsuario> getSeguidores(Usuario seguido) {
+    List<DataUsuario> seguidores = new ArrayList<>();
+    
+    for (Usuario u : cp.getListaUsuarios()) {
+        if (u.getMisSeguidosNick().contains(seguido.getNickname())) {
+            DataUsuario du = new DataUsuario();
+            du.setNickname(u.getNickname());
+             if (u instanceof Proponente){
+              du.setTipo("Proponente");
+            }else if (u instanceof Colaborador){
+              du.setTipo("Colaborador");
+            }
+            seguidores.add(du);
+        }
+    }
+    return seguidores;
+    }
+
+    @Override
+    public DataUsuario consultaDeProponenteWeb(String NickName){
+        
+        DataProponente DProp = consultaDeProponente(NickName);
+        Proponente p = cp.buscarProponente(NickName);
+                List<DataPropuesta> propuestasDe = new ArrayList<>();
+                List<DataPropuesta> propuestasFiltradas = new ArrayList<>();
+                for(DataPropuesta prop : DProp.getPropuestas()){
+                    if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().getEstado().toString())) {
+                        propuestasFiltradas.add(prop);
+                    }
+                }
+                
+                /*
+                //Por ahora lo dejo comentado pero luego ahre que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
+                //especiales
+                for (DataPropuesta prop : DProp.getPropuestas()) {
+                    if (nickSesion.equals(DProp.getNickname()) || !"Ingresada".equalsIgnoreCase(prop.getEstado())) {
+                        propuestasFiltradas.add(prop);
+                    }
+                }
+
+                DProp.setMisPropuestas(propuestasFiltradas);
+                */
+                
+                //Me falta aun un Propuestas Favoritas aunque aun no se agregan en ningun lado por lo que ta
+                
+                
+                DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
+                usuario.setEmail(DProp.getEmail());
+                usuario.setImagen(DProp.getImagen());
+                usuario.setDireccion(DProp.getDireccion());
+                usuario.setBiografia(DProp.getBiografia());
+                usuario.setSitioWeb(DProp.getSitioWeb());
+                
+                return usuario;
+    }
+    
+    @Override
+    public DataUsuario consultaDeColaboradorWeb(String NickName){
+        //Estas 2 funciones que terminan en Web toman los datos que me faltan y reutilizan los consultas ya diseñados anteriormente
+        DataColaborador DCola = consultaDeColaborador(NickName);
+        Colaborador c = cp.buscarColaborador(NickName);
+        
+        DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),getSeguidores(c),c.getDtUSeguidos());
+        usuario.setEmail(DCola.getEmail());
+        usuario.setImagen(DCola.getImagen());
+        
+        usuario.setBiografia("");
+        
+        usuario.setDireccion("");
+        
+        usuario.setSitioWeb("");
+
+        return usuario;
+        
+    }
+    
     
     @Override
     public List<String> getEstados(){
@@ -856,12 +942,12 @@ public class Controlador implements IControlador{
         if(listaUsuarios != null){
             for(Usuario u : listaUsuarios){
                 if(usuario.equals(u.getNickname())){
-                    if(u.getContraseña().equals(contraseña)){
+                    if(BCrypt.checkpw(contraseña, u.getContraseña())){
                         return 1;
                     }
                 }
                 if(usuario.equals(u.getEmail())){
-                    if(u.getContraseña().equals(contraseña)){
+                    if(BCrypt.checkpw(contraseña, u.getContraseña())){
                         return 2;
                     }
                 }

@@ -32,11 +32,12 @@
             <img src="SvMostrarFoto?path=<%=usu.getImagen()%>" alt="Foto de Perfil" width="300" style="max-height: 202px">
             <div class="card-body">
               <h5 class="card-title"><%= usu.getNickname()%></h5>
+              <p class="text-muted"><%= usu.getTipo()%></p>
               <p class="card-text"><%= usu.getNombre() + " " + usu.getApellido()%></p>
               <% if (usu.getTipo().equals("Proponente")){ %>
               <p class="card-text"><%= usu.getBiografia() %></p>
               <% }  %> 
-              <a href="#" class="btn btn-primary">Ver Perfil</a>
+              <a href="SvPerfilUsuario?nick=<%= usu.getNickname() %>&tipo=<%= usu.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
             </div>
               
           </div>

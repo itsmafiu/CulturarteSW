@@ -22,6 +22,8 @@ public class DataProponente {
     String biografia = "";
     String sitioWeb = "";
     List<DataPropuesta> misPropuestas;
+    List<DataUsuario> meSiguen;
+    List<DataUsuario> losSigo;
     public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb) {
         this.nickname = nickname;
         this.nombre = nombre;
@@ -81,4 +83,25 @@ public class DataProponente {
     public List<DataPropuesta> getPropuestas(){
         return this.misPropuestas;
     }
+
+    public void setMeSiguen(List<DataUsuario> meSiguen) {
+        this.meSiguen = meSiguen;
+    }
+
+    public void setLosSigo(List<DataUsuario> losSigo) {
+        this.losSigo = losSigo;
+    }
+
+    public List<DataUsuario> getMeSiguen() {
+        return meSiguen;
+    }
+
+    public void setMisPropuestas(List<DataPropuesta> misPropuestas) {
+        this.misPropuestas = misPropuestas;
+    }
+
+    public List<DataUsuario> getLosSigo() {
+        return losSigo;
+    }
+    
 }

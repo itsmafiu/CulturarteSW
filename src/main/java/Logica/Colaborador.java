@@ -18,8 +18,8 @@ public class Colaborador extends Usuario {
         //this.misAportes = new ArrayList<>();
     }
     
-    public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña) {
-        super(nickname, email, nombre, apellido, fecNac, imagen, contraseña);
+    public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña, String imagenWeb) {
+        super(nickname, email, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         this.misAportes = new ArrayList<>();
     }
     

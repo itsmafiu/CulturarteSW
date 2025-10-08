@@ -6,6 +6,8 @@ package Servlets;
 
 import Logica.Fabrica;
 import Logica.IControlador;
+import Logica.Proponente;
+import Logica.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -51,20 +53,35 @@ public class SvInicioSesion extends HttpServlet {
             request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
             return;
         }
-        
+
         int existe = ic.verificarUsuario(usuario, pass);
         HttpSession misesion = request.getSession();
+        Usuario usu;
         switch(existe){
             case 0: //no existe
                 request.setAttribute("error", "Usuario o contraseña incorrecta.");
                 request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
                 return;
             case 1: //existe, por nick
+                usu = ic.getUsuario(usuario);
+                if(usu instanceof Proponente){ //proponente
+                    misesion.setAttribute("tipoUsuario", "prop");
+                }else{ //colaborador
+                    misesion.setAttribute("tipoUsuario", "cola");
+                }
+                misesion.setAttribute("datosUsuario", usu);
                 misesion.setAttribute("nick", usuario);
                 response.sendRedirect("index.jsp");
                 return;
             case 2: // existe, por mail
                 String nick = ic.getUsuarioPorMail(usuario);
+                usu = ic.getUsuario(nick);
+                if(usu instanceof Proponente){ //proponente
+                    misesion.setAttribute("tipoUsuario", "prop");
+                }else{ //colaborador
+                    misesion.setAttribute("tipoUsuario", "cola");
+                }
+                misesion.setAttribute("datosUsuario", usu);
                 misesion.setAttribute("nick", nick);
                 response.sendRedirect("index.jsp");
         }

@@ -109,6 +109,10 @@ public class DataPropuesta {
     public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
+     public void setDesc(String desc) {
+        this.desc = desc;
+    }
+    
     
     
 }

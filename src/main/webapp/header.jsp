@@ -7,7 +7,7 @@
             <a class="navbar-brand btn text-primary fs-4" href="index.jsp">Culturarte</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="SvConsultaPropuesta">Alta Propuesta</a>
+                    <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="SvConsultaPropuesta">Consulta Propuesta</a>
@@ -33,6 +33,9 @@
                 </c:when>
                 <c:otherwise>    
                     <ul class="navbar-nav ms-2">
+                        <li class="nav-item">
+                            <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" width="40">                            
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
                         </li>
