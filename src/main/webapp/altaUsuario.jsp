@@ -26,9 +26,9 @@
         <div class="container mt-4">
             <div class="mt-4 p-5 bg-info text-bg-color rounded">
                 <h1>Registrarse</h1>
-                <form action="altaUsuario" class="needs-validation" method="POST">
+                <form action="altaUsuario" class="needs-validation" method="POST" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col">
+                        <div class="col"> <%-- datos en común --%>
                             <div class="form-group">
                                 <label for="nick">Nick: </label>
                                 <input type="text" class="form-control form-control-lg" id="nick" name="nick" required>
@@ -36,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo: </label> 
-                                <input type="text" class="form-control form-control-lg" id="correo" name="correo" required>
+                                <input type="email" class="form-control form-control-lg" id="correo" name="correo" required>
                                 <div class="invalid-feedback">Ingrese un correo.</div>
                             </div>
                             <div class="form-group">
@@ -68,7 +68,7 @@
                                 <input type="radio" id="cola" name="tipoUsuario" value="Colaborador"> <label for="cola">Colaborador</label>
                             </p>
                         </div>
-                        <div class="col">
+                        <div class="col"> <%-- datos proponente extra --%>
                             <div id="datosProponente" class="collapse mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
                                     <label for="direccion">Dirección: </label>
@@ -82,6 +82,11 @@
                                 <div class="form-group">
                                     <label for="sitioWeb">Sitio Web: </label> 
                                     <input type="text" class="form-control" id="sitioWeb" name="sitioWeb" placeholder="(Opcional)">
+                                </div>
+                            </div>
+                            <div id="datosImagen" class="mt-4 p-5 bg-secondary text-bg-color rounded">
+                                <div class="form-group">
+                                    <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
                                 </div>
                             </div>
                             <br>
