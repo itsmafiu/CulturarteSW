@@ -103,6 +103,10 @@ public class Usuario implements Serializable {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    public List<Usuario> getMisSeguidos() {
+        return misSeguidos;
+    }
     
     
     
@@ -133,4 +137,24 @@ public class Usuario implements Serializable {
         }
         return listaSeguidos;
     }
+    
+    public List<DataUsuario> getDtUSeguidos(){
+        List<DataUsuario> listaSeguidos = new ArrayList<>();
+        for(Usuario u : this.misSeguidos){
+          DataUsuario data = new DataUsuario();
+          data.setNickname(u.getNickname());
+          
+          if (u instanceof Proponente){
+              data.setTipo("Proponente");
+          }else if (u instanceof Colaborador){
+              data.setTipo("Colaborador");
+          }else {
+              System.out.println("ERROR usuario sin tipo asignado?");
+          }
+           listaSeguidos.add(data);
+        }
+        return listaSeguidos;
+    }
+    
+    
 }
