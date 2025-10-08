@@ -16,7 +16,7 @@
          <% 
         
         List<DataUsuario> DtU = (List) request.getSession().getAttribute("DtU");
-        
+         
         %>
         
         <div class="container mt-4">
@@ -29,11 +29,11 @@
         
         <div class="col">
           <div class="card h-100">
-            <img src="SvMostrarFoto?path=<%= usu.getImagen() %>" alt="Foto de la propuesta" width="300" style="max-height: 202px">
+            <img src="SvMostrarFoto?path=<%=usu.getImagen()%>" alt="Foto de Perfil" width="300" style="max-height: 202px">
             <div class="card-body">
               <h5 class="card-title"><%= usu.getNickname()%></h5>
-              <p class="card-text"><%= usu.getNombre() + usu.getApellido()%></p>
-              <% if (usu.getTipo() == "Proponente"){ %>
+              <p class="card-text"><%= usu.getNombre() + " " + usu.getApellido()%></p>
+              <% if (usu.getTipo().equals("Proponente")){ %>
               <p class="card-text"><%= usu.getBiografia() %></p>
               <% }  %> 
               <a href="#" class="btn btn-primary">Ver Perfil</a>
