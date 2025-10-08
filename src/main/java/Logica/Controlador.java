@@ -25,7 +25,7 @@ public class Controlador implements IControlador{
     ControladoraPersistencia cp = new ControladoraPersistencia();
     
     @Override //colaborador
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String imagenWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
         
@@ -43,14 +43,14 @@ public class Controlador implements IControlador{
             }
         }
         
-        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Colaborador colaNuevo = new Colaborador(nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         misUsuarios.add(colaNuevo);
         cp.añadirUsuario(colaNuevo);
         return 1;
     }
     
     @Override //proponente
-    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb){
+    public int añadirUsuario(String nick, String nombre, String apellido, String correo, LocalDate fecNac, String imagen, String contraseña, String direccion, String bio, String sitioWeb, String imagenWeb){
         String nickNuevo = nick;
         String correoNuevo = correo;
 
@@ -68,7 +68,7 @@ public class Controlador implements IControlador{
             }
         }
         
-        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña);
+        Proponente propNuevo = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         cp.añadirUsuario(propNuevo);
         return 1;
     }
@@ -175,6 +175,7 @@ public class Controlador implements IControlador{
         
         return nodoRaiz;
     }
+    
     private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode raiz, String nombre){
         Enumeration<?> en = raiz.breadthFirstEnumeration();
         while(en.hasMoreElements()){
@@ -186,6 +187,7 @@ public class Controlador implements IControlador{
         }
         return null;
     }
+    
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
         //CON MEMORIA LOCAL
@@ -306,6 +308,11 @@ public class Controlador implements IControlador{
         }
         
         return listaNombres;
+    }
+    
+    @Override
+    public Usuario getUsuario(String nick){
+        return cp.buscarUsuario(nick);
     }
     
     @Override
