@@ -669,6 +669,7 @@ public class Controlador implements IControlador{
                 DataPropuesta dataProp;
                 for(Propuesta prop : p.getPropuestas()){
                     dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
+                    dataProp.setDesc(prop.getDescripcion());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -687,9 +688,9 @@ public class Controlador implements IControlador{
     
     public List<DataUsuario> getSeguidores(Usuario seguido) {
     List<DataUsuario> seguidores = new ArrayList<>();
-
-    for (Usuario u : cp.getListaUsuarios()) { 
-        if (u.getMisSeguidos().contains(seguido)) {
+    
+    for (Usuario u : cp.getListaUsuarios()) {
+        if (u.getMisSeguidosNick().contains(seguido.getNickname())) {
             DataUsuario du = new DataUsuario();
             du.setNickname(u.getNickname());
              if (u instanceof Proponente){
@@ -701,17 +702,17 @@ public class Controlador implements IControlador{
         }
     }
     return seguidores;
-}
+    }
 
     @Override
-    public DataProponente consultaDeProponenteWeb(String NickName){
+    public DataUsuario consultaDeProponenteWeb(String NickName){
         
         DataProponente DProp = consultaDeProponente(NickName);
         Proponente p = cp.buscarProponente(NickName);
                 List<DataPropuesta> propuestasDe = new ArrayList<>();
                 List<DataPropuesta> propuestasFiltradas = new ArrayList<>();
                 for(DataPropuesta prop : DProp.getPropuestas()){
-                    if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().toString())) {
+                    if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().getEstado().toString())) {
                         propuestasFiltradas.add(prop);
                     }
                 }
@@ -727,25 +728,37 @@ public class Controlador implements IControlador{
 
                 DProp.setMisPropuestas(propuestasFiltradas);
                 */
-                DProp.setMisPropuestas(propuestasFiltradas);
-                DProp.setLosSigo(p.getDtUSeguidos());
-                DProp.setMeSiguen(getSeguidores(p));
                 
                 //Me falta aun un Propuestas Favoritas aunque aun no se agregan en ningun lado por lo que ta
                 
-                return DProp;
+                
+                DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
+                usuario.setEmail(DProp.getEmail());
+                usuario.setImagen(DProp.getImagen());
+                usuario.setDireccion(DProp.getDireccion());
+                usuario.setBiografia(DProp.getBiografia());
+                usuario.setSitioWeb(DProp.getSitioWeb());
+                
+                return usuario;
     }
     
     @Override
-    public DataColaborador consultaDeColaboradorWeb(String NickName){
+    public DataUsuario consultaDeColaboradorWeb(String NickName){
         //Estas 2 funciones que terminan en Web toman los datos que me faltan y reutilizan los consultas ya diseñados anteriormente
         DataColaborador DCola = consultaDeColaborador(NickName);
         Colaborador c = cp.buscarColaborador(NickName);
         
-        DCola.setLosSigo(c.getDtUSeguidos());
-        DCola.setMeSiguen(getSeguidores(c));
+        DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),getSeguidores(c),c.getDtUSeguidos());
+        usuario.setEmail(DCola.getEmail());
+        usuario.setImagen(DCola.getImagen());
         
-        return DCola;
+        usuario.setBiografia("");
+        
+        usuario.setDireccion("");
+        
+        usuario.setSitioWeb("");
+
+        return usuario;
         
     }
     

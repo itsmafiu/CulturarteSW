@@ -155,6 +155,13 @@ public class Usuario implements Serializable {
         }
         return listaSeguidos;
     }
-    
+    public List<String> getMisSeguidosNick(){
+        List<String> listaSeguidores = new ArrayList<>();
+        
+        for(Usuario u : this.misSeguidos){
+            listaSeguidores.add(u.getNickname());
+        }
+        return listaSeguidores;
+    }
     
 }

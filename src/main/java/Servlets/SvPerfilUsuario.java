@@ -39,17 +39,17 @@ public class SvPerfilUsuario extends HttpServlet {
         
         switch(tipo){
             case "Proponente":
-                misesion.setAttribute("ConsultaPerfil", ic.consultaDeProponente(nick));
+                misesion.setAttribute("ConsultaPerfil", ic.consultaDeProponenteWeb(nick));
                 break;
             case "Colaborador":
-                misesion.setAttribute("ConsultaPerfil", ic.consultaDeColaborador(nick));
+                misesion.setAttribute("ConsultaPerfil", ic.consultaDeColaboradorWeb(nick));
                 break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND, "Usuario no es Colaborador ni Proponente");
                 return;
         }
      
-        
+     
         response.sendRedirect("perfilUsuario.jsp");
         
     }
