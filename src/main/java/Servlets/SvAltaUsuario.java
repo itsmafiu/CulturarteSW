@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -80,6 +81,8 @@ public class SvAltaUsuario extends HttpServlet {
             return;
         }
         
+        String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
+        
         int aux;
         if(tipoUsuario.equals("Proponente")){
             String direccion = request.getParameter("direccion");
@@ -97,9 +100,9 @@ public class SvAltaUsuario extends HttpServlet {
                 return;
             }
             
-            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), "", pass, direccion, bio, sitioWeb);
+            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), "", passHash, direccion, bio, sitioWeb);
         }else{ //tipoUsuario.equals("Colaborador")
-            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), "", pass);
+            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), "", passHash);
         }
         
         switch(aux){

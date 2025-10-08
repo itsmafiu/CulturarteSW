@@ -8,6 +8,7 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.tree.DefaultMutableTreeNode;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 public class Controlador implements IControlador{
@@ -856,12 +857,12 @@ public class Controlador implements IControlador{
         if(listaUsuarios != null){
             for(Usuario u : listaUsuarios){
                 if(usuario.equals(u.getNickname())){
-                    if(u.getContraseña().equals(contraseña)){
+                    if(BCrypt.checkpw(contraseña, u.getContraseña())){
                         return 1;
                     }
                 }
                 if(usuario.equals(u.getEmail())){
-                    if(u.getContraseña().equals(contraseña)){
+                    if(BCrypt.checkpw(contraseña, u.getContraseña())){
                         return 2;
                     }
                 }
