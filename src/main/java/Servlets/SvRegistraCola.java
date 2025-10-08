@@ -4,52 +4,39 @@
  */
 package Servlets;
 
-import Logica.DataUsuario;
 import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+@WebServlet(name = "SvRegistraCola", urlPatterns = {"/SvRegistraCola"})
+public class SvRegistraCola extends HttpServlet {
 
-@WebServlet(name = "SvConsultaUsuario", urlPatterns = {"/SvConsultaUsuario"})
-public class SvConsultaUsuario extends HttpServlet {
-
-    private IControlador ic;
+    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
     }
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ic = Fabrica.getInstancia().getIControlador();
-        
-        List<DataUsuario> listaUsuarios = ic.getDataUsuarios();
-        
-        HttpSession misesion = request.getSession();
-        misesion.setAttribute("DtU", listaUsuarios);
-        
-        response.sendRedirect("consultaUsuario.jsp");
+        response.sendRedirect("registraCola.jsp");
     }
 
-  
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
-   
     @Override
     public String getServletInfo() {
         return "Short description";

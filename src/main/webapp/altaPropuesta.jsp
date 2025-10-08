@@ -1,9 +1,3 @@
-<%-- 
-    Document   : index
-    Created on : 30 sept 2025, 9:59:51
-    Author     : nahud
---%>
-
 <%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

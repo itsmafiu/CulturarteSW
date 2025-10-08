@@ -6,24 +6,39 @@
         <a href="index.jsp" class=" text-decoration-none fs-4">Culturate</a>
 
 
-        <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
         
-        <a class="nav-link " href="mostrarPropuestas.jsp">Consulta Propuesta</a>
-
-        <a class="nav-link " href="consultaUsuario.jsp">Consulta Usuario</a>
-
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar">
-            <button class="btn btn-light" type="submit">Buscar</button>
-        </form>
 
         <c:choose>
             <c:when test="${empty nick}">
+                <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
+
+                <a class="nav-link " href="SvConsultaPropuesta">Consulta Propuesta</a>
+
+                <a class="nav-link " href="SvConsultaUsuario">Consulta Usuario</a>
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar">
+                    <button class="btn btn-light" type="submit">Buscar</button>
+                </form>
+
                 <a class="nav-link " href="inicioSesion.jsp">Iniciar Sesión</a>
                 
                 <a class="nav-link " href="altaUsuario.jsp">Registrarse</a>
             </c:when>
             <c:otherwise>
+                <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
+
+                <a class="nav-link " href="SvConsultaPropuesta">Consulta Propuesta</a>
+                
+                <a class="nav-link " href="SvRegistaCola">Registrar Colaboración</a>
+
+                <a class="nav-link " href="SvConsultaUsuario">Consulta Usuario</a>
+
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar">
+                    <button class="btn btn-light" type="submit">Buscar</button>
+                </form>
+                
                 <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
 
                 <form action="cerrarSesion" method="GET">
