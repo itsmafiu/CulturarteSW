@@ -685,6 +685,71 @@ public class Controlador implements IControlador{
         
     }
     
+    public List<DataUsuario> getSeguidores(Usuario seguido) {
+    List<DataUsuario> seguidores = new ArrayList<>();
+
+    for (Usuario u : cp.getListaUsuarios()) { 
+        if (u.getMisSeguidos().contains(seguido)) {
+            DataUsuario du = new DataUsuario();
+            du.setNickname(u.getNickname());
+             if (u instanceof Proponente){
+              du.setTipo("Proponente");
+            }else if (u instanceof Colaborador){
+              du.setTipo("Colaborador");
+            }
+            seguidores.add(du);
+        }
+    }
+    return seguidores;
+}
+
+    @Override
+    public DataProponente consultaDeProponenteWeb(String NickName){
+        
+        DataProponente DProp = consultaDeProponente(NickName);
+        Proponente p = cp.buscarProponente(NickName);
+                List<DataPropuesta> propuestasDe = new ArrayList<>();
+                List<DataPropuesta> propuestasFiltradas = new ArrayList<>();
+                for(DataPropuesta prop : DProp.getPropuestas()){
+                    if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().toString())) {
+                        propuestasFiltradas.add(prop);
+                    }
+                }
+                
+                /*
+                //Por ahora lo dejo comentado pero luego ahre que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
+                //especiales
+                for (DataPropuesta prop : DProp.getPropuestas()) {
+                    if (nickSesion.equals(DProp.getNickname()) || !"Ingresada".equalsIgnoreCase(prop.getEstado())) {
+                        propuestasFiltradas.add(prop);
+                    }
+                }
+
+                DProp.setMisPropuestas(propuestasFiltradas);
+                */
+                DProp.setMisPropuestas(propuestasFiltradas);
+                DProp.setLosSigo(p.getDtUSeguidos());
+                DProp.setMeSiguen(getSeguidores(p));
+                
+                //Me falta aun un Propuestas Favoritas aunque aun no se agregan en ningun lado por lo que ta
+                
+                return DProp;
+    }
+    
+    @Override
+    public DataColaborador consultaDeColaboradorWeb(String NickName){
+        //Estas 2 funciones que terminan en Web toman los datos que me faltan y reutilizan los consultas ya diseñados anteriormente
+        DataColaborador DCola = consultaDeColaborador(NickName);
+        Colaborador c = cp.buscarColaborador(NickName);
+        
+        DCola.setLosSigo(c.getDtUSeguidos());
+        DCola.setMeSiguen(getSeguidores(c));
+        
+        return DCola;
+        
+    }
+    
+    
     @Override
     public List<String> getEstados(){
     List<String> listaEstados = new ArrayList<>();

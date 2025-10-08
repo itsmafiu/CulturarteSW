@@ -33,8 +33,12 @@ public interface IControlador {
     
     DataProponente consultaDeProponente(String NickName);
     
+    DataProponente consultaDeProponenteWeb(String NickName);
+    
     DataColaborador consultaDeColaborador(String NickName);
     
+    DataColaborador consultaDeColaboradorWeb(String NickName);
+            
     List<String> getSeguidos(String seguidor);
     
     List<String> getColaboradores();
