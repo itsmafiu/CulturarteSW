@@ -25,7 +25,6 @@
             </c:when>
             <c:otherwise>
                 <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
-
                 <form action="cerrarSesion" method="GET">
                     <button type="submit" class="btn">Cerrar Sesión</button>
                 </form>
