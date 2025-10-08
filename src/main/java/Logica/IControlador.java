@@ -21,6 +21,8 @@ public interface IControlador {
         
     List<String> getUsuarios(); 
     
+    Usuario getUsuario(String nick);
+    
     List<DataUsuario> getDataUsuarios();
     
     List<String> getUsuariosProponentes();

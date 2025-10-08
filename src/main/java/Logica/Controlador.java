@@ -175,6 +175,7 @@ public class Controlador implements IControlador{
         
         return nodoRaiz;
     }
+    
     private DefaultMutableTreeNode buscarNodo(DefaultMutableTreeNode raiz, String nombre){
         Enumeration<?> en = raiz.breadthFirstEnumeration();
         while(en.hasMoreElements()){
@@ -186,6 +187,7 @@ public class Controlador implements IControlador{
         }
         return null;
     }
+    
     @Override
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno){
         //CON MEMORIA LOCAL
@@ -306,6 +308,11 @@ public class Controlador implements IControlador{
         }
         
         return listaNombres;
+    }
+    
+    @Override
+    public Usuario getUsuario(String nick){
+        return cp.buscarUsuario(nick);
     }
     
     @Override

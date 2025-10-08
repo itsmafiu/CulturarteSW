@@ -24,6 +24,7 @@
                 <a class="nav-link " href="altaUsuario.jsp">Registrarse</a>
             </c:when>
             <c:otherwise>
+                <!--<img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" width="40">-->
                 <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
                 <form action="cerrarSesion" method="GET">
                     <button type="submit" class="btn">Cerrar Sesión</button>
