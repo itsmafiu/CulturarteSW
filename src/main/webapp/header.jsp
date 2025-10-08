@@ -1,39 +1,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<header class="bg-dark-subtle p-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <a href="index.jsp" class=" text-decoration-none fs-4">Culturate</a>
-
-
-        <a class="nav-link " href="altaPropuesta.jsp">Alta Propuesta</a>
-        
-        <a class="nav-link " href="SvConsultaPropuesta">Consulta Propuesta</a>
-
-        <a class="nav-link " href="SvConsultaUsuario">Consulta Usuario</a>
-
-        <form class="d-flex" role="search">
-            <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar">
-            <button class="btn btn-light" type="submit">Buscar</button>
-        </form>
-
-        <c:choose>
-            <c:when test="${empty nick}">
-                <a class="nav-link " href="inicioSesion.jsp">Iniciar Sesión</a>
-                
-                <a class="nav-link " href="altaUsuario.jsp">Registrarse</a>
-            </c:when>
-            <c:otherwise>
-                <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
-
-                <form action="cerrarSesion" method="GET">
-                    <button type="submit" class="btn">Cerrar Sesión</button>
-                </form>
-                <!--<a class="nav-link active " href="#">Cierre Sesión</a>-->
-            </c:otherwise>
-        </c:choose>
-
-
-        
-    </div>
+<header class="bg-dark-subtle">
+        <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.jsp">Culturarte</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Consulta Propuesta</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Consulta Usuario</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+            <ul class="navbar-nav ms-2">
+            <li class="nav-item">
+              <a class="nav-link" href="#">iniciar Sesión</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Registrarse</a>
+            </li>
+          </ul>
+      </div>
+    </nav>
 </header>   
