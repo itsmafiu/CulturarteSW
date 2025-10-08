@@ -30,6 +30,7 @@ public class Usuario implements Serializable {
     String apellido;
     LocalDate fecNac;
     String imagen = "";
+    String imagenWeb = "";
     @OneToMany
     @JoinTable(name = "UsuarioSeguidos", joinColumns = @JoinColumn(name = "nickSeguidor"), inverseJoinColumns = @JoinColumn(name = "nickSeguido"))
     List<Usuario> misSeguidos = new ArrayList<>();
@@ -38,7 +39,7 @@ public class Usuario implements Serializable {
     }
 
     
-    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña) {
+    public Usuario(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña, String imagenWeb) {
         this.nickname = nickname;
         this.email = email;
         this.nombre = nombre;
@@ -46,6 +47,7 @@ public class Usuario implements Serializable {
         this.fecNac = fecNac;
         this.imagen = imagen;
         this.contraseña = contraseña;
+        this.imagenWeb = imagenWeb;
     }
 
     public String getNickname() {
@@ -96,12 +98,27 @@ public class Usuario implements Serializable {
         return imagen;
     }
 
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
     public String getContraseña() {
         return contraseña;
     }
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public String getImagenWeb() {
+        return imagenWeb;
+    }
+
+    public void setImagenWeb(String imagenWeb) {
+        this.imagenWeb = imagenWeb;
+    }
+    public List<Usuario> getMisSeguidos() {
+        return misSeguidos;
     }
     
     
@@ -133,4 +150,31 @@ public class Usuario implements Serializable {
         }
         return listaSeguidos;
     }
+    
+    public List<DataUsuario> getDtUSeguidos(){
+        List<DataUsuario> listaSeguidos = new ArrayList<>();
+        for(Usuario u : this.misSeguidos){
+          DataUsuario data = new DataUsuario();
+          data.setNickname(u.getNickname());
+          
+          if (u instanceof Proponente){
+              data.setTipo("Proponente");
+          }else if (u instanceof Colaborador){
+              data.setTipo("Colaborador");
+          }else {
+              System.out.println("ERROR usuario sin tipo asignado?");
+          }
+           listaSeguidos.add(data);
+        }
+        return listaSeguidos;
+    }
+    public List<String> getMisSeguidosNick(){
+        List<String> listaSeguidores = new ArrayList<>();
+        
+        for(Usuario u : this.misSeguidos){
+            listaSeguidores.add(u.getNickname());
+        }
+        return listaSeguidores;
+    }
+    
 }

@@ -4,6 +4,7 @@
     Author     : nahud
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="Logica.DataPropuesta"%>
 <%@page import="Logica.Propuesta"%>
 <%@page import="java.util.List"%>
@@ -35,7 +36,9 @@
         
         <div class="col">
           <div class="card h-100">
+              <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
               <img src="SvMostrarFoto?path=<%= p.getImagen() %>" alt="Foto de la propuesta" width="300" style="max-height: 202px">
+              </a>
             <div class="card-body">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"><%=p.getDescripcion()%></p>
