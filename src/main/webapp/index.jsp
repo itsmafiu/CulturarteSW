@@ -8,8 +8,15 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    <h3>Bienvenido a Culturarte</h3>
-    <p>Acá pondría todo lo que es recomendaciones uwu.</p>
+    <div class="m-3">
+        <h2 class="text-center">Bienvenido a Culturarte</h2>
+    </div>
+    <figure class="text-center">
+        <blockquote class="blockquote">
+            <p class="text-">"A tu bitch en el barrio la comparten..."</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">Aristoteles</figcaption>
+    </figure>
 
 </body>
 </html>
