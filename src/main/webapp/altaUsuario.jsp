@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,6 +23,12 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
+        
+        <%
+            String max = LocalDate.now().toString();
+            String min = LocalDate.of(1900, 1, 1).toString();
+            
+            %>
         
         <div class="container mt-4">
             <div class="mt-4 p-5 bg-info text-bg-color rounded">
@@ -51,7 +58,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="fecNac">Fecha Nacimiento: </label> 
-                                <input type="date" class="form-control" id="fecNac" name="fecNac" required>
+                                <input type="date" class="form-control" id="fecNac" name="fecNac" min="<%=min%>" max="<%=max%>" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña: </label> 
@@ -68,7 +75,7 @@
                                 <input type="radio" id="cola" name="tipoUsuario" value="Colaborador"> <label for="cola">Colaborador</label>
                             </p>
                         </div>
-                        <div class="col"> <%-- datos proponente extra --%>
+                        <div class="col"> <%-- datos proponente extra e imagen --%>
                             <div id="datosProponente" class="collapse mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
                                     <label for="direccion">Dirección: </label>
@@ -86,6 +93,7 @@
                             </div>
                             <div id="datosImagen" class="mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
+                                    <h5> Foto de perfil (Opcional)</h5>
                                     <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
                                 </div>
                             </div>

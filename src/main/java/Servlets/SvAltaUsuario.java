@@ -9,6 +9,7 @@ import Logica.Fabrica;
 import Logica.IControlador;
 import Logica.Proponente;
 import Logica.Usuario;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -66,26 +67,22 @@ public class SvAltaUsuario extends HttpServlet {
         Part imagen = request.getPart("imagen"); //agarra la imagen subida
         String rutaImagen;
         String rutaWeb;
+        
+        File base = new File(getServletContext().getRealPath("")); //path al servlet (test)
+        base = base.getParentFile().getParentFile();
+        String rutaBase = base.getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "fotos"; 
+        
         if(imagen == null || imagen.getSize() == 0){
-            rutaImagen = "";
-            rutaWeb = "";
+            rutaImagen = rutaBase + File.separator + "default.jpg";
+            rutaWeb = "fotos" + File.separator + "default.jpg";
         }else{
             String nombreOriginal = Paths.get(imagen.getSubmittedFileName()).getFileName().toString(); //nombre real de la imagen.extension
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".")); //solo extension (.jpg, .png, etc)
             String nombreUnico = nombreOriginal.subSequence(0, nombreOriginal.lastIndexOf(".")).toString() + ((int)(Math.random()*1001)) + extension; //nombre img + id unico para que no se repita + extension
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            String rutaBase = "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"; //CAMBIAR RUTA SI SE QUIERE USAR IMAGENES
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-            //ruta nahue: "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-            String rutaBase = "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"; //CAMBIAR RUTA SI SE QUIERE USAR IMAGENES
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-
             Files.createDirectories(Paths.get(rutaBase));
-            rutaImagen = rutaBase + nombreUnico; //ruta para el servidor
-            rutaWeb = "fotos/" + nombreUnico; //ruta para la web
+            rutaImagen = rutaBase + File.separator + nombreUnico; //ruta para el servidor
+            rutaWeb = "fotos" + File.separator + nombreUnico; //ruta para la web
         }
         
         
