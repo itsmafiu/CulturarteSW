@@ -245,11 +245,8 @@ public class Controlador implements IControlador{
         Aporte a = miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno);
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
-        //Tenes que usar el edit de persistencia de propuesta porque si no no se guarda este aporte en esa Propuesta
-        
         cp.añadirAporte(a, miPropuesta, miColaborador);
-//        cp.editarPropuesta(miPropuesta);
-//        cp.editarColaborador(miColaborador);
+        
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }
     
@@ -262,13 +259,15 @@ public class Controlador implements IControlador{
                 miColaborador = c;
                 break;
             }
-        }        
+        }  
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo().equals(strmiPropuesta)) {
                 miPropuesta = p;
                 break;        
             }
-        }                
+        }            
+        miPropuesta = cp.getPropuesta(strmiPropuesta);
+        
         if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
             return -2;//ERROR: Aporte superior a lo permitido
         }        
@@ -282,8 +281,6 @@ public class Controlador implements IControlador{
         miPropuesta.addAporte(a);
         miColaborador.añadirAporte(a);
         cp.añadirAporte(a, miPropuesta, miColaborador);
-//        cp.editarPropuesta(miPropuesta);
-//        cp.editarColaborador(miColaborador);
         
         return 0; //PROPUESTA AGREGADA CORRECTAMENTE  
     }

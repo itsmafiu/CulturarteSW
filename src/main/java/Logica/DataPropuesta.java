@@ -44,6 +44,7 @@ public class DataPropuesta {
         this.posibleRetorno = retorno;
         this.categoria = categoria;
         this.misAportes = misAportes;
+        this.nickProponenteDe = p.getNickname();
     }
     public DataPropuesta(double alcanzada, String titulo, Estado estadoActual, String lugar){
         this.$alcanzada = alcanzada;

@@ -4,7 +4,7 @@
 <header class="bg-dark-subtle">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid align-items-center">
-            <a class="navbar-brand btn text-primary fs-4" href="SvCargaProp.jsp">Culturarte</a>
+            <a class="navbar-brand btn text-primary fs-4" href="SvCargaProp">Culturarte</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
@@ -37,7 +37,7 @@
                             <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" width="40">                            
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link " href=""><%=request.getSession().getAttribute("nick")%></a>
+                            <a class="nav-link" href=""><%=request.getSession().getAttribute("nick")%></a>
                         </li>
                         <li class="nav-item">
                             <form action="cerrarSesion" method="GET">
