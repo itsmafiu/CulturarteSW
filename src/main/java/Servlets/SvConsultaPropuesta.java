@@ -50,7 +50,15 @@ public class SvConsultaPropuesta extends HttpServlet {
         HttpSession misesion = request.getSession();
         misesion.setAttribute("DP", DP);
         
-        response.sendRedirect("mostrarPropuestas.jsp");
+        String referer = request.getHeader("referer");
+        
+        if(referer==null){
+            
+        }else{
+            response.sendRedirect("mostrarPropuestas.jsp");
+        }
+        
+        
         
     }
 
