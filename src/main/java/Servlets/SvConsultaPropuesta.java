@@ -5,6 +5,7 @@
 package Servlets;
 
 import Logica.DataPropuesta;
+import Logica.EnumEstado;
 import Logica.Fabrica;
 import Logica.IControlador;
 import Logica.Propuesta;
@@ -41,24 +42,20 @@ public class SvConsultaPropuesta extends HttpServlet {
         List<String> listaPropStr = new ArrayList<>();
         
         listaPropStr = ic.getPropuestas();
+        DataPropuesta p;
         List<DataPropuesta> DP = new ArrayList<>();
         
         for (String titulo : listaPropStr) {
-            DP.add(ic.consultaDePropuesta(titulo));
+            p = ic.consultaDePropuesta(titulo);
+            if (!(p.getEstadoActual().getEstado().equals(EnumEstado.INGRESADA))) {
+                DP.add(ic.consultaDePropuesta(titulo));
+            }
         }
         
         HttpSession misesion = request.getSession();
         misesion.setAttribute("DP", DP);
         
-        String referer = request.getHeader("referer");
-        
-        if(referer==null){
-            
-        }else{
-            response.sendRedirect("mostrarPropuestas.jsp");
-        }
-        
-        
+        response.sendRedirect("mostrarPropuestas.jsp");
         
     }
 

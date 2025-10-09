@@ -71,7 +71,7 @@
                                                 <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
                                                 <div class="text-center bg-secondary-subtle rounded">
                                                     <a class="text-decoration-none"
-                                                       href="SvPerfilUsuario?nick=<%= p.getNickProponenteDe()%>&tipo=Proponente">
+                                                       href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                                                         by <%= p.getNickProponenteDe()%>
                                                     </a>
                                                 </div>

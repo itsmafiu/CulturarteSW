@@ -79,6 +79,7 @@ public class SvAltaUsuario extends HttpServlet {
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
             //ruta nahue: "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
+            
 
             Files.createDirectories(Paths.get(rutaBase));
             rutaImagen = rutaBase + nombreUnico; //ruta para el servidor

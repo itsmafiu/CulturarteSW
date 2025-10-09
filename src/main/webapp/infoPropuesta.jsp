@@ -37,12 +37,26 @@
         }else{
             imagen = p.getImagen();
         }
+        
+        String estado = p.getEstadoActual().getEstado().toString();
+        
+        if (estado == "EN_FINANCIACION") {
+                estado = "En Financiación";
+        }else if (estado == "PUBLICADA"){
+                estado = "Publicada";
+        }else if (estado == "CANCELADA") {
+                estado = "Cancelada";
+        }else if (estado == "NO_FINANCIADA") {
+                estado = "No Financiada";
+        }else if (estado == "FINANCIADA"){
+                estado = "Financiada";
+        }
+
         %>
         
          <div class="container mt-5">
     <div class="row align-items-start">
         
-        <!-- Imagen -->
         <div class="col-md-7 text-center">
             <img src="<%=imagen%>" 
                  alt="Imagen de la propuesta" 
@@ -50,12 +64,11 @@
                  style="height: 400px; object-fit: cover;">
         </div>
 
-        <!-- Información -->
         <div class="col-md-5">
             <h2 class="fw-bold mb-2"><%= p.getTitulo() %></h2>
             <div class="text-center bg-secondary-subtle rounded">
                         <a class="text-decoration-none"
-                           href="SvPerfilUsuario?nick=<%= p.getNickProponenteDe()%>&tipo=Proponente">
+                           href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                             by <%= p.getNickProponenteDe()%>
                         </a>
                     </div>
@@ -79,10 +92,14 @@
                     <h5 class="mb-0"><%=colabs%></h5>
                     <small class="text-muted">colaboradores</small>
                 </div>
-                    <div>
-                        <h5 class="mb-0"><%= diasRestantes%></h5>
-                        <small class="text-muted">días restantes</small>
-                    </div>
+                <div> 
+                    <h5 class="mb-0"><%=estado%></h5>
+                    <small class="text-muted">estado actual</small>
+                </div>    
+                <div>
+                    <h5 class="mb-0"><%= diasRestantes %></h5>
+                    <small class="text-muted">días restantes</small>
+                </div>
             </div>
             <c:choose>
                 
