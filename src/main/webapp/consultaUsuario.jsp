@@ -37,7 +37,7 @@
               <% if (usu.getTipo().equals("Proponente")){ %>
               <p class="card-text"><%= usu.getBiografia() %></p>
               <% }  %> 
-              <a href="SvPerfilUsuario?nick=<%= usu.getNickname() %>&tipo=<%= usu.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
+              <a href="SvPerfilUsuario?nickTarjeta=<%= usu.getNickname() %>&tipoTarjeta=<%= usu.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
             </div>
               
           </div>

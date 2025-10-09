@@ -48,7 +48,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%= u.getNickname() %></h5>
                                     <p class="card-text"><%= u.getTipo() %></p>
-                                    <a href="SvPerfilUsuario?nick=<%= u.getNickname() %>&tipo=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
+                                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
                                 </div>
                             </div>
                         </div>
@@ -74,7 +74,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title"><%= u.getNickname() %></h5>
                                     <p class="card-text"><%= u.getTipo() %></p>
-                                    <a href="SvPerfilUsuario?nick=<%= u.getNickname() %>&tipo=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
+                                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
                                 </div>
                             </div>
                         </div>
