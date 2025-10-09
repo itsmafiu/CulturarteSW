@@ -4,6 +4,9 @@
  */
 package Servlets;
 
+import Logica.DataPropuesta;
+import Logica.Fabrica;
+import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -11,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -19,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SvInfoPropuesta", urlPatterns = {"/SvInfoPropuesta"})
 public class SvInfoPropuesta extends HttpServlet {
 
+    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
@@ -28,6 +34,17 @@ public class SvInfoPropuesta extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        HttpSession misesion = request.getSession();
+        
+        String titulo = request.getParameter("titulo");
+        
+        misesion.setAttribute("titulo", titulo);
+        
+        DataPropuesta DP = ic.consultaDePropuesta(titulo);
+        
+        misesion.setAttribute("p", DP);
+        
+        response.sendRedirect("infoPropuesta.jsp");
     }
 
     @Override

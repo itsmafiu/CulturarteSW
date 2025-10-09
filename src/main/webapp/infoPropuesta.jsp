@@ -4,27 +4,84 @@
     Author     : nahud
 --%>
 
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="Logica.DataPropuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Culturarte</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
-    <body>
-         <div class="col">
-          <div class="card h-100">
-              <img src="SvMostrarFoto?path=<--%= p.getImagen() %-->" alt="Foto de la propuesta" width="300" style="max-height: 202px">
-            <div class="card-body">
-              <h5 class="card-title text-center"><--%=p.getTitulo()%--></h5>
-              <p class="card-text"><--%=p.getDescripcion()%--></p>
-              <p><b>Recaudado:</b> <--%=p.getAlcanzada()%--></p>
-              <p>26 días restantes · 350 colaboradores <b>AUN SIN HACER!!!</b></p>
-              <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">1000%</div>
-              </div>
-            </div>
-          </div>
+    <body class="bg-light">
+
+    <%@ include file="header.jsp" %>
+        
+        <%
+        DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
+        
+        int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
+        
+        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        
+        int colabs = p.getMisAportes().size();
+        
+        String imagen = "";
+        
+        if (p.getImagen().isBlank()) {
+            imagen = "fotos/default.jpg";
+        }else{
+            imagen = p.getImagen();
+        }
+        %>
+        
+         <div class="container mt-5">
+    <div class="row align-items-start">
+        
+        <!-- Imagen -->
+        <div class="col-md-7 text-center">
+            <img src="<%=imagen%>" 
+                 alt="Imagen de la propuesta" 
+                 class="img-fluid rounded shadow-sm mb-3"
+                 style="height: 400px; object-fit: cover;">
         </div>
+
+        <!-- Información -->
+        <div class="col-md-5">
+            <h2 class="fw-bold mb-2"><%= p.getTitulo() %></h2>
+            <p class="text-muted mb-4"><%= p.getDescripcion() %></p>
+
+            <h4 class="fw-semibold text-success mb-0">
+                <%= String.format("%.0f", p.getAlcanzada()) %> $
+            </h4>
+            <p class="text-muted">recaudado de <%= String.format("%.0f", p.getNecesaria()) %> $</p>
+
+            <div class="progress mb-3 position-relative" style="height: 20px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje %>%;">
+                </div>
+                <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
+                    <%= porcentaje %>%
+                </span>
+            </div>
+
+            <div class="d-flex justify-content-between text-center mb-3">
+                <div>
+                    <h5 class="mb-0"><%=colabs%></h5>
+                    <small class="text-muted">colaboradores</small>
+                </div>
+                <div>
+                    <h5 class="mb-0"><%= diasRestantes %></h5>
+                    <small class="text-muted">días restantes</small>
+                </div>
+            </div>
+
+            <button class="btn btn-success w-100 py-2 fw-semibold">
+                Contribuir con esta propuesta
+            </button>
+        </div>
+    </div>
+</div>
     </body>
 </html>
