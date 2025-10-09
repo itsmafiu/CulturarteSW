@@ -24,8 +24,8 @@ public class SvPerfilUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nick = request.getParameter("nick");
-        String tipo = request.getParameter("tipo");
+        String nick = request.getParameter("nickTarjeta");
+        String tipo = request.getParameter("tipoTarjeta");
         
         if(nick==null || nick.isEmpty() || tipo==null || tipo.isEmpty()){
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Faltan parametros");
