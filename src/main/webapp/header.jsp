@@ -16,7 +16,7 @@
                     <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search">
+            <form class="d-flex" role="search" style="min-width: 300px">
                 <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar"/>
                 <button class="btn bg-primary-subtle" type="submit">Buscar</button>
             </form>

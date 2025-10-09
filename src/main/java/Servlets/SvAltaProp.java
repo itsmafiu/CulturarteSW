@@ -9,6 +9,9 @@ import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -71,23 +74,33 @@ public class SvAltaProp extends HttpServlet {
         String montoEntrada = request.getParameter("montoEntrada");
                 
         String montoNecesario = request.getParameter("montoNecesario");
-                
+           
         Part archivo = request.getPart("foto");
-
-        String nombreArchivo = archivo.getSubmittedFileName();
-
-        // aca podemos ponerle la ruta a donde queremos que quede el archivo
-        String uploadPath = getServletContext().getRealPath("") + File.separator + "fotos";
-
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) uploadDir.mkdir();
-
-        archivo.write(uploadPath + File.separator + nombreArchivo);
         
+        String nombreArchivo;
+        
+        if(archivo != null && archivo.getSize() > 0){
+            nombreArchivo = Paths.get(archivo.getSubmittedFileName()).getFileName().toString();
+
+            File base = new File(getServletContext().getRealPath(""));
+        
+            File ubi = base.getParentFile().getParentFile();
+
+            String uploadPath = ubi.getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "fotos";
+
+            File uploadDir = new File(uploadPath);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            archivo.write(uploadPath + File.separator + nombreArchivo);
+        }else{
+            nombreArchivo = "default.jpg";
+        }
+
         EnumRetorno posibleRetorno;
         
-        String ruta = uploadPath + "\\" + nombreArchivo;
-        
+        String ruta = "fotos\\" + nombreArchivo;
         
         switch (retorno) {
             case "Entradas gratis":

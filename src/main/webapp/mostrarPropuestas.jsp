@@ -28,7 +28,7 @@
         %>
         
         <div class="container my-4">
-        <p><b>Explora entre <%=tamanio%> Propuestas</b></p>
+        <h2>Explora entre <%=tamanio%> Propuestas :</h2>
         </div>
         
         <div class="container my-4">
@@ -47,10 +47,10 @@
         }
         %>
         
-        <div class="col">
+        <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 414px; height: 300px; align-items: center">
+              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>

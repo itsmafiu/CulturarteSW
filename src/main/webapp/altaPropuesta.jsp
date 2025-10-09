@@ -12,7 +12,7 @@
         <%@ include file="header.jsp" %>
         
         <%
-            String hoy = LocalDate.now().toString();
+            String hoy = LocalDate.now().plusDays(1).toString();
         %>
         
         <c:choose>
@@ -21,27 +21,30 @@
         </c:when>
                     <c:when test="${tipoUsuario == 'prop'}">
                         <form action="SvAltaProp" method="POST" enctype="multipart/form-data">
+                            <div class='container'>
+            <div class='mt-4'>
+                <p>
+                    <input disabled="" type="text" name="categoria" placeholder="Categoria">
+                </p>
+            </div>
             <p>
-                <label>Categoria: (aca tiene que ser seleccion) </label> <input disabled="" type="text" name="categoria">
-            </p>
-            <p>
-                <label>Titulo: </label> <input type="text" name="titulo">
+                <input type="text" name="titulo" id="titulo" placeholder="Titulo" required="true">
+                <span id="errorTitulo" style="color: red; display: none;">El título ya existe.</span>
             </p>
             <p style="display: flex; align-items: flex-start; gap: 5px;">
-                <label>Descripcion: </label>
-                <textarea name="descripcion" rows="6" cols="50" style="resize: none"></textarea>
+                <textarea name="descripcion" rows="6" cols="50" style="resize: none" placeholder="Descripcion" required="true"></textarea>
             </p>
             <p>
-                <label>Lugar de realizacion: </label> <input type="text" name="lugar">
+                <input type="text" name="lugar" placeholder="Lugar de realizacion" required="true">
             </p>
             <p>
-                <label>Fecha Prevista: </label> <input type="date" name="fecha" min="<%=hoy%>">
+                <label>Fecha Prevista: </label><br><input type="date" name="fecha" min="<%=hoy%>" required="true">
             </p>
             <p>
-                <label>Monto x entrada: </label> <input type="number" name="montoEntrada" min="0">
+                <input type="number" name="montoEntrada" min="0" placeholder="Monto por entrada" required="true">
             </p>
             <p>
-                <label>Monto necesario: </label> <input type="number" name="montoNecesario" min="0">
+                <input type="number" name="montoNecesario" min="0" placeholder="Monto requerido" required="true">
             </p>
             <p>
                 <label>Imagen: </label> <input type="file" name="foto" accept="image/*">
@@ -53,17 +56,17 @@
                     
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">Entradas gratis</label>
-                        <input class="form-check-input" type="radio" name="retorno" value="Entradas gratis">
+                        <input class="form-check-input" type="radio" name="retorno" value="Entradas gratis" required="true">
                     </div>
                     
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">% de las ventas</label>
-                        <input class="form-check-input" type="radio" name="retorno" value="%Ventas">
+                        <input class="form-check-input" type="radio" name="retorno" value="%Ventas" required="true">
                     </div>
                 
                     <div class="form-check form-check-inline">
                         <label class="form-check-label">Ambos</label>
-                        <input class="form-check-input" type="radio" name="retorno" value="Ambos">
+                        <input class="form-check-input" type="radio" name="retorno" value="Ambos" required="true">
                     </div>
                     
                 </div>
@@ -73,8 +76,8 @@
             <div class="ms-1">
                 <button type="submit">Enviar</button>
             </div>
-            
-        </form>     
+            </div>
+        </form>    
                     </c:when>    
                 <c:otherwise>
                      <h1>Debes ser proponente para utilizar esta funcion.</h1>
@@ -82,5 +85,7 @@
                 </c:otherwise>
         </c:choose>
         
+                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+                <script src="js/validacionAltaProp.js"></script>  
     </body>
 </html>

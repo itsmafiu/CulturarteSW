@@ -66,7 +66,7 @@ public interface IControlador {
     List<String> getEstados();
     
     List<String> getPropXEstado(String estado);
-    
+     
     List<String> getPropuestasXColaborador(String nick);
     
     DataAporte getDataAporte(String tituloNick, String nick);
