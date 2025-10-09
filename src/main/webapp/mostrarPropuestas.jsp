@@ -4,6 +4,9 @@
     Author     : nahud
 --%>
 
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.net.URLEncoder"%>
 <%@page import="Logica.DataPropuesta"%>
 <%@page import="Logica.Propuesta"%>
 <%@page import="java.util.List"%>
@@ -18,32 +21,50 @@
     <body>
         <%@ include file="header.jsp" %>
         
-        <h1>Consulta Propuestas</h1>
-        
          <% 
         
         List<DataPropuesta> DP = (List) request.getSession().getAttribute("DP");
-        
+        int tamanio = DP.size();
         %>
         
-        <div class="container mt-4">
+        <div class="container my-4">
+        <p><b>Explora entre <%=tamanio%> Propuestas</b></p>
+        </div>
+        
+        <div class="container my-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             
         <%
         for(DataPropuesta p : DP){
+        int colabs = p.getMisAportes().size();
+        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
+        String imagen = "";
+        if (p.getImagen().isBlank()) {
+            imagen = "fotos/default.jpg";
+        }else{
+            imagen = p.getImagen();
+        }
         %>
         
         <div class="col">
           <div class="card h-100">
-              <img src="SvMostrarFoto?path=<%= p.getImagen() %>" alt="Foto de la propuesta" width="300" style="max-height: 202px">
-            <div class="card-body">
+              <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
+              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 414px; height: 300px; align-items: center">
+              </a>
+              <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
-              <p class="card-text"><%=p.getDescripcion()%></p>
+              <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
+                  <%=p.getDescripcion()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
-              <p>26 días restantes · 350 colaboradores <b>AUN SIN HACER!!!</b></p>
-              <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar" style="width: 100%">1000%</div>
-              </div>
+              <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
+              <div class="progress mb-3 position-relative" style="height: 20px;">
+                <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje %>%;">
+                </div>
+                <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
+                    <%= porcentaje %>%
+                </span>
+            </div>
             </div>
           </div>
         </div>

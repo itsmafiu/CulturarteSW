@@ -9,7 +9,6 @@ import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.HttpSession;
 
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024, // 1 MB
@@ -53,11 +53,11 @@ public class SvAltaProp extends HttpServlet {
         //FALTAN CONTROLES DE SI LAS COSAS VIENEN VACIAS!
         
         ic = Fabrica.getInstancia().getIControlador();
+        HttpSession misesion = request.getSession();
         
-        String proponente = request.getParameter("proponente"); //de momento vacio
+        String proponente = (String) misesion.getAttribute("nick");
         String categoria = request.getParameter("categoria"); //de momento vacio
         
-        proponente = "diegop";
         categoria = "Musica";
         
         String titulo = request.getParameter("titulo");

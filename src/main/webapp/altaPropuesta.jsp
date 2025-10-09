@@ -15,11 +15,12 @@
             String hoy = LocalDate.now().toString();
         %>
         
-        <h1>Alta Propuesta</h1>
-        <form action="SvAltaProp" method="POST" enctype="multipart/form-data">
-            <p>
-                <label>Proponente: (el que inicio sesion) </label> <input disabled="" type="text" name="proponente">
-            </p>
+        <c:choose>
+                <c:when test="${empty nick}">
+                    <h1>Debes ser proponente para utilizar esta funcion.</h1>
+        </c:when>
+                    <c:when test="${tipoUsuario == 'prop'}">
+                        <form action="SvAltaProp" method="POST" enctype="multipart/form-data">
             <p>
                 <label>Categoria: (aca tiene que ser seleccion) </label> <input disabled="" type="text" name="categoria">
             </p>
@@ -73,14 +74,13 @@
                 <button type="submit">Enviar</button>
             </div>
             
-        </form>
-        
-        <h1>Ver Propuestas</h1>
-        <form action="SvConsultaPropuesta" method="GET">
-            <div class="ms-1">
-                <button type ="submit"> Mostrar Usuarios </button>
-            </div>
-        </form>
+        </form>     
+                    </c:when>    
+                <c:otherwise>
+                     <h1>Debes ser proponente para utilizar esta funcion.</h1>
+                     
+                </c:otherwise>
+        </c:choose>
         
     </body>
 </html>

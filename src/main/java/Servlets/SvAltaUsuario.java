@@ -75,9 +75,10 @@ public class SvAltaUsuario extends HttpServlet {
             String nombreUnico = nombreOriginal.subSequence(0, nombreOriginal.lastIndexOf(".")).toString() + ((int)(Math.random()*1001)) + extension; //nombre img + id unico para que no se repita + extension
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            String rutaBase = "C:\\Users\\Luiano\\Desktop\\CulturarteOnline\\src\\main\\webapp\\fotos\\"; //CAMBIAR RUTA SI SE QUIERE USAR IMAGENES
+            String rutaBase = "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"; //CAMBIAR RUTA SI SE QUIERE USAR IMAGENES
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
+            //ruta nahue: "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
 
             Files.createDirectories(Paths.get(rutaBase));
             rutaImagen = rutaBase + nombreUnico; //ruta para el servidor
