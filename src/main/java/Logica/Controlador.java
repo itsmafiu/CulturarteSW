@@ -963,7 +963,28 @@ public class Controlador implements IControlador{
         }
         return null;
     }
-
-}
-
+   
+    @Override
+    public boolean esFavorita(String titulo, String nick){
+        Usuario u = cp.buscarUsuario(nick);
+        Propuesta p = cp.getPropuesta(titulo);
+        
+        return u.esFavorita(p);
+    }
     
+    @Override
+    public int cambiarFavorita(String titulo, String nick){
+        Usuario u = cp.buscarUsuario(nick);
+        Propuesta p = cp.getPropuesta(titulo);
+        
+        if(u.esFavorita(p)){
+            u.addFavorita(p);
+            cp.editarUsuario(u);
+            return 1;
+        }else{
+            u.eliminarFavorita(p);
+            cp.editarUsuario(u);
+            return 0;
+        }
+    }   
+}    
