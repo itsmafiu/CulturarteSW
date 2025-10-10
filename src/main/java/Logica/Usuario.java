@@ -13,6 +13,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -34,6 +35,9 @@ public class Usuario implements Serializable {
     @OneToMany
     @JoinTable(name = "UsuarioSeguidos", joinColumns = @JoinColumn(name = "nickSeguidor"), inverseJoinColumns = @JoinColumn(name = "nickSeguido"))
     List<Usuario> misSeguidos = new ArrayList<>();
+    @ManyToMany
+     @JoinTable(name = "Favoritas", joinColumns = @JoinColumn(name = "nick_usuario"), inverseJoinColumns = @JoinColumn(name = "titulo_propuesta"))
+    List<Propuesta> misFavoritas = new ArrayList<>();
 
     public Usuario() {
     }
@@ -176,5 +180,27 @@ public class Usuario implements Serializable {
         }
         return listaSeguidores;
     }
+
+    public List<Propuesta> getMisFavoritas() {
+        return misFavoritas;
+    }
+    
+    public boolean esFavorita(Propuesta prop){
+        for (Propuesta p : this.misFavoritas) {
+            if (p.equals(prop)){
+                return true; //propuesta pertenece
+            }
+        }
+        return false;
+    }
+
+    public void addFavorita(Propuesta prop) {
+        this.misFavoritas.add(prop);
+    }
+
+    public void eliminarFavorita(Propuesta prop) {
+        this.misFavoritas.remove(prop);    
+    }
+    
     
 }

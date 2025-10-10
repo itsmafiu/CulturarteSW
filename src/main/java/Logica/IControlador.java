@@ -82,4 +82,8 @@ public interface IControlador {
     int verificarUsuario(String usuario, String contraseña);
     
     String getUsuarioPorMail(String nick);
+        
+    boolean esFavorita(String titulo, String nick);
+    
+    int cambiarFavorita(String titulo, String nick);
 }
