@@ -107,6 +107,7 @@ public class Aporte implements Serializable {
             DataPropuesta dataProp = new DataPropuesta(miPropuesta.getAlcanzada() ,miPropuesta.getTitulo(), miPropuesta.getEstadoActual(),miPropuesta.getLugar(),miPropuesta.getProponente().getNickname());
             dataProp.setDesc(miPropuesta.getDescripcion());
             dataProp.setImagen(miPropuesta.getImagen());
+            dataProp.setFechaPubli(miPropuesta.getFechaARealizar());
             return dataProp;
         }
         return null;

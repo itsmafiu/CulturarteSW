@@ -125,5 +125,9 @@ public class DataPropuesta {
         this.imagen = imagen;
     }
 
+    public void setFechaPubli(LocalDate fechaPubli) {
+        this.fechaPubli = fechaPubli;
+    }
+
    
 }

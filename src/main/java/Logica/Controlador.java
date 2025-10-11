@@ -331,7 +331,7 @@ public class Controlador implements IControlador{
           data.setNickname(u.getNickname());
           data.setNombre(u.getNombre());
           data.setApellido(u.getApellido());
-          data.setImagen(u.getImagen());
+          data.setImagen(u.getImagenWeb());
           
           if (u instanceof Proponente){
               Proponente p = (Proponente) u;
@@ -675,6 +675,7 @@ public class Controlador implements IControlador{
                     dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
                     dataProp.setDesc(prop.getDescripcion());
                     dataProp.setImagen(prop.getImagen());
+                    dataProp.setFechaPubli(prop.getFechaARealizar());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -703,6 +704,7 @@ public class Controlador implements IControlador{
             }else if (u instanceof Colaborador){
               du.setTipo("Colaborador");
             }
+            du.setImagen(u.getImagenWeb());
             seguidores.add(du);
         }
     }
@@ -742,7 +744,7 @@ public class Controlador implements IControlador{
                 
                 DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
                 usuario.setEmail(DProp.getEmail());
-                usuario.setImagen(DProp.getImagen());
+                usuario.setImagen(p.getImagenWeb());
                 usuario.setDireccion(DProp.getDireccion());
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
@@ -759,7 +761,7 @@ public class Controlador implements IControlador{
         
         DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),getSeguidores(c),c.getDtUSeguidos());
         usuario.setEmail(DCola.getEmail());
-        usuario.setImagen(DCola.getImagen());
+        usuario.setImagen(c.getImagenWeb());
         
         usuario.setBiografia("");
         
