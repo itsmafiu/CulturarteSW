@@ -9,6 +9,7 @@
     <class>Logica.Proponente</class>
     <class>Logica.Propuesta</class>
     <class>Logica.Usuario</class>
+    <class>Logica.Comentario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/culturarte?serverTimezone=UTC"/>

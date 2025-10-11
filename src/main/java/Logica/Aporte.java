@@ -27,6 +27,8 @@ public class Aporte implements Serializable {
     private LocalDateTime fechaHora;
     private int cantidad;
     private EnumRetorno retorno;
+    private String comentario;
+    private LocalDateTime fecComentario;
 
     public Aporte() {
     }

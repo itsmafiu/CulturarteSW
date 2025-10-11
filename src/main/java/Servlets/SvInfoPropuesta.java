@@ -4,11 +4,16 @@
  */
 package Servlets;
 
+import Logica.Aporte;
+import Logica.Colaborador;
+import Logica.DataColaborador;
 import Logica.DataPropuesta;
 import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,6 +46,16 @@ public class SvInfoPropuesta extends HttpServlet {
         misesion.setAttribute("titulo", titulo);
         
         DataPropuesta DP = ic.consultaDePropuesta(titulo);
+        
+        List<DataColaborador> colabs = new ArrayList<>();
+            
+        for(Aporte a : DP.getMisAportes()){
+            a.getColaborador();
+            DataColaborador DC = new DataColaborador(a.getColaborador().getNickname(), a.getColaborador().getNombre(), a.getColaborador().getApellido(), a.getColaborador().getEmail(), a.getColaborador().getFecNac(), a.getColaborador().getImagenWeb());
+            colabs.add(DC);
+        }
+        
+        misesion.setAttribute("colabs", colabs);
         
         misesion.setAttribute("p", DP);
         

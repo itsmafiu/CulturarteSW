@@ -4,6 +4,8 @@
     Author     : nahud
 --%>
 
+<%@page import="java.util.List"%>
+<%@page import="Logica.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
@@ -52,7 +54,8 @@
             } else if (estado == "FINANCIADA") {
                 estado = "Financiada";
             }
-
+            
+            List<DataColaborador> colab = (List<DataColaborador>) request.getSession().getAttribute("colabs");
         %>
 
         <div class="container mt-5">
@@ -121,44 +124,55 @@
                         </c:otherwise>
 
                     </c:choose>
+                    <%
+                        request.getSession().setAttribute("titulo", p.getTitulo());
+                       
+                        Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                        
+                        if (esFavorita == null) {
+                            esFavorita = false;
+                        }
+                    %>
+
                     <c:choose>
-                        <c:when test="${!empty nick}">
-                            <form id="favForm_${p.getTitulo()}" class="d-inline">
-                                <input type="hidden" name="titulo" value="<%= p.getTitulo()%>">
-                                <button type="button" id="favBtn_${p.getTitulo()}" class="btn btn-outline-primary rounded fs-4">
-                                <i class="bi <%= (Boolean.TRUE.equals(request.getAttribute("esFavorita")))? "bi-star-fill" : "bi-star"%>"></i>
+                        <c:when test="${not empty nick}">
+                            <form action="SvFavorita" method="POST">
+                                <button type="submit" class="btn <%= esFavorita ? "btn-primary" : "btn-secondary"%>">
+                                    Favorita
                                 </button>
                             </form>
-
-                            <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                const favBtn = document.getElementById("favBtn_<%= p.getTitulo()%>");
-                                const favForm = document.getElementById("favForm_<%= p.getTitulo()%>");
-            
-                                favBtn.addEventListener("click", async () => {
-                                    const icon = favBtn.querySelector("i");
-                                    icon.classList.toggle("bi-star");
-                                    icon.classList.toggle("bi-star-fill");
-
-                                    const data = new FormData(favForm);
-                                    try {
-                                        const resp = await fetch("SvFavorita", {
-                                            method: "POST",
-                                            body: data
-                                        });
-                                        if (!resp.ok) {
-                                            console.error("Error al actualizar favorito");
-                                        }
-                                    } catch (err) {
-                                        console.error("Error AJAX:", err);
-                                    }
-                                });
-                            });
-                            </script>
                         </c:when>
                     </c:choose>
                 </div>
             </div>
         </div>
+        <div class="mt-3">                
+        <button class="btn btn-outline-primary mb-2" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
+                aria-expanded="false" aria-controls="collapseColaboradores">
+            Mostrar/Ocultar Colaboradores
+        </button>
+        </div>
+        <div class="collapse mb-4" id="collapseColaboradores">
+            <div class="my-4">
+            <h3>Colaboradores</h3>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <%
+                    for (DataColaborador c : colab) {
+                %>
+                            <div class="col">
+                                <div class="card h-100">
+                                    <img src="<%= c.getImagen() %>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
+                                    <div class="card-body">
+                                        <h5 class="card-title"><%= c.getNickname() %></h5>
+                                        <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" class="btn btn-primary">Ver Perfil</a>
+                                    </div>
+                                </div>
+                            </div>
+                <%}%>
+            </div>
+        </div>                    
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
     </body>
 </html>

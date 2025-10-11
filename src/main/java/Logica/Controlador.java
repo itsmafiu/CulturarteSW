@@ -1012,11 +1012,18 @@ public class Controlador implements IControlador{
         if(u.esFavorita(p)){
             u.addFavorita(p);
             cp.editarUsuario(u);
+            cp.editarPropuesta(p);
             return 1;
         }else{
             u.eliminarFavorita(p);
             cp.editarUsuario(u);
+            cp.editarPropuesta(p);
             return 0;
         }
-    }   
+    }
+    
+//    @Override
+//    public int agregarComentario(String titulo, String nick, String texto){
+//        
+//    }
 }    
