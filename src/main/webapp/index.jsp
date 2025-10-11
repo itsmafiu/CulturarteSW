@@ -23,10 +23,13 @@
     List<DataPropuesta> DPca = (List) request.getSession().getAttribute("propuestasCanceladas");
 
     %>
-    
-    <h3>Bienvenido a Culturarte</h3>
-    <p>Acá pondría todo lo que es recomendaciones uwu.</p>
-    
+    <div class="text-center m-4">
+        <h2 class=" pb-2">¡Bienvenido a Culturarte!</h2>
+        <blockquote class="blockquote">
+            <p class="mb-0">"En la mente de todo artista hay una obra maestra."</p>
+            <footer class="blockquote-footer pt-4">Pablo Picasso</footer>
+        </blockquote>
+    </div>
     <div class="container-fluid bg-black"></div>
 
    <ul class="nav nav-tabs" id="myTab" role="tablist">
