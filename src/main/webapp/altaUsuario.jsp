@@ -40,11 +40,13 @@
                                 <label for="nick">Nick: </label>
                                 <input type="text" class="form-control form-control-lg" id="nick" name="nick" required>
                                 <div class="invalid-feedback">Ingrese un nick.</div>
+                                <span id="errorNick" style="color:red; display:none;">Este nick ya está en uso.</span>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo: </label> 
                                 <input type="email" class="form-control form-control-lg" id="correo" name="correo" required>
                                 <div class="invalid-feedback">Ingrese un correo.</div>
+                                <span id="errorCorreo" style="color:red; display:none;">Este correo ya está en uso.</span>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre: </label> 
@@ -69,6 +71,7 @@
                                 <label for="confirmacion:">Confirmación Contraseña: </label> 
                                 <input type="password" class="form-control form-control-lg" id="confirmacion" name="confirmacion" required>
                                 <div class="invalid-feedback">Ingrese la misma contraseña.</div>
+                                <span id="errorPass" style="color:red; display:none;">Debe confirmar la contraseña.</span>
                             </div>
                             <p>Elija el tipo de Usuario:<br>
                                 <input type="radio" id="prop" name="tipoUsuario" value="Proponente" checked> <label for="prop">Proponente</label>
@@ -107,20 +110,13 @@
                 </form>
             </div>
         </div>
-            <%--
-//            <h1>Ver lista de Usuarios</h1>
-//            <p>Para ver los datos de los usuarios cargados haga click en el botón</p>
-//            <form action="altaUsuario" method="GET">
-//                <button type="submit"> Mostrar usuarios </button>
-//            </form>
-//        </div>
-            --%>
+
             <!-- Latest compiled JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
             <script>
             const prop = document.getElementById('prop');
             const cola = document.getElementById('cola');
-            const collapse = new bootstrap.Collapse('#datosProponente', {toggle: true});
+            const collapse = new bootstrap.Collapse(document.getElementById('datosProponente'), {toggle: true});
             
             prop.addEventListener('change', () => {
                 if(prop.checked){
@@ -133,6 +129,8 @@
                     collapse.hide();
                 }
             });
-        </script>
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="js/validacionAltaUsuario.js"></script>
     </body>
 </html>

@@ -873,6 +873,26 @@ public class Controlador implements IControlador{
     }
     
     @Override
+    public boolean existeNick(String nick){
+        for (Usuario u : cp.getListaUsuarios()){
+            if(u.getNickname().equals(nick)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean existeCorreo(String correo){
+        for (Usuario u : cp.getListaUsuarios()){
+            if(u.getEmail().equals(correo)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
     public List<String> getColabsProp(String titulo){
 //        List<String> listaColabProp = new ArrayList<>();
 //        Propuesta prop = null;

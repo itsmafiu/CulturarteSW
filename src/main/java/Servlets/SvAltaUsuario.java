@@ -46,7 +46,45 @@ public class SvAltaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("altaUsuario.jsp");
+        
+        String tipo = request.getParameter("tipoVerificarUsuario");
+        if(tipo == null){
+            response.sendRedirect("altaUsuario.jsp");
+            return;
+        }
+        switch (tipo) {
+            case "nick":
+                {
+                    String nick = request.getParameter("verificarNick");
+                    response.setContentType("text/plain");
+                    if (nick == null || nick.trim().isEmpty()) {
+                        response.getWriter().write("noexiste");
+                        return;
+                    }       boolean existe = ic.existeNick(nick);
+                    if (existe) {
+                        response.getWriter().write("existe");
+                    } else {
+                        response.getWriter().write("noexiste");
+                    }       break;
+                }
+            case "correo":
+                {
+                    String correo = request.getParameter("verificarCorreo");
+                    response.setContentType("text/plain");
+                    if (correo == null || correo.trim().isEmpty()) {
+                        response.getWriter().write("noexiste");
+                        return;
+                    }       boolean existe = ic.existeCorreo(correo);
+                    if (existe) {
+                        response.getWriter().write("existe");
+                    } else {
+                        response.getWriter().write("noexiste");
+                    }       break;
+                }
+            default:
+                response.sendRedirect("altaUsuario.jsp");
+                break;
+        }
     }
 
     @Override
@@ -62,7 +100,7 @@ public class SvAltaUsuario extends HttpServlet {
         String fecNac = request.getParameter("fecNac").trim();
         String tipoUsuario = request.getParameter("tipoUsuario");
         String pass = request.getParameter("password");
-        String confirmacion = request.getParameter("confirmacion");
+        //String confirmacion = request.getParameter("confirmacion");
         
         Part imagen = request.getPart("imagen"); //agarra la imagen subida
         String rutaImagen;
@@ -96,21 +134,21 @@ public class SvAltaUsuario extends HttpServlet {
             request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
             return;
         }
-        if(LocalDate.parse(fecNac).isAfter(LocalDate.now())){
-            request.setAttribute("error", "La fecha ingresada no es válida.");
-            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
-            return;
-        }
-        if(!nombre.matches("[a-zA-Z ]+") || !apellido.matches("[a-zA-Z ]+")){
+//        if(LocalDate.parse(fecNac).isAfter(LocalDate.now())){
+//            request.setAttribute("error", "La fecha ingresada no es válida.");
+//            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
+//            return;
+//        }
+        if(!nombre.matches("[\\p{L} ]+") || !apellido.matches("[\\p{L} ]+")){
             request.setAttribute("error", "El nombre/apellido ingresado contiene caracteres inválidos.");
             request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
             return;
         }
-        if(!pass.equals(confirmacion)){
-            request.setAttribute("error", "Confirme su contraseña.");
-            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
-            return;
-        }
+//        if(!pass.equals(confirmacion)){
+//            request.setAttribute("error", "Confirme su contraseña.");
+//            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
+//            return;
+//        }
         
         String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
         
@@ -122,11 +160,11 @@ public class SvAltaUsuario extends HttpServlet {
             String bio = request.getParameter("bio");
             String sitioWeb = request.getParameter("sitioWeb");
             
-            if(direccion.isBlank()){
-                request.setAttribute("error", "Debe ingresar una dirección.");
-                request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
-                return;
-            }
+//            if(direccion.isBlank()){
+//                request.setAttribute("error", "Debe ingresar una dirección.");
+//                request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
+//                return;
+//            }
             if(!sitioWeb.isBlank() && !sitioWeb.contains(".")){
                 request.setAttribute("error", "El sitio web ingresado no es válido.");
                 request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
@@ -141,7 +179,6 @@ public class SvAltaUsuario extends HttpServlet {
             usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             tipoUsu = false;
         }
-        //usu.setImagen(rutaWeb);
         
         switch(aux){
             case 0:

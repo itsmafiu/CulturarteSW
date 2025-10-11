@@ -75,6 +75,10 @@ public interface IControlador {
     
     boolean existeTitulo(String titulo);
     
+    boolean existeNick(String nick);
+    
+    boolean existeCorreo(String correo);
+    
     List<String> getColabsProp(String titulo);
     
     boolean seleccionaCategoria(String categoria);
