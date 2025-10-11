@@ -37,7 +37,7 @@
                             <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" width="40">                            
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href=""><%=request.getSession().getAttribute("nick")%></a>
+                            <a class="nav-link " href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a>
                         </li>
                         <li class="nav-item">
                             <form action="cerrarSesion" method="GET">

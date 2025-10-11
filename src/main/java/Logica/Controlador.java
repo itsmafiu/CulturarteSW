@@ -674,6 +674,7 @@ public class Controlador implements IControlador{
                 for(Propuesta prop : p.getPropuestas()){
                     dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
                     dataProp.setDesc(prop.getDescripcion());
+                    dataProp.setImagen(prop.getImagen());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -715,9 +716,12 @@ public class Controlador implements IControlador{
         Proponente p = cp.buscarProponente(NickName);
                 List<DataPropuesta> propuestasDe = new ArrayList<>();
                 List<DataPropuesta> propuestasFiltradas = new ArrayList<>();
+                List<DataPropuesta> propuestasIngresadas = new ArrayList<>();
                 for(DataPropuesta prop : DProp.getPropuestas()){
                     if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().getEstado().toString())) {
                         propuestasFiltradas.add(prop);
+                    }else{
+                        propuestasIngresadas.add(prop);
                     }
                 }
                 
@@ -742,6 +746,7 @@ public class Controlador implements IControlador{
                 usuario.setDireccion(DProp.getDireccion());
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
+                usuario.setMisPropuestasIngresadas(propuestasIngresadas);
                 
                 return usuario;
     }
@@ -761,7 +766,12 @@ public class Controlador implements IControlador{
         usuario.setDireccion("");
         
         usuario.setSitioWeb("");
-
+        
+        if(usuario.getTipo().equals("Colaborador")){
+            usuario.setListaAporte(c.getListaAportes());
+        }else{
+            usuario.setListaAporte(null);
+        }
         return usuario;
         
     }
