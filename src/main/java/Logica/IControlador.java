@@ -75,6 +75,10 @@ public interface IControlador {
     
     boolean existeTitulo(String titulo);
     
+    boolean existeNick(String nick);
+    
+    boolean existeCorreo(String correo);
+    
     List<String> getColabsProp(String titulo);
     
     boolean seleccionaCategoria(String categoria);
@@ -82,4 +86,8 @@ public interface IControlador {
     int verificarUsuario(String usuario, String contraseña);
     
     String getUsuarioPorMail(String nick);
+        
+    boolean esFavorita(String titulo, String nick);
+    
+    int cambiarFavorita(String titulo, String nick);
 }

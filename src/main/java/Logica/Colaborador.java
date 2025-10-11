@@ -94,4 +94,14 @@ public class Colaborador extends Usuario {
         return null;
     }
     
+    public List<DataAporte> getListaAportes(){
+        List<DataAporte> listaAportes = new ArrayList<>();
+        for(Aporte a: misAportes){
+            DataAporte aporteActual = new DataAporte(a.get$aporte(),a.getFechaHora(),a.getTituloMiPropuesta());
+            listaAportes.add(aporteActual);
+        }
+        return listaAportes;
+    }
+    
+    
 }

@@ -674,6 +674,7 @@ public class Controlador implements IControlador{
                 for(Propuesta prop : p.getPropuestas()){
                     dataProp = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
                     dataProp.setDesc(prop.getDescripcion());
+                    dataProp.setImagen(prop.getImagen());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -715,9 +716,12 @@ public class Controlador implements IControlador{
         Proponente p = cp.buscarProponente(NickName);
                 List<DataPropuesta> propuestasDe = new ArrayList<>();
                 List<DataPropuesta> propuestasFiltradas = new ArrayList<>();
+                List<DataPropuesta> propuestasIngresadas = new ArrayList<>();
                 for(DataPropuesta prop : DProp.getPropuestas()){
                     if(!"Ingresada".equalsIgnoreCase(prop.getEstadoActual().getEstado().toString())) {
                         propuestasFiltradas.add(prop);
+                    }else{
+                        propuestasIngresadas.add(prop);
                     }
                 }
                 
@@ -742,6 +746,7 @@ public class Controlador implements IControlador{
                 usuario.setDireccion(DProp.getDireccion());
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
+                usuario.setMisPropuestasIngresadas(propuestasIngresadas);
                 
                 return usuario;
     }
@@ -761,7 +766,12 @@ public class Controlador implements IControlador{
         usuario.setDireccion("");
         
         usuario.setSitioWeb("");
-
+        
+        if(usuario.getTipo().equals("Colaborador")){
+            usuario.setListaAporte(c.getListaAportes());
+        }else{
+            usuario.setListaAporte(null);
+        }
         return usuario;
         
     }
@@ -873,6 +883,26 @@ public class Controlador implements IControlador{
     }
     
     @Override
+    public boolean existeNick(String nick){
+        for (Usuario u : cp.getListaUsuarios()){
+            if(u.getNickname().equals(nick)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
+    public boolean existeCorreo(String correo){
+        for (Usuario u : cp.getListaUsuarios()){
+            if(u.getEmail().equals(correo)){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    @Override
     public List<String> getColabsProp(String titulo){
 //        List<String> listaColabProp = new ArrayList<>();
 //        Propuesta prop = null;
@@ -963,7 +993,28 @@ public class Controlador implements IControlador{
         }
         return null;
     }
-
-}
-
+   
+    @Override
+    public boolean esFavorita(String titulo, String nick){
+        Usuario u = cp.buscarUsuario(nick);
+        Propuesta p = cp.getPropuesta(titulo);
+        
+        return u.esFavorita(p);
+    }
     
+    @Override
+    public int cambiarFavorita(String titulo, String nick){
+        Usuario u = cp.buscarUsuario(nick);
+        Propuesta p = cp.getPropuesta(titulo);
+        
+        if(u.esFavorita(p)){
+            u.addFavorita(p);
+            cp.editarUsuario(u);
+            return 1;
+        }else{
+            u.eliminarFavorita(p);
+            cp.editarUsuario(u);
+            return 0;
+        }
+    }   
+}    

@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -23,6 +24,12 @@
     <body>
         <%@ include file="header.jsp" %>
         
+        <%
+            String max = LocalDate.now().toString();
+            String min = LocalDate.of(1900, 1, 1).toString();
+            
+            %>
+        
         <div class="container mt-4">
             <div class="mt-4 p-5 bg-info text-bg-color rounded">
                 <h1>Registrarse</h1>
@@ -33,11 +40,13 @@
                                 <label for="nick">Nick: </label>
                                 <input type="text" class="form-control form-control-lg" id="nick" name="nick" required>
                                 <div class="invalid-feedback">Ingrese un nick.</div>
+                                <span id="errorNick" style="color:red; display:none;">Este nick ya está en uso.</span>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo: </label> 
                                 <input type="email" class="form-control form-control-lg" id="correo" name="correo" required>
                                 <div class="invalid-feedback">Ingrese un correo.</div>
+                                <span id="errorCorreo" style="color:red; display:none;">Este correo ya está en uso.</span>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre: </label> 
@@ -51,7 +60,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="fecNac">Fecha Nacimiento: </label> 
-                                <input type="date" class="form-control" id="fecNac" name="fecNac" required>
+                                <input type="date" class="form-control" id="fecNac" name="fecNac" min="<%=min%>" max="<%=max%>" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña: </label> 
@@ -62,13 +71,14 @@
                                 <label for="confirmacion:">Confirmación Contraseña: </label> 
                                 <input type="password" class="form-control form-control-lg" id="confirmacion" name="confirmacion" required>
                                 <div class="invalid-feedback">Ingrese la misma contraseña.</div>
+                                <span id="errorPass" style="color:red; display:none;">Debe confirmar la contraseña.</span>
                             </div>
                             <p>Elija el tipo de Usuario:<br>
                                 <input type="radio" id="prop" name="tipoUsuario" value="Proponente" checked> <label for="prop">Proponente</label>
                                 <input type="radio" id="cola" name="tipoUsuario" value="Colaborador"> <label for="cola">Colaborador</label>
                             </p>
                         </div>
-                        <div class="col"> <%-- datos proponente extra --%>
+                        <div class="col"> <%-- datos proponente extra e imagen --%>
                             <div id="datosProponente" class="collapse mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
                                     <label for="direccion">Dirección: </label>
@@ -86,6 +96,7 @@
                             </div>
                             <div id="datosImagen" class="mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
+                                    <h5> Foto de perfil (Opcional)</h5>
                                     <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
                                 </div>
                             </div>
@@ -99,20 +110,13 @@
                 </form>
             </div>
         </div>
-            <%--
-//            <h1>Ver lista de Usuarios</h1>
-//            <p>Para ver los datos de los usuarios cargados haga click en el botón</p>
-//            <form action="altaUsuario" method="GET">
-//                <button type="submit"> Mostrar usuarios </button>
-//            </form>
-//        </div>
-            --%>
+
             <!-- Latest compiled JavaScript -->
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
             <script>
             const prop = document.getElementById('prop');
             const cola = document.getElementById('cola');
-            const collapse = new bootstrap.Collapse('#datosProponente', {toggle: true});
+            const collapse = new bootstrap.Collapse(document.getElementById('datosProponente'), {toggle: true});
             
             prop.addEventListener('change', () => {
                 if(prop.checked){
@@ -125,6 +129,8 @@
                     collapse.hide();
                 }
             });
-        </script>
+            </script>
+            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+            <script src="js/validacionAltaUsuario.js"></script>
     </body>
 </html>
