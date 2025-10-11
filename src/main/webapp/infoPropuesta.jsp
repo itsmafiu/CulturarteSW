@@ -163,6 +163,7 @@
                 </div>
             </div>
         </div>
+        <div class="container my-4">
         <div class="mt-3">                
         <button class="btn btn-outline-primary mb-2" type="button"
                 data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
@@ -170,18 +171,29 @@
             Mostrar/Ocultar Colaboradores
         </button>
         </div>
+          
+        
+        
+           
         <div class="collapse mb-4" id="collapseColaboradores">
             <div class="my-4">
             <h3>Colaboradores</h3>
             </div>
+            <%if(!(colab.isEmpty())){ %>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <%
+                    String img;
                     for (DataColaborador c : colab) {
+                    if (c.getImagen().isBlank()) {
+                            img = "fotos\\default.jpg";
+                    }else{
+                            img = c.getImagen();
+                    }
                 %>
-                            <div class="col">
+                            <div class="col-sm-6 col-lg-4">
                                 <div class="card h-100">
-                                    <img src="<%= c.getImagen() %>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
-                                    <div class="card-body">
+                                    <img src="<%=img %>" alt="Foto de Perfil" class="card-img-top" style="max-height:250px; height: 100%">
+                                    <div class="card-body" style="max-height: 300px;">
                                         <h5 class="card-title"><%= c.getNickname() %></h5>
                                         <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" class="btn btn-primary">Ver Perfil</a>
                                     </div>
@@ -189,7 +201,11 @@
                             </div>
                 <%}%>
             </div>
-        </div>                    
+        </div>
+       <% } else {%> 
+            <p>No tiene colaboradores aún.</p>
+       <%}%>
+        </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
     </body>
 </html>

@@ -6,9 +6,18 @@
         <div class="container-fluid align-items-center">
             <a class="navbar-brand btn text-primary fs-4" href="SvCargaProp">Culturarte</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
-                </li>
+                <c:choose>
+                    <c:when test="${tipoUsuario == 'prop'}">
+                        <li class="nav-item">
+                            <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
+                        </li>
+                    </c:when>
+                        <c:otherwise>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="altaProp">Alta Propuesta</a>
+                            </li>
+                        </c:otherwise>
+                </c:choose>
                 <li class="nav-item">
                     <a class="nav-link" href="SvConsultaPropuesta">Consulta Propuesta</a>
                 </li>
@@ -48,6 +57,7 @@
                 </c:otherwise>
             </c:choose>
         </div>
-    </nav>  
-
+    </nav>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/validacionAltaPropu.js"></script>
 </header>

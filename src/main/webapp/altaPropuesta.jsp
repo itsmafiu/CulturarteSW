@@ -15,13 +15,8 @@
             String hoy = LocalDate.now().plusDays(1).toString();
         %>
         
-        <c:choose>
-                <c:when test="${empty nick}">
-                    <h1>Debes ser proponente para utilizar esta funcion.</h1>
-        </c:when>
-                    <c:when test="${tipoUsuario == 'prop'}">
-                        <form action="SvAltaProp" method="POST" enctype="multipart/form-data">
-                            <div class='container'>
+        <form action="SvAltaProp" method="POST" enctype="multipart/form-data">
+            <div class='container'>
             <div class='mt-4'>
                 <p>
                     <input disabled="" type="text" name="categoria" placeholder="Categoria">
@@ -77,15 +72,8 @@
                 <button type="submit">Enviar</button>
             </div>
             </div>
-        </form>    
-                    </c:when>    
-                <c:otherwise>
-                     <h1>Debes ser proponente para utilizar esta funcion.</h1>
-                     
-                </c:otherwise>
-        </c:choose>
-        
-                <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-                <script src="js/validacionAltaProp.js"></script>  
+        </form>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="js/validacionAltaProp.js"></script>  
     </body>
 </html>

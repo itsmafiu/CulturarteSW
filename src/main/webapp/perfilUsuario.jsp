@@ -31,7 +31,7 @@
 
     <!-- Datos del usuario -->
     <div class="d-flex align-items-center">
-        <img src="SvMostrarFoto?path=<%= usuario.getImagen() %>" alt="Foto de Perfil" class="card-img-top" style="max-height:400px; max-width:400px;">
+        <img src="<%= usuario.getImagen() %>" alt="Foto de Perfil" class="card-img-top" style="max-height:400px; max-width:400px;">
         <div class="p-2">                    </div>
         <div>
             <h3><%=usuario.getTipo()%></h3>
