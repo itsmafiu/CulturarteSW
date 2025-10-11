@@ -41,7 +41,13 @@ public class SvPerfilUsuario extends HttpServlet {
             case "Proponente":
                 misesion.setAttribute("ConsultaPerfil", ic.consultaDeProponenteWeb(nick));
                 break;
+            case "prop":
+                misesion.setAttribute("ConsultaPerfil", ic.consultaDeProponenteWeb(nick));
+                break;
             case "Colaborador":
+                misesion.setAttribute("ConsultaPerfil", ic.consultaDeColaboradorWeb(nick));
+                break;
+            case "cola":
                 misesion.setAttribute("ConsultaPerfil", ic.consultaDeColaboradorWeb(nick));
                 break;
             default:

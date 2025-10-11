@@ -121,5 +121,9 @@ public class DataPropuesta {
     public List<Aporte> getMisAportes() {
         return misAportes;
     }
-    
+     public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
+
+   
 }

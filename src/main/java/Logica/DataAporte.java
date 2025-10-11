@@ -23,11 +23,21 @@ public class DataAporte {
         this.imagen = imagen;
         this.$necesaria = $necesaria;
     }
-
+    public DataAporte(Double $aporte, LocalDateTime fechaHora, String miPropuesta) {
+        this.$aporte = $aporte;
+        this.fechaHora = fechaHora;
+        this.miPropuesta = miPropuesta;
+        this.cantidad = 0;
+        this.retorno = null;
+        this.miColaborador = "";
+        this.imagen = "";
+        this.$necesaria = null;
+    }
+    
     public Double get$aporte() {
         return $aporte;
     }
-
+ 
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }

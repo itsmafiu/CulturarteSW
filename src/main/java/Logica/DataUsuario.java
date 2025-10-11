@@ -1,5 +1,6 @@
 package Logica;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class DataUsuario {
@@ -13,8 +14,10 @@ public class DataUsuario {
     String direccion;
     String sitioWeb = "";
     List<DataPropuesta> misPropuestas;
+    List<DataPropuesta> misPropuestasIngresadas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
+    HashMap<String,DataAporte> ListaAporte;
     public DataUsuario() {
     }
 
@@ -130,6 +133,27 @@ public class DataUsuario {
 
     public List<DataUsuario> getLosSigo() {
         return losSigo;
+    }
+
+    public void setMisPropuestasIngresadas(List<DataPropuesta> misPropuestasIngresadas) {
+        this.misPropuestasIngresadas = misPropuestasIngresadas;
+    }
+
+    public List<DataPropuesta> getMisPropuestasIngresadas() {
+        return misPropuestasIngresadas;
+    }
+
+    public void setListaAporte(List<DataAporte> ListaAporte) {
+        HashMap<String, DataAporte> DiccAporte = new HashMap<String, DataAporte>();
+        for (DataAporte aporte : ListaAporte){
+            DiccAporte.put(aporte.getMiPropuesta(), aporte);
+            
+        }
+        this.ListaAporte = DiccAporte;
+    }
+
+    public HashMap<String,DataAporte> getListaAporte() {
+        return ListaAporte;
     }
     
     
