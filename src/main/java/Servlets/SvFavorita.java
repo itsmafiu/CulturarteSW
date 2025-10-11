@@ -33,41 +33,38 @@ public class SvFavorita extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String titulo = request.getParameter("titulo");
         HttpSession session = request.getSession();
         String nick = (String) session.getAttribute("nick");
-
+        String titulo = (String) session.getAttribute("titulo");
 
         boolean esFavorita = ic.esFavorita(titulo,nick);
+        //ic.cambiarFavorita(titulo, nick);
         
-        request.setAttribute("esFavorita", esFavorita);
+        session.setAttribute("esFavorita", esFavorita);
 
-        request.getRequestDispatcher("infoPropuesta.jsp").forward(request, response);
+        response.sendRedirect("infoPropuesta.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String titulo = request.getParameter("titulo");
         HttpSession session = request.getSession();
         String nickUsuario = (String) session.getAttribute("nick");
+        String titulo = (String) session.getAttribute("titulo");
 
-        response.setContentType("application/json;charset=UTF-8");
+        boolean esFavorita= false;
+        
+        int n = ic.cambiarFavorita(titulo, nickUsuario);
+        
+        if(n == 1){
+            esFavorita = true;
+        } 
+        
+        session.setAttribute("esFavorita", esFavorita);
 
-        // Validaciones
-        if (nickUsuario == null || titulo == null) {
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-            response.getWriter().write("{\"error\": \"Usuario no autenticado\"}");
-            return;
-        }
-
-        // Alternar favorito
-        ic.cambiarFavorita(titulo, nickUsuario);
-        boolean esFavorita = ic.esFavorita(titulo, nickUsuario);
-
-        // Devolver estado actualizado en formato JSON
-        response.getWriter().write("{\"esFavorita\": " + esFavorita + "}");
+        response.sendRedirect("infoPropuesta.jsp");
+        
     }
 
     @Override

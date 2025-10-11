@@ -13,6 +13,9 @@ public class Colaborador extends Usuario {
     
     @OneToMany(mappedBy = "miColaborador")
     private List<Aporte> misAportes;
+    
+    @OneToMany(mappedBy = "miColaborador")
+    private List<Comentario> misComentarios;
 
     public Colaborador() {
         //this.misAportes = new ArrayList<>();
@@ -93,5 +96,8 @@ public class Colaborador extends Usuario {
         }
         return null;
     }
-    
+
+    public List<Comentario> getMisComentarios() {
+        return misComentarios;
+    }
 }

@@ -121,40 +121,23 @@
                         </c:otherwise>
 
                     </c:choose>
+                    <%
+                        request.getSession().setAttribute("titulo", p.getTitulo());
+                       
+                        Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                        
+                        if (esFavorita == null) {
+                            esFavorita = false;
+                        }
+                    %>
+
                     <c:choose>
-                        <c:when test="${!empty nick}">
-                            <form id="favForm_${p.getTitulo()}" class="d-inline">
-                                <input type="hidden" name="titulo" value="<%= p.getTitulo()%>">
-                                <button type="button" id="favBtn_${p.getTitulo()}" class="btn btn-outline-primary rounded fs-4">
-                                <i class="bi <%= (Boolean.TRUE.equals(request.getAttribute("esFavorita")))? "bi-star-fill" : "bi-star"%>"></i>
+                        <c:when test="${not empty nick}">
+                            <form action="SvFavorita" method="POST">
+                                <button type="submit" class="btn <%= esFavorita ? "btn-primary" : "btn-secondary"%>">
+                                    Favorita
                                 </button>
                             </form>
-
-                            <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                const favBtn = document.getElementById("favBtn_<%= p.getTitulo()%>");
-                                const favForm = document.getElementById("favForm_<%= p.getTitulo()%>");
-            
-                                favBtn.addEventListener("click", async () => {
-                                    const icon = favBtn.querySelector("i");
-                                    icon.classList.toggle("bi-star");
-                                    icon.classList.toggle("bi-star-fill");
-
-                                    const data = new FormData(favForm);
-                                    try {
-                                        const resp = await fetch("SvFavorita", {
-                                            method: "POST",
-                                            body: data
-                                        });
-                                        if (!resp.ok) {
-                                            console.error("Error al actualizar favorito");
-                                        }
-                                    } catch (err) {
-                                        console.error("Error AJAX:", err);
-                                    }
-                                });
-                            });
-                            </script>
                         </c:when>
                     </c:choose>
                 </div>
