@@ -10,6 +10,7 @@ import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,11 +31,7 @@ public class SvRegistraCola extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        HttpSession misesion = request.getSession();
-        DataPropuesta DP = ic.getDataPropuesta((String) misesion.getAttribute("titulo"));
-        misesion.setAttribute("p", DP);
+            throws ServletException, IOException {        
         response.sendRedirect("registraCola.jsp");
     }
 
@@ -60,17 +57,31 @@ public class SvRegistraCola extends HttpServlet {
                 retorno = EnumRetorno.PORCENTAJE_VENTAS;
             }         
             
-            ic.altaAporte(nick, tituloProp, monto, 0, retorno);
+            int resultado = ic.altaAporte(nick, tituloProp , monto, 0, retorno, LocalDateTime.now());
             
-            //response.sendRedirect("exitoColaboracion.jsp");
+            switch(resultado){
+                case 0:
+                    response.sendRedirect("ups.jsp");
+                    break;
+                case -2:
+                    response.sendRedirect("ups.jsp");
+                    break;
+                case -3:
+                    response.sendRedirect("ups.jsp");
+                    break;
+                case -4:
+                    response.sendRedirect("ups.jsp");
+                    break;
+            }
+                       
 
         } catch (NumberFormatException e) {
             request.setAttribute("error", "El monto debe ser un número válido.");
-            request.getRequestDispatcher("registrarCola.jsp").forward(request, response);
+            request.getRequestDispatcher("registraCola.jsp").forward(request, response);
 
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
-            request.getRequestDispatcher("registrarCola.jsp").forward(request, response);
+            request.getRequestDispatcher("registraCola.jsp").forward(request, response);
         }
     }
 

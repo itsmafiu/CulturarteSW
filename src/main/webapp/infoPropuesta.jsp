@@ -4,9 +4,11 @@
     Author     : nahud
 --%>
 
+<%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="Logica.DataPropuesta"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -64,6 +66,12 @@
 
         <div class="col-md-5">
             <h2 class="fw-bold mb-2"><%= p.getTitulo() %></h2>
+            <div class="text-center bg-secondary-subtle rounded">
+                        <a class="text-decoration-none"
+                           href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
+                            by <%= p.getNickProponenteDe()%>
+                        </a>
+                    </div>
             <p class="text-muted mb-4"><%= p.getDescripcion() %></p>
 
             <h4 class="fw-semibold text-success mb-0">
@@ -93,12 +101,30 @@
                     <small class="text-muted">días restantes</small>
                 </div>
             </div>
+            <c:choose>
+                
+                <c:when test="${empty nick}">
+                    <a href="inicioSesion.jsp" class="btn btn-success w-100 py-2 fw-semibold">
+                        Contribuir con esta propuesta
+                    </a>
+                </c:when>
 
-            <button class="btn btn-success w-100 py-2 fw-semibold">
-                Contribuir con esta propuesta
-            </button>
+                <c:when  test="${tipoUsuario=='cola'}">
+                    <a href="registraCola.jsp" class="btn btn-success w-100 py-2 fw-semibold">
+                        Contribuir con esta propuesta
+                    </a>
+                </c:when>
+                
+                <c:otherwise>
+                    <p class="text-center text-secondary-subtle">Solo los colaboradores tienen permitido colaborar</p>
+                </c:otherwise>
+                    
+            </c:choose>
+
+
+
         </div>
     </div>
-</div>
+         </div>
     </body>
 </html>
