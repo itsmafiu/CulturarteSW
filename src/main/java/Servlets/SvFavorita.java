@@ -55,11 +55,12 @@ public class SvFavorita extends HttpServlet {
 
         boolean esFavorita= false;
         
-        int n = ic.cambiarFavorita(titulo, nickUsuario);
+        esFavorita = ic.cambiarFavorita(titulo, nickUsuario);
         
-        if(n == 1){
-            esFavorita = true;
-        } 
+        //esFavorita = ic.esFavorita(titulo, nickUsuario);
+//        if(n == 1){
+//            esFavorita = true;
+//        } 
         
         session.setAttribute("esFavorita", esFavorita);
 

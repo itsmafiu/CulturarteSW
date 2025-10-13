@@ -196,5 +196,11 @@ public class ControladoraPersistencia {
         }
     }
 
-    
+    public void editarAporte(Aporte a) {
+        try {
+            aporteJPA.edit(a);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

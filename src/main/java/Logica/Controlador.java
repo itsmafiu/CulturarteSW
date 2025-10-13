@@ -1003,7 +1003,7 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int cambiarFavorita(String titulo, String nick){
+    public boolean cambiarFavorita(String titulo, String nick){
         Usuario u = cp.buscarUsuario(nick);
         Propuesta p = cp.getPropuesta(titulo);
         
@@ -1011,17 +1011,41 @@ public class Controlador implements IControlador{
             u.addFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
-            return 1;
+            return true;
         }else{
             u.eliminarFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
-            return 0;
+            return false;
         }
     }
     
-//    @Override
-//    public int agregarComentario(String titulo, String nick, String texto){
-//        
-//    }
+    @Override
+    public void addComentario(String titulo, String nick, String comentario){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporte(titulo);
+        a.setComentario(comentario);
+        a.setFecComentario(LocalDateTime.now());
+        cp.editarAporte(a);
+    }
+    
+    
+    @Override
+    public DataComentario getDataComentario(String titulo, String nick){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporte(titulo);
+                    
+        return new DataComentario(a.getComentario(),a.getFecComentario(),nick,titulo);               
+    }  
+    
+    @Override
+    public List<DataComentario> getDataComentarios(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        List<DataComentario> lista = new ArrayList();
+        for(Aporte a : propu.getAportes()){
+            DataComentario dc = this.getDataComentario(titulo, a.getNicknameMiColaborador());
+            lista.add(dc);
+        }
+        return lista;
+    }
 }    

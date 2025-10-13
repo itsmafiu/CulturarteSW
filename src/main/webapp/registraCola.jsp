@@ -49,7 +49,7 @@
                             <div class="form-group mb-3">
                                 <label for="monto">Monto: </label>
                                 <input type="text" class="form-control form-control-lg" id="monto" name="monto" required>
-                                <div class="invalid-feedback">Ingrese un nick.</div>
+                                <div class="invalid-feedback">Ingrese un monto.</div>
                             </div>                            
                             <p>Elija el tipo de Retorno:<br>
                                 <input type="radio" id="prop" name="tipoRetorno" value="ENTRADAS" checked> <label for="entradas">Entradas Gratis</label>

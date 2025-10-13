@@ -44,8 +44,6 @@ public class Propuesta implements Serializable {
     @ManyToOne
     @JoinColumn(name = "nombre_Categoria")
     private Categoria categoria;
-    @OneToMany(mappedBy = "miPropuesta")
-    private List<Comentario> misComentarios = new ArrayList<>();
 
    
     
@@ -232,10 +230,7 @@ public class Propuesta implements Serializable {
     public Double getAlcanzada(){
         return this.montoAlcanzada;
     }
-    
-    public List<Comentario> getMisComentarios() {
-        return misComentarios;
-    }
+
 }
 
 

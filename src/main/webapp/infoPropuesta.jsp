@@ -4,6 +4,7 @@
     Author     : nahud
 --%>
 
+<%@page import="Logica.DataComentario"%>
 <%@page import="java.util.List"%>
 <%@page import="Logica.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
@@ -54,7 +55,7 @@
             } else if (estado == "FINANCIADA") {
                 estado = "Financiada";
             }
-            
+
             List<DataColaborador> colab = (List<DataColaborador>) request.getSession().getAttribute("colabs");
         %>
 
@@ -124,55 +125,82 @@
                         </c:otherwise>
 
                     </c:choose>
+
+                    <!--
                     <%
-                        request.getSession().setAttribute("titulo", p.getTitulo());
-                       
-                        Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
-                        
-                        if (esFavorita == null) {
-                            esFavorita = false;
-                        }
+                        //request.getSession().setAttribute("titulo", p.getTitulo());
+
+                        //boolean esFavorita = (boolean) request.getSession().getAttribute("esFavorita");
                     %>
 
                     <c:choose>
                         <c:when test="${not empty nick}">
                             <form action="SvFavorita" method="POST">
-                                <button type="submit" class="btn <%= esFavorita ? "btn-primary" : "btn-secondary"%>">
+                                <button type="submit" class="btn">
                                     Favorita
                                 </button>
                             </form>
                         </c:when>
                     </c:choose>
+                    -->
+
                 </div>
             </div>
         </div>
         <div class="mt-3">                
-        <button class="btn btn-outline-primary mb-2" type="button"
-                data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
-                aria-expanded="false" aria-controls="collapseColaboradores">
-            Mostrar/Ocultar Colaboradores
-        </button>
+            <button class="btn btn-outline-primary mb-2" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
+                    aria-expanded="false" aria-controls="collapseColaboradores">
+                Mostrar/Ocultar Colaboradores
+            </button>
         </div>
         <div class="collapse mb-4" id="collapseColaboradores">
             <div class="my-4">
-            <h3>Colaboradores</h3>
+                <h3>Colaboradores</h3>
             </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
-                <%
-                    for (DataColaborador c : colab) {
+                <%                    for (DataColaborador c : colab) {
                 %>
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="<%= c.getImagen() %>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
-                                    <div class="card-body">
-                                        <h5 class="card-title"><%= c.getNickname() %></h5>
-                                        <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" class="btn btn-primary">Ver Perfil</a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="<%= c.getImagen()%>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= c.getNickname()%></h5>
+                            <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname()%>&tipoTarjeta=Colaborador" class="btn btn-primary">Ver Perfil</a>
+                        </div>
+                    </div>
+                </div>
                 <%}%>
             </div>
-        </div>                    
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
+        </div>
+        <div class="m-1">
+            <p class="mx-3">Comentarios</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <form action="SvComentario" class="needs-validation" method="POST">
+                        <input type="text" class="form-control" id="comentario" name="comentario" required>
+                        <div class="invalid-feedback">Ingrese un comentario.</div>
+                    </form>
+                </li>
+                <%
+                    List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs");
+                    if (DCs != null) {
+                        for (DataComentario dc : DCs) {
+                %>
+                <li class="list-group-item">
+                    <img src="https://github.com/twbs.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0"> 
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div> 
+                            <h6 class="mb-0"><%=dc.getNickColaborador()%></h6>
+                            <p class="mb-0 opacity-75"><%=dc.getComentario()%></p>
+                        </div>
+                        <small class="opacity-50 text-nowrap"><%=dc.getFecComentario().toString()%></small> 
+                    </div>
+                </li>     
+                <%}
+                    }%>
+            </ul>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
     </body>
 </html>
