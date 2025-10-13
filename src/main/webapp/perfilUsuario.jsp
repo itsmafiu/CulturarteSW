@@ -19,6 +19,12 @@
         esProponente = true;
     }
     
+    DataUsuario usuarioIniciado = (DataUsuario) request.getSession().getAttribute("DTUsuario");
+    List<DataUsuario> listaSeguidores = usuario.getMeSiguen();
+    boolean loSigo = false;
+    if(listaSeguidores.contains(usuarioIniciado) && !esMiPerfil){ //si el usuario iniciado está en la lista de seguidores del usuario consultado entonces sabemos que lo sigue
+        loSigo = true;
+    }
 
 %>
 <html>
@@ -58,6 +64,9 @@
             <% } %>
             <% if (!usuario.getSitioWeb().isEmpty() && usuario.getTipo().equals("Proponente")) { %>
                 <p><b>Sitio Web:</b> <a href="<%= usuario.getSitioWeb() %>" target="_blank"><%= usuario.getSitioWeb() %></a></p>
+            <% } %>
+            <% if(!esMiPerfil && request.getSession().getAttribute("nick")!=null){ %>
+                <button class="btn btn-success" id="botonSeguir">Seguir</button>
             <% } %>
         </div>
      </div>
@@ -284,6 +293,54 @@
         
 
 </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            $(document).ready(function() { 
+                const boton = document.getElementById("botonSeguir"); 
+                const loSigo = <%= loSigo%>;
+                
+                if(loSigo){ 
+                    boton.classList.replace("btn-success", "btn-danger"); 
+                    boton.textContent = "Dejar de Seguir"; 
+                }else{ 
+                    boton.classList.replace("btn-danger", "btn-success"); 
+                    boton.textContent = "Seguir"; 
+                } 
+                
+                let timerSeguir; 
+                boton.addEventListener("click", () => { 
+                    clearTimeout(timerSeguir); 
+                    if(boton.textContent === "Seguir"){ 
+                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                            success: function(respuesta){ 
+                                if(respuesta === "exito"){ 
+                                    boton.classList.replace("btn-success", "btn-danger"); 
+                                    boton.textContent = "Dejar de Seguir"; 
+                                } else { 
+                                    console.error("Error: No deberia llegar aqui"); 
+                                } 
+                            }, error: function(){ 
+                                console.error("Error fatal"); 
+                            } 
+                        }); 
+                        }, 500); 
+                    }else if(boton.textContent === "Dejar de Seguir"){ 
+                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                            success: function(respuesta){ 
+                                if(respuesta === "exito"){ 
+                                    boton.classList.replace("btn-danger", "btn-success"); 
+                                    boton.textContent = "Seguir"; 
+                                } else { 
+                                    console.error("Error: No deberia llegar aqui"); 
+                                } 
+                            }, error: function(){ 
+                                console.error("Error fatal"); 
+                            } 
+                        }); 
+                        }, 500); 
+                    } 
+                }); 
+            });
+        </script>
 </body>
 </html>

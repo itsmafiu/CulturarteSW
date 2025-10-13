@@ -2,6 +2,7 @@ package Logica;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class DataUsuario {
     String nickname;
@@ -18,6 +19,7 @@ public class DataUsuario {
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
     HashMap<String,DataAporte> ListaAporte;
+    
     public DataUsuario() {
     }
 
@@ -154,6 +156,80 @@ public class DataUsuario {
 
     public HashMap<String,DataAporte> getListaAporte() {
         return ListaAporte;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 73 * hash + Objects.hashCode(this.nickname);
+        hash = 73 * hash + Objects.hashCode(this.email);
+        hash = 73 * hash + Objects.hashCode(this.nombre);
+        hash = 73 * hash + Objects.hashCode(this.apellido);
+        hash = 73 * hash + Objects.hashCode(this.imagen);
+        hash = 73 * hash + Objects.hashCode(this.tipo);
+        hash = 73 * hash + Objects.hashCode(this.biografia);
+        hash = 73 * hash + Objects.hashCode(this.direccion);
+        hash = 73 * hash + Objects.hashCode(this.sitioWeb);
+        hash = 73 * hash + Objects.hashCode(this.misPropuestas);
+        hash = 73 * hash + Objects.hashCode(this.misPropuestasIngresadas);
+        hash = 73 * hash + Objects.hashCode(this.meSiguen);
+        hash = 73 * hash + Objects.hashCode(this.losSigo);
+        hash = 73 * hash + Objects.hashCode(this.ListaAporte);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DataUsuario other = (DataUsuario) obj;
+        if (!Objects.equals(this.nickname, other.nickname)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return false;
+        }
+        if (!Objects.equals(this.apellido, other.apellido)) {
+            return false;
+        }
+        if (!Objects.equals(this.imagen, other.imagen)) {
+            return false;
+        }
+        if (!Objects.equals(this.tipo, other.tipo)) {
+            return false;
+        }
+        if (!Objects.equals(this.biografia, other.biografia)) {
+            return false;
+        }
+        if (!Objects.equals(this.direccion, other.direccion)) {
+            return false;
+        }
+        if (!Objects.equals(this.sitioWeb, other.sitioWeb)) {
+            return false;
+        }
+        if (!Objects.equals(this.misPropuestas, other.misPropuestas)) {
+            return false;
+        }
+        if (!Objects.equals(this.misPropuestasIngresadas, other.misPropuestasIngresadas)) {
+            return false;
+        }
+        if (!Objects.equals(this.meSiguen, other.meSiguen)) {
+            return false;
+        }
+        if (!Objects.equals(this.losSigo, other.losSigo)) {
+            return false;
+        }
+        return Objects.equals(this.ListaAporte, other.ListaAporte);
     }
     
     

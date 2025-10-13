@@ -52,7 +52,7 @@
                             <h3>¿No tienes usuario?</h3>
                             <h4>Registrate aquí!</h4>
                             <form action="altaUsuario" method="GET">
-                                <button type="submit" class="btn btn-secondary">Registrarse</button>
+                                <button type="submit" class="btn btn-success">Registrarse</button>
                             </form>
                         </div>
                         <br>

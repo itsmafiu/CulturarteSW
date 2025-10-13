@@ -210,6 +210,7 @@ public class SvAltaUsuario extends HttpServlet {
                 }else{ //colaborador
                     misesion.setAttribute("tipoUsuario", "cola");
                 }
+                misesion.setAttribute("DTUsuario", ic.getDataUsuarioWeb(nick));
                 misesion.setAttribute("nick", nick);
                 response.sendRedirect("index.jsp");
                 break;

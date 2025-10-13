@@ -69,6 +69,7 @@ public class SvInicioSesion extends HttpServlet {
                 }else{ //colaborador
                     misesion.setAttribute("tipoUsuario", "cola");
                 }
+                misesion.setAttribute("DTUsuario", ic.getDataUsuarioWeb(usuario));
                 misesion.setAttribute("datosUsuario", usu);
                 misesion.setAttribute("nick", usuario);
                 response.sendRedirect("index.jsp");
@@ -81,6 +82,7 @@ public class SvInicioSesion extends HttpServlet {
                 }else{ //colaborador
                     misesion.setAttribute("tipoUsuario", "cola");
                 }
+                misesion.setAttribute("DTUsuario", ic.getDataUsuarioWeb(nick));
                 misesion.setAttribute("datosUsuario", usu);
                 misesion.setAttribute("nick", nick);
                 response.sendRedirect("index.jsp");

@@ -321,6 +321,8 @@ public class Controlador implements IControlador{
     public List<Colaborador> getUsuariosColaboradores(){
         return cp.getColaboradores();
     }
+    
+    @Override
      public List<DataUsuario> getDataUsuarios(){
         ArrayList<Usuario> listaUsuarios = cp.getListaUsuarios();
         List<DataUsuario> ListaDTUsuario = new ArrayList<>(); 
@@ -350,6 +352,20 @@ public class Controlador implements IControlador{
         return ListaDTUsuario;
     }
     
+    @Override
+    public DataUsuario getDataUsuarioWeb(String nick){
+        Usuario usu = cp.buscarUsuario(nick);
+        DataUsuario data = new DataUsuario();
+        data.setNickname(usu.getNickname());
+        data.setImagen(usu.getImagenWeb());
+        
+        if (usu instanceof Proponente){
+            data.setTipo("Proponente");
+        }else if (usu instanceof Colaborador){
+            data.setTipo("Colaborador");
+        }
+        return data;
+    }
     
      @Override
     public List<String> getColaboradores() {
@@ -424,22 +440,7 @@ public class Controlador implements IControlador{
 
     @Override
     public int seguirUsuario(String nick1, String nick2) {
-//        Usuario seguidor = null;
-//        Usuario seguir = null;
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick1)){
-//                seguidor = u;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick2)){
-//                seguir = u;
-//                break;
-//            }
-//        }
-//        persistencia
+
         Usuario seguidor, seguir;
         seguidor = cp.buscarUsuario(nick1);
         seguir = cp.buscarUsuario(nick2);
@@ -448,7 +449,6 @@ public class Controlador implements IControlador{
         if (resultado == 0) {
             return 0; //error 0: ya sigue al usuario nick2
         }else{
-            //persistencia
             cp.editarUsuario(seguidor);
             return 1;
         }
@@ -456,23 +456,7 @@ public class Controlador implements IControlador{
     
     @Override
     public int dejarSeguirUsuario(String nick1, String nick2){
-//        Usuario seguidor = null;
-//        Usuario seguir = null;
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick1)){
-//                seguidor = u;
-//                break;
-//            }
-//        }
-//        
-//        for(Usuario u : this.misUsuarios){
-//            if(u.getNickname().equals(nick2)){
-//                seguir = u;
-//                break;
-//            }
-//        }
-        
-        //persistencia
+
         Usuario seguidor, seguir;
         seguidor = cp.buscarUsuario(nick1);
         seguir = cp.buscarUsuario(nick2);
@@ -585,9 +569,7 @@ public class Controlador implements IControlador{
         }
         return 0;
     }
-
     
-   
     @Override
     public List<String> getPropuestas() {
 //        List<String> listaPropuestas = new ArrayList<>();
@@ -653,6 +635,7 @@ public class Controlador implements IControlador{
         
     }
     
+    @Override
     public List<DataPropuesta> getPropuestasPorCategoria(String Categoria){
         Categoria cat = cp.findCategoria(Categoria);
         List<DataPropuesta> ListaPropuestasCat = new ArrayList<>();
@@ -693,22 +676,22 @@ public class Controlador implements IControlador{
     }
     
     public List<DataUsuario> getSeguidores(Usuario seguido) {
-    List<DataUsuario> seguidores = new ArrayList<>();
-    
-    for (Usuario u : cp.getListaUsuarios()) {
-        if (u.getMisSeguidosNick().contains(seguido.getNickname())) {
-            DataUsuario du = new DataUsuario();
-            du.setNickname(u.getNickname());
-             if (u instanceof Proponente){
-              du.setTipo("Proponente");
-            }else if (u instanceof Colaborador){
-              du.setTipo("Colaborador");
+        List<DataUsuario> seguidores = new ArrayList<>();
+
+        for (Usuario u : cp.getListaUsuarios()) {
+            if (u.getMisSeguidosNick().contains(seguido.getNickname())) {
+                DataUsuario du = new DataUsuario();
+                du.setNickname(u.getNickname());
+                 if (u instanceof Proponente){
+                  du.setTipo("Proponente");
+                }else if (u instanceof Colaborador){
+                  du.setTipo("Colaborador");
+                }
+                du.setImagen(u.getImagenWeb());
+                seguidores.add(du);
             }
-            du.setImagen(u.getImagenWeb());
-            seguidores.add(du);
         }
-    }
-    return seguidores;
+        return seguidores;
     }
 
     @Override
@@ -728,7 +711,7 @@ public class Controlador implements IControlador{
                 }
                 
                 /*
-                //Por ahora lo dejo comentado pero luego ahre que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
+                //Por ahora lo dejo comentado pero luego haré que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
                 //especiales
                 for (DataPropuesta prop : DProp.getPropuestas()) {
                     if (nickSesion.equals(DProp.getNickname()) || !"Ingresada".equalsIgnoreCase(prop.getEstado())) {
@@ -759,7 +742,7 @@ public class Controlador implements IControlador{
         DataColaborador DCola = consultaDeColaborador(NickName);
         Colaborador c = cp.buscarColaborador(NickName);
         
-        DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),getSeguidores(c),c.getDtUSeguidos());
+        DataUsuario usuario = new DataUsuario(DCola.getNickname(),DCola.getNombre(),DCola.getApellido(),"Colaborador",DCola.getPropuestas(),this.getSeguidores(c),c.getDtUSeguidos());
         usuario.setEmail(DCola.getEmail());
         usuario.setImagen(c.getImagenWeb());
         
