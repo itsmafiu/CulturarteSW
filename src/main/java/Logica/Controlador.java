@@ -233,9 +233,9 @@ public class Controlador implements IControlador{
                 break;        
             }
         }                
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
-        }        
+        //if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+        //    return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
+        //}        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -254,23 +254,12 @@ public class Controlador implements IControlador{
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp){
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
-        for (Colaborador c : cp.getColaboradores()){
-            if(c.getNickname().equals(strmiColaborador)){
-                miColaborador = c;
-                break;
-            }
-        }  
-        for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getTitulo().equals(strmiPropuesta)) {
-                miPropuesta = p;
-                break;        
-            }
-        }            
+        miColaborador = cp.buscarColaborador(strmiColaborador);
         miPropuesta = cp.getPropuesta(strmiPropuesta);
         
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido
-        }        
+//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+//            return -2;//ERROR: Aporte superior a lo permitido
+//        }        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -1033,5 +1022,29 @@ public class Controlador implements IControlador{
             lista.add(dc);
         }
         return lista;
+    }
+    
+    @Override
+    public int extenderFinanciacion(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        if(propu.getEstadoActual().getEstado()==EnumEstado.EN_FINANCIACION || propu.getEstadoActual().getEstado()==EnumEstado.PUBLICADA){
+            propu.setFechaLimit(LocalDateTime.now().plusDays(30));
+            cp.modificarPropuesta(propu);
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    
+    @Override
+    public int cancelarPropuesta(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        if(propu.getEstadoActual().getEstado()==EnumEstado.FINANCIADA){
+            propu.actualizarEstadoActual(EnumEstado.CANCELADA);
+            cp.modificarPropuesta(propu);
+            return 0;
+        }else{
+            return -1;
+        }
     }
 }    

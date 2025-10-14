@@ -4,6 +4,7 @@
     Author     : nahud
 --%>
 
+<%@page import="Logica.EnumEstado"%>
 <%@page import="Logica.DataComentario"%>
 <%@page import="java.util.List"%>
 <%@page import="Logica.DataColaborador"%>
@@ -119,13 +120,44 @@
                                 Contribuir con esta propuesta
                             </a>
                         </c:when>
-
+                            
                         <c:otherwise>
+                            <%
+                                String nickUsuario = (String) request.getSession().getAttribute("nick");
+                                if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado()==EnumEstado.PUBLICADA || p.getEstadoActual().getEstado()==EnumEstado.EN_FINANCIACION)) {
+                            %> 
+                            <div class="row align-items-center text-center">
+                                <div class="col bg-primary rounded">
+                                    <form action="SvExtenderFinanciacion" method="POST">
+                                        <button type="submit" class="btn btn-primary">
+                                            Extender Financiación
+                                        </button>
+                                    </form>
+                                </div>
+                            <%
+                                }else if (p.getEstadoActual().getEstado()==EnumEstado.FINANCIADA){
+                            %> 
+                                <div class="col bg-danger rounded">
+                                    <form  action="SvCancelarPropuesta" method="POST">
+                                        <button type="submit" class="btn btn-danger">
+                                            Cancelar Propuesta
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <%
+                                }else{
+                            %>    
                             <p class="text-center text-secondary-subtle">Solo los colaboradores tienen permitido colaborar</p>
+                            <%
+                                }
+                            %> 
                         </c:otherwise>
-
+                            
                     </c:choose>
 
+                                
                     <!--
                     <%
                         //request.getSession().setAttribute("titulo", p.getTitulo());

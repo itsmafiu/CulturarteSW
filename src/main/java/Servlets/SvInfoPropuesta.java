@@ -55,6 +55,14 @@ public class SvInfoPropuesta extends HttpServlet {
             colabs.add(DC);
         }
         
+       
+        String nick = (String) misesion.getAttribute("nick");
+        
+//        if(!nick.equals(null)){
+//            boolean esFavorita = ic.esFavorita(titulo, nick);
+//            misesion.setAttribute("esFavorita",esFavorita);
+//        }        
+        
         misesion.setAttribute("colabs", colabs);
         
         misesion.setAttribute("p", DP);

@@ -98,4 +98,8 @@ public interface IControlador {
     DataComentario getDataComentario(String titulo, String nick);
     
     List<DataComentario> getDataComentarios(String titulo);
+    
+    int extenderFinanciacion(String titulo);
+    
+    int cancelarPropuesta(String titulo);
 }

@@ -2,6 +2,7 @@ package Logica;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -29,6 +30,7 @@ public class Propuesta implements Serializable {
     private double montoNecesaria;
     private double montoAlcanzada = 0;
     private LocalDate fechaPubli;
+    private LocalDateTime fechaLimit;
     private EnumRetorno posibleRetorno;
     @OneToOne
     //@JoinColumn(name = "ESTADOACTUAL_NUMERACION")
@@ -60,7 +62,7 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        
+        this.fechaLimit = LocalDateTime.now().plusDays(30);
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
         
         this.estadoActual = estado;
@@ -79,6 +81,7 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
+        this.fechaLimit = LocalDateTime.now().plusDays(30);
         
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
         
@@ -98,6 +101,7 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
+        this.fechaLimit = LocalDateTime.now().plusDays(30);
         
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
         
@@ -165,12 +169,21 @@ public class Propuesta implements Serializable {
             Estado estado = new Estado(EnumEstado.EN_FINANCIACION, LocalDate.now());
             this.estadoActual = estado;
             this.misEstados.add(estado);
+        }else if(this.getNecesaria()<=this.getAlcanzada()){
+            Estado estado = new Estado(EnumEstado.FINANCIADA, LocalDate.now());
+            this.estadoActual = estado;
+            this.misEstados.add(estado);
         }
     }
     
     public void desvincularAporte(Aporte a){
         this.montoAlcanzada-=a.get$aporte();
         this.misAportes.remove(a);
+        if(this.getNecesaria()>this.getAlcanzada() && this.estadoActual.getEstado()==EnumEstado.FINANCIADA){
+            Estado estado = new Estado(EnumEstado.EN_FINANCIACION , LocalDate.now());
+            this.estadoActual = estado;
+            this.misEstados.add(estado);
+        }
     }
     
     public List<Aporte> getAportes(){
@@ -231,6 +244,20 @@ public class Propuesta implements Serializable {
         return this.montoAlcanzada;
     }
 
+    public LocalDateTime getFechaLimit() {
+        return fechaLimit;
+    }
+
+    public void setFechaLimit(LocalDateTime fechaLimit) {
+        this.fechaLimit = fechaLimit;
+    }
+
+    public void actualizarEstadoActual(EnumEstado estado){
+        Estado e = new Estado(estado,LocalDate.now());
+        this.estadoActual = e;
+        this.misEstados.add(e);
+    }
+    
 }
 
 

@@ -190,43 +190,43 @@
             </a>
             <div class="card-body" style="max-height: 300px; overflow: hidden;">
                 <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
-                    <% if(!esProponente){ %>
-                    <div class="text-center bg-secondary-subtle rounded">
-                        <a class="text-decoration-none"
-                           href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente">
-                            by <%= prop.getNickProponenteDe()%>
-                        </a>
-                    </div>
-                    <% } %>
+                <% if (!esProponente) {%>
+                <div class="text-center bg-secondary-subtle rounded">
+                    <a class="text-decoration-none"
+                       href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente">
+                        by <%= prop.getNickProponenteDe()%>
+                    </a>
+                </div>
+                <% }%>
                 <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
                     <%=prop.getDescripcion()%> </p>
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
-                <% if (!esProponente && esMiPerfil){ 
-                    DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo()); 
+                <% if (!esProponente && esMiPerfil) {
+                        DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
                 %>
-                <p> Aporte: <%=aporte.get$aporte() %></p>
-                <p> Fecha del Aporte: <%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE) %></p>
+                <p> Aporte: <%=aporte.get$aporte()%></p>
+                <p> Fecha del Aporte: <%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%></p>
 
-                <% } %>
-              <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
+                <% }%>
+                <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
                 <div class="progress mb-3 position-relative" style="height: 20px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje %>%;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;">
                     </div>
                     <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
                         <%= porcentaje%>%
                     </span>
-                </div>
+                </div>             
             </div>      
+        </div>
     </div>
-            </div>
-            <%      }
-                } else { %>
-                    <p>No tiene propuestas activas.</p>
-            <% } %>
+    <%      }
+            } else { %>
+    <p>No tiene propuestas activas.</p>
+    <% } %>
+        </div>
+        </div>
     </div>
-    </div>
-    </div>
-        <% if(esMiPerfil && esProponente){ %>
+    <% if (esMiPerfil && esProponente){ %>
         
          <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Ingresadas -->
     <button class="btn btn-outline-secondary mb-2" type="button"
