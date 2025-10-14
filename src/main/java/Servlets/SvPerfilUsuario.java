@@ -24,6 +24,32 @@ public class SvPerfilUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        //ajax: seguir/dejar de seguir usuarios//(si no vino desde perfilUsuario.jsp lo ignora)
+        String tipoSeguir = request.getParameter("tipoInputSeguirUsuario");
+        if(tipoSeguir != null){
+            String nick1 = request.getParameter("usuarioSeguidor1");
+            String nick2 = request.getParameter("usuarioSeguido2");
+            switch (tipoSeguir){
+                case "seguir":
+                    int aux = ic.seguirUsuario(nick1, nick2);
+                    if(aux == 1){
+                        response.getWriter().write("exito");
+                    }else{
+                        response.getWriter().write("error");
+                    }
+                    return;
+                case "dejarSeguir":
+                    int aux2 = ic.dejarSeguirUsuario(nick1, nick2);
+                    if(aux2 == 1){
+                        response.getWriter().write("exito");
+                    }else{
+                        response.getWriter().write("error");
+                    }
+                    return;
+            }
+        }
+        
         String nick = request.getParameter("nickTarjeta");
         String tipo = request.getParameter("tipoTarjeta");
         

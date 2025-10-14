@@ -25,6 +25,8 @@ public interface IControlador {
     
     List<DataUsuario> getDataUsuarios();
     
+    DataUsuario getDataUsuarioWeb(String nick);
+    
     List<String> getUsuariosProponentes();
     
     List<DataPropuesta> getPropuestasPorCategoria(String Categoria);

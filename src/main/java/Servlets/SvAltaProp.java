@@ -100,7 +100,7 @@ public class SvAltaProp extends HttpServlet {
 
         EnumRetorno posibleRetorno;
         
-        String ruta = "fotos\\" + nombreArchivo;
+        String ruta = "fotos" + File.separator + nombreArchivo;
         
         switch (retorno) {
             case "Entradas gratis":

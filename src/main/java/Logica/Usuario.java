@@ -168,6 +168,7 @@ public class Usuario implements Serializable {
           }else {
               System.out.println("ERROR usuario sin tipo asignado?");
           }
+          data.setImagen(u.getImagenWeb());
            listaSeguidos.add(data);
         }
         return listaSeguidos;

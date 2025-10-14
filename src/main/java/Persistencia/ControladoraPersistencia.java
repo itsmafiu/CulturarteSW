@@ -17,6 +17,7 @@ public class ControladoraPersistencia {
 
     UsuarioJpaController usuJPA = new UsuarioJpaController();
     private CategoriaJpaController catJPA = new CategoriaJpaController();
+    
 
     public Usuario buscarUsuario(String nick) {
         return usuJPA.findUsuario(nick);
@@ -203,4 +204,9 @@ public class ControladoraPersistencia {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public List<Aporte> getAportes(){
+        return aporteJPA.findAporteEntities();
+    }
+    
 }
