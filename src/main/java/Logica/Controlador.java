@@ -597,7 +597,7 @@ public class Controlador implements IControlador{
 
         //persistencia
         Propuesta p = cp.getPropuesta(titulo);
-        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
+        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
     }
     
     @Override
@@ -616,7 +616,7 @@ public class Controlador implements IControlador{
         DataPropuesta DP = null;
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria(), p.getAportes());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
                 return DP;
             }
         }

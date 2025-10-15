@@ -53,15 +53,7 @@ public class SvInfoPropuesta extends HttpServlet {
             a.getColaborador();
             DataColaborador DC = new DataColaborador(a.getColaborador().getNickname(), a.getColaborador().getNombre(), a.getColaborador().getApellido(), a.getColaborador().getEmail(), a.getColaborador().getFecNac(), a.getColaborador().getImagenWeb());
             colabs.add(DC);
-        }
-        
-       
-        String nick = (String) misesion.getAttribute("nick");
-        
-//        if(!nick.equals(null)){
-//            boolean esFavorita = ic.esFavorita(titulo, nick);
-//            misesion.setAttribute("esFavorita",esFavorita);
-//        }        
+        }        
         
         misesion.setAttribute("colabs", colabs);
         
@@ -69,7 +61,7 @@ public class SvInfoPropuesta extends HttpServlet {
         
         response.sendRedirect("infoPropuesta.jsp");
     }
-
+ 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

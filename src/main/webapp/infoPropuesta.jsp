@@ -10,6 +10,7 @@
 <%@page import="Logica.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="Logica.DataPropuesta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -30,8 +31,14 @@
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
 
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
-
-            long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            
+           long diasRestantes;
+            
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
 
             int colabs = p.getMisAportes().size();
 
@@ -155,26 +162,21 @@
                             %> 
                         </c:otherwise>
                             
-                    </c:choose>
-
-                                
-                    <!--
-                    <%
-                        //request.getSession().setAttribute("titulo", p.getTitulo());
-
-                        //boolean esFavorita = (boolean) request.getSession().getAttribute("esFavorita");
-                    %>
-
+                    </c:choose>                                          
+               
                     <c:choose>
                         <c:when test="${not empty nick}">
-                            <form action="SvFavorita" method="POST">
+                            
+                            <form action="SvFavorita" method="POST">                                                                        
                                 <button type="submit" class="btn">
-                                    Favorita
+                                    <a href="SvFavorita" class="btn btn-warning">
+                                        Favorita
+                                    </a>
                                 </button>
                             </form>
                         </c:when>
                     </c:choose>
-                    -->
+                    
 
                 </div>
             </div>
