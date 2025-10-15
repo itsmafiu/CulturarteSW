@@ -4,7 +4,7 @@
 <header class="bg-dark-subtle">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid align-items-center">
-            <a class="navbar-brand btn text-primary fs-4" href="SvCargaProp">Culturarte</a>
+            <a class="navbar-brand btn text-primary fw-bold fs-4" href="SvCargaProp">Culturarte</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <c:choose>
                     <c:when test="${tipoUsuario == 'prop'}">

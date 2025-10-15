@@ -25,11 +25,11 @@ public class Propuesta implements Serializable {
     private String descrip;
     private String imagen = "";
     private String lugar;
-    private LocalDate fecha;
+    private LocalDate fecha;//Fecha de publicación
     private double montoEntrada;
     private double montoNecesaria;
     private double montoAlcanzada = 0;
-    private LocalDate fechaPubli;
+    private LocalDate fechaPubli;//Fecha de realización de la propuesta
     private LocalDateTime fechaLimit;
     private EnumRetorno posibleRetorno;
     @OneToOne
@@ -40,7 +40,7 @@ public class Propuesta implements Serializable {
     private List<Aporte> misAportes = new ArrayList<>();
     @OneToMany//(mappedBy = "propuesta")
     @JoinTable(name = "ListaEstados", joinColumns = @JoinColumn(name = "tituloPropuesta"), inverseJoinColumns = @JoinColumn(name = "numeracionEstado"))
-    public List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
+    private List<Estado> misEstados = new ArrayList<>();//A CAMBIAR
     @ManyToOne
     private Proponente miProponente;
     @ManyToOne

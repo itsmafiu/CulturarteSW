@@ -93,6 +93,15 @@ public class Colaborador extends Usuario {
         }
         return null;
     }
+    
+    public Aporte getAporteXtitulo(String titulo) {
+        for (Aporte a : misAportes) {
+            if (a.getTituloMiPropuesta().equals(titulo)) {
+                return a;
+            }
+        }
+        return null;
+    }
 
     public Aporte borrarAporte(String tituloNick) {
         for (Aporte a : misAportes) {
