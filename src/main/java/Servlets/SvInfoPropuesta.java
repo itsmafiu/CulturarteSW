@@ -7,6 +7,7 @@ package Servlets;
 import Logica.Aporte;
 import Logica.Colaborador;
 import Logica.DataColaborador;
+import Logica.DataComentario;
 import Logica.DataPropuesta;
 import Logica.Fabrica;
 import Logica.IControlador;
@@ -53,23 +54,26 @@ public class SvInfoPropuesta extends HttpServlet {
             a.getColaborador();
             DataColaborador DC = new DataColaborador(a.getColaborador().getNickname(), a.getColaborador().getNombre(), a.getColaborador().getApellido(), a.getColaborador().getEmail(), a.getColaborador().getFecNac(), a.getColaborador().getImagenWeb());
             colabs.add(DC);
-        }
+        } 
         
-       
-        String nick = (String) misesion.getAttribute("nick");
+        List<DataComentario> DCs = ic.getDataComentarios(titulo);
         
-//        if(!nick.equals(null)){
-//            boolean esFavorita = ic.esFavorita(titulo, nick);
-//            misesion.setAttribute("esFavorita",esFavorita);
-//        }        
+        misesion.setAttribute("DCs", DCs);
         
         misesion.setAttribute("colabs", colabs);
         
         misesion.setAttribute("p", DP);
         
+        String nick = (String) misesion.getAttribute("nick");
+        if(nick!=null){
+            Boolean esFavorita = (Boolean) ic.esFavorita(titulo, nick);
+            misesion.setAttribute("esFavorita", esFavorita);
+            System.out.println(esFavorita.booleanValue());
+        }
+        
         response.sendRedirect("infoPropuesta.jsp");
     }
-
+ 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

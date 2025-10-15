@@ -597,7 +597,7 @@ public class Controlador implements IControlador{
 
         //persistencia
         Propuesta p = cp.getPropuesta(titulo);
-        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
+        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
     }
     
     @Override
@@ -616,7 +616,7 @@ public class Controlador implements IControlador{
         DataPropuesta DP = null;
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria(), p.getAportes());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
                 return DP;
             }
         }
@@ -1015,7 +1015,7 @@ public class Controlador implements IControlador{
     @Override
     public void addComentario(String titulo, String nick, String comentario){
         Colaborador c = cp.buscarColaborador(nick);
-        Aporte a = c.getAporte(titulo);
+        Aporte a = c.getAporteXtitulo(titulo);
         a.setComentario(comentario);
         a.setFecComentario(LocalDateTime.now());
         cp.editarAporte(a);
@@ -1025,8 +1025,8 @@ public class Controlador implements IControlador{
     @Override
     public DataComentario getDataComentario(String titulo, String nick){
         Colaborador c = cp.buscarColaborador(nick);
-        List<Aporte> aps = cp.getAportes();
-        Aporte a = c.getAporte(titulo);
+        //List<Aporte> aps = cp.getAportes();
+        Aporte a = c.getAporteXtitulo(titulo);
                     
         return new DataComentario(a.getComentario(),a.getFecComentario(),nick,titulo);               
     }  
@@ -1037,7 +1037,9 @@ public class Controlador implements IControlador{
         List<DataComentario> lista = new ArrayList();
         for(Aporte a : propu.getAportes()){
             DataComentario dc = this.getDataComentario(titulo, a.getNicknameMiColaborador());
-            lista.add(dc);
+            if (!(dc.getComentario()==null)){
+            lista.add(dc);    
+            }            
         }
         return lista;
     }

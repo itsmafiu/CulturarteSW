@@ -32,36 +32,22 @@ public class SvFavorita extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        String nick = (String) session.getAttribute("nick");
-        String titulo = (String) session.getAttribute("titulo");
-
-        boolean esFavorita = ic.esFavorita(titulo,nick);
-        //ic.cambiarFavorita(titulo, nick);
-        
-        session.setAttribute("esFavorita", esFavorita);
-
-        response.sendRedirect("infoPropuesta.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        String nickUsuario = (String) session.getAttribute("nick");
-        String titulo = (String) session.getAttribute("titulo");
+        HttpSession session = request.getSession(false);
+        String nick = (String) session.getAttribute("nick");
+        String titulo = request.getParameter("titulo");
 
-        boolean esFavorita= false;
+        boolean esFavorita;//ic.esFavorita(titulo, nick);
+        //System.out.println("titulo: "+titulo);
+        //System.out.println("nick: "+nick);
         
-        esFavorita = ic.cambiarFavorita(titulo, nickUsuario);
-        
-        //esFavorita = ic.esFavorita(titulo, nickUsuario);
-//        if(n == 1){
-//            esFavorita = true;
-//        } 
-        
+        esFavorita = ic.cambiarFavorita(titulo, nick);
+                
         session.setAttribute("esFavorita", esFavorita);
 
         response.sendRedirect("infoPropuesta.jsp");

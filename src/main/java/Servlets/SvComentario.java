@@ -36,24 +36,26 @@ public class SvComentario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession sesion = request.getSession();
-        String titulo = (String) sesion.getAttribute("titulo");
-        
-        List<DataComentario> DCs = ic.getDataComentarios(titulo);
-        
-        sesion.setAttribute("DCs", DCs);
-        
-        response.sendRedirect("infoPropuesta.jsp");        
+//        HttpSession sesion = request.getSession();
+//        String titulo = (String) sesion.getAttribute("titulo");
+//        
+//        List<DataComentario> DCs = ic.getDataComentarios(titulo);
+//        
+//        sesion.setAttribute("DCs", DCs);
+//        
+//        response.sendRedirect("infoPropuesta.jsp");        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession sesion = request.getSession();
-        String titulo = (String) sesion.getAttribute("titulo");
-        String nick = (String) sesion.getAttribute("nick");
-        String comentario = (String) request.getAttribute("comentario");
-        
+        String titulo = (String) request.getParameter("titulo");
+        String nick = (String) request.getParameter("nick");
+        String comentario = (String) request.getParameter("comentario");
+        //System.out.println(titulo);
+        //System.out.println(nick);
+        //System.out.println(comentario);
         ic.addComentario(titulo, nick, comentario);
         response.sendRedirect("infoPropuesta.jsp");        
     }
