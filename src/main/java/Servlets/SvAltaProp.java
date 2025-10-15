@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import Logica.DataCategoria;
 import Logica.EnumRetorno;
 import Logica.Fabrica;
 import Logica.IControlador;
@@ -13,6 +14,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,7 +47,14 @@ public class SvAltaProp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+         ic = Fabrica.getInstancia().getIControlador();
         
+        List<DataCategoria> listaCategorias = ic.cargarCategoriasWeb();
+        
+        HttpSession misesion = request.getSession();
+        misesion.setAttribute("DtC", listaCategorias);
+        
+        response.sendRedirect("altaPropuesta.jsp");
     }
 
 
@@ -59,10 +68,7 @@ public class SvAltaProp extends HttpServlet {
         HttpSession misesion = request.getSession();
         
         String proponente = (String) misesion.getAttribute("nick");
-        String categoria = request.getParameter("categoria"); //de momento vacio
-        
-        categoria = "Musica";
-        
+        String categoria = request.getParameter("categoriaSeleccionada");
         String titulo = request.getParameter("titulo");
         String descripcion = request.getParameter("descripcion");
         String lugar = request.getParameter("lugar");

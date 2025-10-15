@@ -750,6 +750,24 @@ public class Controlador implements IControlador{
         
     }
     
+    public List<DataCategoria> cargarCategoriasWeb(){
+        List<Categoria> todas = cp.listarCategorias();
+        List<DataCategoria> ListaDataCat= new ArrayList<>();
+        String padreDefault = null;
+        for (Categoria cat : todas){
+            String padre;
+            if(cat.getPadre()!= null){
+                padre = cat.getPadre().getNombre();
+            }else{
+                padre = padreDefault;
+            }
+            DataCategoria data = new DataCategoria(cat.getNombre(),padre);
+            ListaDataCat.add(data);
+        }
+
+        return ListaDataCat; 
+    }
+    
     
     @Override
     public List<String> getEstados(){
