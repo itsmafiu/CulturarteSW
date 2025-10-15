@@ -32,24 +32,19 @@ public class SvFavorita extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession misesion = request.getSession();
-        String nick = (String) misesion.getAttribute("nick");
-        String titulo = (String) misesion.getAttribute("titulo");
-        
-        boolean esFavorita = ic.esFavorita(titulo, nick);
-        misesion.setAttribute("esFavorita", esFavorita);
-        response.sendRedirect("infoPropuesta.jsp");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+        HttpSession session = request.getSession(false);
         String nick = (String) session.getAttribute("nick");
-        String titulo = (String) session.getAttribute("titulo");
+        String titulo = request.getParameter("titulo");
 
-        boolean esFavorita = ic.esFavorita(titulo, nick);
+        boolean esFavorita;//ic.esFavorita(titulo, nick);
+        //System.out.println("titulo: "+titulo);
+        //System.out.println("nick: "+nick);
         
         esFavorita = ic.cambiarFavorita(titulo, nick);
                 

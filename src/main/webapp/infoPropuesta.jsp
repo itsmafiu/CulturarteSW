@@ -163,20 +163,32 @@
                         </c:otherwise>
                             
                     </c:choose>                                          
-               
+
                     <c:choose>
                         <c:when test="${not empty nick}">
-                            
-                            <form action="SvFavorita" method="POST">                                                                        
-                                <button type="submit" class="btn">
-                                    <a href="SvFavorita" class="btn btn-warning">
-                                        Favorita
-                                    </a>
+                            <form action="SvFavorita" method="POST">
+                                <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
+                                <%
+                                    Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                                    if (esFavorita != null && esFavorita) {
+                                %>
+                                <button type="submit" class="btn btn-warning fw-bold text-light">
+                                    Favorita
                                 </button>
+                                <%
+                                } else {
+                                %>
+                                <button type="submit" class="btn btn-outline-warning fw-bold">
+                                    Favorita
+                                </button>
+                                <%
+                                    }
+                                %>
                             </form>
                         </c:when>
                     </c:choose>
-                    
+
+
 
                 </div>
             </div>
@@ -225,28 +237,59 @@
        <%}%>
         </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
-        <div class="m-1">
-            <p class="mx-3">Comentarios</p>
-            <ul class="list-group list-group-flush">
-                <c:choose>
-                    <c:when test="${not empty nick}">
+      <div class="m-1">
+          <p class="mx-3">Comentarios</p>
+          <ul class="list-group list-group-flush">
+              <% List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs"); %>
+              <c:choose>
+                  <c:when test="${not empty nick}">
+                      <%
+                          String nick = (String) request.getSession().getAttribute("nick");
+                          boolean esColab = false;
+                          boolean hizoComent = false;
+                          if (!(colab.isEmpty())) {
+                              for (DataColaborador c : colab) {
+                                  if (c.getNickname().equals(nick)) {
+                                      esColab = true;
+                                  }
+                              }
+                          }
+                          
+                          if (!(DCs.isEmpty())) {
+                              for (DataComentario dc : DCs) {
+                                  if (dc.getNickColaborador().equals(nick)) {
+                                        hizoComent = true;
+                                    }
+                                }
+                            }
+                            if (esColab && !hizoComent) {%>
                         <li class="list-group-item">
                             <form action="SvComentario" class="needs-validation" method="POST">
-                                <input type="text" class="form-control" id="comentario" name="comentario" required>
-                                <div class="invalid-feedback">Ingrese un comentario.</div>
+                                <div class="row">
+                                    <div class="col-6">
+                                    <input type="text" class="form-control" id="comentario" name="comentario" required>
+                                    <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
+                                    <input type="hidden" class="form-control" name="titulo" value="<%=URLEncoder.encode(p.getTitulo(),"UTF-8")%>" required>
+                                    <div class="invalid-feedback">Ingrese un comentario.</div>
+                                    </div>
+                                    <div class="col-1">
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    </div>
+                                </div>
                             </form>
                         </li>
+                        <%}%>
                     </c:when>
                 </c:choose>
 
                 <%
-                    List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs");
-                    if (DCs != null) {
+                    
+                   
+                    if (!(DCs.isEmpty())) {
                         for (DataComentario dc : DCs) {
                 %>
                 <li class="list-group-item">
-                    <img src="https://github.com/twbs.png" alt="" width="32" height="32" class="rounded-circle flex-shrink-0"> 
-                    <div class="d-flex gap-2 w-100 justify-content-between">
+                    <div class="justify-content-between border border-secondary p-2 rounded">
                         <div> 
                             <h6 class="mb-0"><%=dc.getNickColaborador()%></h6>
                             <p class="mb-0 opacity-75"><%=dc.getComentario()%></p>
@@ -254,8 +297,19 @@
                         <small class="opacity-50 text-nowrap"><%=dc.getFecComentario().toString()%></small> 
                     </div>
                 </li>     
-                <%}
-                    }%>
+                <%}}else{%>
+                
+                <li class="list-group-item">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div> 
+                            <p class="mb-0 opacity-75">Porpuesta aún sin comentarios.</p>
+                        </div>
+                        <small class="opacity-50 text-nowrap"></small> 
+                    </div>
+                </li> 
+
+                   
+                <%}%>
             </ul>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      

@@ -997,7 +997,7 @@ public class Controlador implements IControlador{
     @Override
     public void addComentario(String titulo, String nick, String comentario){
         Colaborador c = cp.buscarColaborador(nick);
-        Aporte a = c.getAporte(titulo);
+        Aporte a = c.getAporteXtitulo(titulo);
         a.setComentario(comentario);
         a.setFecComentario(LocalDateTime.now());
         cp.editarAporte(a);
@@ -1007,8 +1007,8 @@ public class Controlador implements IControlador{
     @Override
     public DataComentario getDataComentario(String titulo, String nick){
         Colaborador c = cp.buscarColaborador(nick);
-        List<Aporte> aps = cp.getAportes();
-        Aporte a = c.getAporte(titulo);
+        //List<Aporte> aps = cp.getAportes();
+        Aporte a = c.getAporteXtitulo(titulo);
                     
         return new DataComentario(a.getComentario(),a.getFecComentario(),nick,titulo);               
     }  
@@ -1019,7 +1019,9 @@ public class Controlador implements IControlador{
         List<DataComentario> lista = new ArrayList();
         for(Aporte a : propu.getAportes()){
             DataComentario dc = this.getDataComentario(titulo, a.getNicknameMiColaborador());
-            lista.add(dc);
+            if (!(dc.getComentario()==null)){
+            lista.add(dc);    
+            }            
         }
         return lista;
     }
