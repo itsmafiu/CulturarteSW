@@ -9,7 +9,7 @@
                 <c:choose>
                     <c:when test="${tipoUsuario == 'prop'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
+                            <a class="nav-link" href="SvAltaProp">Alta Propuesta</a>
                         </li>
                     </c:when>
                         <c:otherwise>

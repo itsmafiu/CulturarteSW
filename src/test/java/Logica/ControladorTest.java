@@ -66,20 +66,21 @@ public class ControladorTest {
     
 //    @org.junit.jupiter.api.Test
 //    public void testAñadirUsuario_7args() {
-//        System.out.println("a\u00f1adirUsuario");
-//        String nick = "";
-//        String nombre = "";
-//        String apellido = "";
-//        String correo = "";
+//        //System.out.println("a\u00f1adirUsuario");
+//        String nick = "esteclaramentenoesta";
+//        String nombre = "nahuel";
+//        String apellido = "machado";
+//        String correo = "esteclaramentenoesta@gmail.com";
 //        LocalDate fecNac = null;
 //        String imagen = "";
-//        String contraseña = "";
+//        String contraseña = "1234";
+//        String imagenWeb = "";
 //        Controlador instance = new Controlador();
-//        int expResult = 0;
-//        int result = instance.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña);
+//        int expResult = 1;
+//        int result = instance.añadirUsuario(nick, nombre, apellido, correo, fecNac, imagen, contraseña, imagenWeb);
 //        assertEquals(expResult, result);
 //        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+//       // fail("The test case is a prototype.");
 //    }
 //
 //    /**
