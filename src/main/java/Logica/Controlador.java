@@ -625,6 +625,12 @@ public class Controlador implements IControlador{
     }
     
     @Override
+    public DataPropuestaSimple getDataPropuestaSimple(String titulo){
+        Propuesta p = cp.getPropuesta(titulo);        
+        return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar());
+    }
+    
+    @Override
     public List<DataPropuesta> getPropuestasPorCategoria(String Categoria){
         Categoria cat = cp.findCategoria(Categoria);
         List<DataPropuesta> ListaPropuestasCat = new ArrayList<>();

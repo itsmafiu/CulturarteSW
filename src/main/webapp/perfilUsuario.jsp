@@ -49,7 +49,7 @@
         
     <!-- Datos del usuario -->
     <div class="d-flex align-items-center">
-        <img src="<%= imagenUserPerfil %>" alt="Foto de Perfil" class="card-img-top" style="max-height:400px; max-width:400px;">
+        <img src="<%= imagenUserPerfil %>" alt="Foto de Perfil" class="card-img-top mb-2" style="max-height:400px; max-width:400px;">
         <div class="p-2">                    </div>
         <div>
             <h3><%=usuario.getTipo()%></h3>
@@ -82,7 +82,7 @@
     </button>
     <div class="collapse mb-4" id="collapseSeguidores">
         <h3>Seguidores</h3>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="listaSeguidoresRow">
             <%
                 List<DataUsuario> seguidores = usuario.getMeSiguen();
                 if (seguidores != null && !seguidores.isEmpty()) {
@@ -94,19 +94,21 @@
                         imagenSeguidor = u.getImagen();
                     }
             %>
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= u.getNickname() %></h5>
-                                    <p class="card-text"><%= u.getTipo() %></p>
-                                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
-                                </div>
-                            </div>
-                        </div>
+          
+            <div class="col-md-6 col-lg-3">
+                <div class="card" style="width: 18rem;">                                    
+                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" >
+                        <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><%= u.getNickname() %></h5>
+                        <p class="card-text text-center"><%= u.getTipo() %></p>
+                    </div>
+                </div>
+            </div>
             <%      }
                 } else { %>
-                    <p>No tiene seguidores aún.</p>
+                <p><b>No tiene seguidores aún.</b></p>
             <% } %>
         </div>
     </div>
@@ -133,19 +135,21 @@
                         imagenSeguidos = u.getImagen();
                     }
             %>
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="<%= imagenSeguidos %>" alt="Foto de Perfil" class="card-img-top" style="max-height:200px;">
-                                <div class="card-body">
-                                    <h5 class="card-title"><%= u.getNickname() %></h5>
-                                    <p class="card-text"><%= u.getTipo() %></p>
-                                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
-                                </div>
-                            </div>
-                        </div>
+                    
+            <div class="col-md-6 col-lg-3">
+               <div class="card" style="width: 18rem;">
+                    <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" >
+                        <img src="<%= imagenSeguidos %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title text-center"><%= u.getNickname() %></h5>
+                        <p class="card-text text-center"><%= u.getTipo() %></p>
+                    </div>
+                </div>
+            </div>
             <%      }
                 } else { %>
-                    <p>No sigue a ningún usuario aún.</p>
+                <p><b>No sigue a ningún usuario aún.</b></p>
             <% } %>
         </div>
     </div>
@@ -295,8 +299,8 @@
 </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
         <script>
-            $(document).ready(function() { 
-                const boton = document.getElementById("botonSeguir"); 
+            $(document).ready(function() {     
+        const boton = document.getElementById("botonSeguir"); 
                 const loSigo = <%= loSigo%>;
                 
                 if(loSigo){ 

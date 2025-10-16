@@ -11,13 +11,15 @@
     <body>
         <%@ include file="header.jsp" %>
         
-        <h1>Consulta de Usuarios</h1>
-        
          <% 
         
         List<DataUsuario> DtU = (List) request.getSession().getAttribute("DtU");
-         
+        int tamanio = DtU.size();
         %>
+        
+        <div class="container my-4">
+            <h2>Explora entre <%=tamanio%> Usuarios :</h2>
+        </div>
         
         <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -33,17 +35,21 @@
         }
         %>
         
-        <div class="col">
-          <div class="card h-100">
-            <img src="<%=imagen%>" alt="Foto de Perfil" width="300" style="max-height: 202px">
-            <div class="card-body">
-              <h5 class="card-title"><%= usu.getNickname()%></h5>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+          <div class="card" style="width: 18rem;">
+            <a href="SvPerfilUsuario?nickTarjeta=<%= usu.getNickname() %>&tipoTarjeta=<%= usu.getTipo() %>" >
+            <img src="<%=imagen%>" alt="Foto de Perfil" style=" width: 100% ; height: 200px; align-items: center">
+            </a>
+            <div class="card-body" style="max-height: 300px; overflow: hidden;">
+              <h5 class="card-title text-center"><%= usu.getNickname()%></h5>
               <p class="text-muted"><%= usu.getTipo()%></p>
               <p class="card-text"><%= usu.getNombre() + " " + usu.getApellido()%></p>
               <% if (usu.getTipo().equals("Proponente")){ %>
-              <p class="card-text"><%= usu.getBiografia() %></p>
-              <% }  %> 
-              <a href="SvPerfilUsuario?nickTarjeta=<%= usu.getNickname() %>&tipoTarjeta=<%= usu.getTipo() %>" class="btn btn-primary">Ver Perfil</a>
+              <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 4 ; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
+                  <%= usu.getBiografia() %></p>
+              <% }else{  %> 
+                <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 4 ; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;"></p>
+              <% } %>
             </div>
               
           </div>
