@@ -4,10 +4,13 @@
  */
 package Servlets;
 
+import Logica.DataComentario;
 import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
-import java.net.URLEncoder;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,42 +22,42 @@ import javax.servlet.http.HttpSession;
  *
  * @author Luiano
  */
-@WebServlet(name = "SvFavorita", urlPatterns = {"/SvFavorita"})
-public class SvFavorita extends HttpServlet {
+@WebServlet(name = "SvComentario", urlPatterns = {"/SvComentario"})
+public class SvComentario extends HttpServlet {
 
-    private final IControlador ic = Fabrica.getInstancia().getIControlador();
+    IControlador ic = Fabrica.getInstancia().getIControlador();
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+//        HttpSession sesion = request.getSession();
+//        String titulo = (String) sesion.getAttribute("titulo");
+//        
+//        List<DataComentario> DCs = ic.getDataComentarios(titulo);
+//        
+//        sesion.setAttribute("DCs", DCs);
+//        
+//        response.sendRedirect("infoPropuesta.jsp");        
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        
-        HttpSession session = request.getSession();
-        String nick = (String) session.getAttribute("nick");
-        String titulo = request.getParameter("titulo");
-
-        boolean esFavorita;
-        System.out.println("titulo: "+titulo);
-        System.out.println("nick: "+nick);
-        
-        esFavorita = ic.cambiarFavorita(titulo, nick);
-                
-        session.setAttribute("esFavorita", esFavorita);
-
-        response.sendRedirect("infoPropuesta.jsp");
-        
+        HttpSession sesion = request.getSession();
+        String titulo = (String) request.getParameter("titulo");
+        String nick = (String) request.getParameter("nick");
+        String comentario = (String) request.getParameter("comentario");
+        //System.out.println(titulo);
+        //System.out.println(nick);
+        //System.out.println(comentario);
+        ic.addComentario(titulo, nick, comentario);
+        response.sendRedirect("infoPropuesta.jsp");        
     }
 
     @Override

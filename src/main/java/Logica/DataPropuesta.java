@@ -5,6 +5,7 @@
 package Logica;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,14 @@ public class DataPropuesta {
     double $necesaria;
     double $alcanzada;
     LocalDate fechaPubli;
+    LocalDateTime fechaLimit; 
     EnumRetorno posibleRetorno;
     String categoria;
     String nickProponenteDe;
     private List<Aporte> misAportes = new ArrayList<>();
     
     
-    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada, LocalDate fechaP, EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
         this.$alcanzada = alcanzada;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -41,11 +43,13 @@ public class DataPropuesta {
         this.$entrada = entrada;
         this.$necesaria = necesaria;
         this.fechaPubli = fechaP;
+        this.fechaLimit = fechaL;
         this.posibleRetorno = retorno;
         this.categoria = categoria;
         this.misAportes = misAportes;
         this.nickProponenteDe = p.getNickname();
     }
+    
     public DataPropuesta(double alcanzada, String titulo, Estado estadoActual, String lugar){
         this.$alcanzada = alcanzada;
         this.titulo = titulo;
@@ -129,5 +133,14 @@ public class DataPropuesta {
         this.fechaPubli = fechaPubli;
     }
 
+    public LocalDateTime getFechaLimit() {
+        return fechaLimit;
+    }
+
+    public void setFechaLimit(LocalDateTime fechaLimit) {
+        this.fechaLimit = fechaLimit;
+    }
+
+    
    
 }

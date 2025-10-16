@@ -4,10 +4,13 @@
     Author     : nahud
 --%>
 
+<%@page import="Logica.EnumEstado"%>
+<%@page import="Logica.DataComentario"%>
 <%@page import="java.util.List"%>
 <%@page import="Logica.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="Logica.DataPropuesta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -28,8 +31,14 @@
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
 
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
-
-            long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            
+           long diasRestantes;
+            
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
 
             int colabs = p.getMisAportes().size();
 
@@ -54,7 +63,7 @@
             } else if (estado == "FINANCIADA") {
                 estado = "Financiada";
             }
-            
+
             List<DataColaborador> colab = (List<DataColaborador>) request.getSession().getAttribute("colabs");
         %>
 
@@ -118,41 +127,81 @@
                                 Contribuir con esta propuesta
                             </a>
                         </c:when>
-
+                            
                         <c:otherwise>
+                            <%
+                                String nickUsuario = (String) request.getSession().getAttribute("nick");
+                                if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado()==EnumEstado.PUBLICADA || p.getEstadoActual().getEstado()==EnumEstado.EN_FINANCIACION)) {
+                            %> 
+                            <div class="row align-items-center text-center">
+                                <div class="col bg-primary rounded">
+                                    <form action="SvExtenderFinanciacion" method="POST">
+                                        <button type="submit" class="btn btn-primary">
+                                            Extender Financiación
+                                        </button>
+                                    </form>
+                                </div>
+                            <%
+                                }else if (p.getEstadoActual().getEstado()==EnumEstado.FINANCIADA){
+                            %> 
+                                <div class="col bg-danger rounded">
+                                    <form  action="SvCancelarPropuesta" method="POST">
+                                        <button type="submit" class="btn btn-danger">
+                                            Cancelar Propuesta
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <%
+                                }else{
+                            %>    
                             <p class="text-center text-secondary-subtle">Solo los colaboradores tienen permitido colaborar</p>
+                            <%
+                                }
+                            %> 
                         </c:otherwise>
-
-                    </c:choose>
-                    <%
-                        request.getSession().setAttribute("titulo", p.getTitulo());
-                       
-                        Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
-                        
-                        if (esFavorita == null) {
-                            esFavorita = false;
-                        }
-                    %>
+                            
+                    </c:choose>                                          
 
                     <c:choose>
                         <c:when test="${not empty nick}">
+                            
                             <form action="SvFavorita" method="POST">
-                                <button type="submit" class="btn <%= esFavorita ? "btn-primary" : "btn-secondary"%>">
+                                <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
+                                <%
+                                    Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                                    System.out.println(esFavorita);
+                                    if (esFavorita != null && esFavorita) {
+                                %>
+                                <button type="submit" class="btn btn-warning fw-bold text-light">
                                     Favorita
                                 </button>
+                                <%
+                                } else {
+                                %>
+                                <button type="submit" class="btn btn-outline-warning fw-bold">
+                                    Favorita
+                                </button>
+                                <%
+                                    }
+                                %>
                             </form>
                         </c:when>
                     </c:choose>
+
+
+
                 </div>
             </div>
         </div>
         <div class="container my-4">
         <div class="mt-3">                
-        <button class="btn btn-outline-primary mb-2" type="button"
-                data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
-                aria-expanded="false" aria-controls="collapseColaboradores">
-            Mostrar/Ocultar Colaboradores
-        </button>
+            <button class="btn btn-outline-primary mb-2" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
+                    aria-expanded="false" aria-controls="collapseColaboradores">
+                Mostrar/Ocultar Colaboradores
+            </button>
         </div>
           
         
@@ -160,7 +209,7 @@
            
         <div class="collapse mb-4" id="collapseColaboradores">
             <div class="my-4">
-            <h3>Colaboradores</h3>
+                <h3>Colaboradores</h3>
             </div>
             <%if(!(colab.isEmpty())){ %>
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -190,5 +239,81 @@
        <%}%>
         </div>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
+      <div class="m-1">
+          <p class="mx-3">Comentarios</p>
+          <ul class="list-group list-group-flush">
+              <% List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs"); %>
+              <c:choose>
+                  <c:when test="${not empty nick}">
+                      <%
+                          String nick = (String) request.getSession().getAttribute("nick");
+                          boolean esColab = false;
+                          boolean hizoComent = false;
+                          if (!(colab.isEmpty())) {
+                              for (DataColaborador c : colab) {
+                                  if (c.getNickname().equals(nick)) {
+                                      esColab = true;
+                                  }
+                              }
+                          }
+                          
+                          if (!(DCs.isEmpty())) {
+                              for (DataComentario dc : DCs) {
+                                  if (dc.getNickColaborador().equals(nick)) {
+                                        hizoComent = true;
+                                    }
+                                }
+                            }
+                            if (esColab && !hizoComent) {%>
+                        <li class="list-group-item">
+                            <form action="SvComentario" class="needs-validation" method="POST">
+                                <div class="row">
+                                    <div class="col-6">
+                                    <input type="text" class="form-control" id="comentario" name="comentario" required>
+                                    <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
+                                    <input type="hidden" class="form-control" name="titulo" value="<%=URLEncoder.encode(p.getTitulo(),"UTF-8")%>" required>
+                                    <div class="invalid-feedback">Ingrese un comentario.</div>
+                                    </div>
+                                    <div class="col-1">
+                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </li>
+                        <%}%>
+                    </c:when>
+                </c:choose>
+
+                <%
+                    
+                   
+                    if (!(DCs.isEmpty())) {
+                        for (DataComentario dc : DCs) {
+                %>
+                <li class="list-group-item">
+                    <div class="justify-content-between border border-secondary p-2 rounded">
+                        <div> 
+                            <h6 class="mb-0"><%=dc.getNickColaborador()%></h6>
+                            <p class="mb-0 opacity-75"><%=dc.getComentario()%></p>
+                        </div>
+                        <small class="opacity-50 text-nowrap"><%=dc.getFecComentario().toString()%></small> 
+                    </div>
+                </li>     
+                <%}}else{%>
+                
+                <li class="list-group-item">
+                    <div class="d-flex gap-2 w-100 justify-content-between">
+                        <div> 
+                            <p class="mb-0 opacity-75">Porpuesta aún sin comentarios.</p>
+                        </div>
+                        <small class="opacity-50 text-nowrap"></small> 
+                    </div>
+                </li> 
+
+                   
+                <%}%>
+            </ul>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
     </body>
 </html>

@@ -233,9 +233,9 @@ public class Controlador implements IControlador{
                 break;        
             }
         }                
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
-        }        
+        //if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+        //    return -2;//ERROR: Aporte superior a lo permitido - ESTO HAY QUE SACARLO el monto puede ser infinito, esto no es error
+        //}        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -254,23 +254,12 @@ public class Controlador implements IControlador{
     public int altaAporte(String strmiColaborador, String strmiPropuesta,  double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp){
         Propuesta miPropuesta = null;
         Colaborador miColaborador = null;                
-        for (Colaborador c : cp.getColaboradores()){
-            if(c.getNickname().equals(strmiColaborador)){
-                miColaborador = c;
-                break;
-            }
-        }  
-        for (Propuesta p : cp.getListaPropuestas()) {
-            if (p.getTitulo().equals(strmiPropuesta)) {
-                miPropuesta = p;
-                break;        
-            }
-        }            
+        miColaborador = cp.buscarColaborador(strmiColaborador);
         miPropuesta = cp.getPropuesta(strmiPropuesta);
         
-        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
-            return -2;//ERROR: Aporte superior a lo permitido
-        }        
+//        if($aporte > miPropuesta.getmontoNecesaria() || $aporte > miPropuesta.getmontoNecesaria()-miPropuesta.getmontoAlcanzada()){
+//            return -2;//ERROR: Aporte superior a lo permitido
+//        }        
         if (miColaborador.createAporte(miPropuesta.getTitulo(), $aporte, cantidad, retorno) == null) {
             return -3;  //Error: El usuario ya colabora con la Propuesta
         }         
@@ -608,7 +597,7 @@ public class Controlador implements IControlador{
 
         //persistencia
         Propuesta p = cp.getPropuesta(titulo);
-        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(), p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
+        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
     }
     
     @Override
@@ -627,12 +616,18 @@ public class Controlador implements IControlador{
         DataPropuesta DP = null;
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(), p.getRetorno(), p.getCategoria(), p.getAportes());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
                 return DP;
             }
         }
         return DP;
         
+    }
+    
+    @Override
+    public DataPropuestaSimple getDataPropuestaSimple(String titulo){
+        Propuesta p = cp.getPropuesta(titulo);        
+        return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar());
     }
     
     @Override
@@ -761,6 +756,24 @@ public class Controlador implements IControlador{
         
     }
     
+    public List<DataCategoria> cargarCategoriasWeb(){
+        List<Categoria> todas = cp.listarCategorias();
+        List<DataCategoria> ListaDataCat= new ArrayList<>();
+        String padreDefault = null;
+        for (Categoria cat : todas){
+            String padre;
+            if(cat.getPadre()!= null){
+                padre = cat.getPadre().getNombre();
+            }else{
+                padre = padreDefault;
+            }
+            DataCategoria data = new DataCategoria(cat.getNombre(),padre);
+            ListaDataCat.add(data);
+        }
+
+        return ListaDataCat; 
+    }
+    
     
     @Override
     public List<String> getEstados(){
@@ -769,31 +782,6 @@ public class Controlador implements IControlador{
         listaEstados.add(e.name());
     }
     return listaEstados;
-    }
-    
-    @Override
-    public List<String> getPropXEstado(String estado){
-//        List<String> listaPropuestas = new ArrayList<>();
-//        String aux;
-//        for(Propuesta p : misPropuestas){
-//            aux = p.getTitulo();
-//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-//                listaPropuestas.add(aux);
-//            }
-//        }
-//        return listaPropuestas;
-        
-        //PERSISTENCIA
-        
-        List<String> listaPropuestas = new ArrayList<>();
-        String aux;
-        for(Propuesta p : cp.getListaPropuestas()){
-            aux = p.getTitulo();
-            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-                listaPropuestas.add(aux);
-            }
-        }
-        return listaPropuestas;
     }
     
     @Override
@@ -848,7 +836,12 @@ public class Controlador implements IControlador{
         for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 Aporte a = c.borrarAporte(tituloNick);
-                cp.borrarAporte(a);
+                 try {
+                    cp.borrarAporte(a,a.getPropuestaP().getTitulo(),c);
+                    
+                } catch (Exception ex) {
+                    System.getLogger(Controlador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
                 break;
             }
         }
@@ -988,25 +981,76 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public int cambiarFavorita(String titulo, String nick){
+    public boolean cambiarFavorita(String titulo, String nick){
         Usuario u = cp.buscarUsuario(nick);
         Propuesta p = cp.getPropuesta(titulo);
         
-        if(u.esFavorita(p)){
+        if(!(u.esFavorita(p))){
             u.addFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
-            return 1;
+            return true;
         }else{
-            u.eliminarFavorita(p);
+            u.getMisFavoritas().removeIf(prop -> prop.getTitulo().equals(p.getTitulo()));
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
-            return 0;
+            return false;
         }
     }
     
-//    @Override
-//    public int agregarComentario(String titulo, String nick, String texto){
-//        
-//    }
+    @Override
+    public void addComentario(String titulo, String nick, String comentario){
+        Colaborador c = cp.buscarColaborador(nick);
+        Aporte a = c.getAporteXtitulo(titulo);
+        a.setComentario(comentario);
+        a.setFecComentario(LocalDateTime.now());
+        cp.editarAporte(a);
+    }
+    
+    
+    @Override
+    public DataComentario getDataComentario(String titulo, String nick){
+        Colaborador c = cp.buscarColaborador(nick);
+        //List<Aporte> aps = cp.getAportes();
+        Aporte a = c.getAporteXtitulo(titulo);
+                    
+        return new DataComentario(a.getComentario(),a.getFecComentario(),nick,titulo);               
+    }  
+    
+    @Override
+    public List<DataComentario> getDataComentarios(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        List<DataComentario> lista = new ArrayList();
+        for(Aporte a : propu.getAportes()){
+            DataComentario dc = this.getDataComentario(titulo, a.getNicknameMiColaborador());
+            if (!(dc.getComentario()==null)){
+            lista.add(dc);    
+            }            
+        }
+        return lista;
+    }
+    
+    @Override
+    public int extenderFinanciacion(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        if(propu.getEstadoActual().getEstado()==EnumEstado.EN_FINANCIACION || propu.getEstadoActual().getEstado()==EnumEstado.PUBLICADA){
+            propu.setFechaLimit(LocalDateTime.now().plusDays(30));
+            cp.modificarPropuesta(propu);
+            return 0;
+        }else{
+            return -1;
+        }
+    }
+    
+    @Override
+    public int cancelarPropuesta(String titulo){
+        Propuesta propu = cp.getPropuesta(titulo);
+        if(propu.getEstadoActual().getEstado()==EnumEstado.FINANCIADA){
+            propu.actualizarEstadoActual(EnumEstado.CANCELADA);
+            cp.modificarPropuesta(propu);
+            return 0;
+        }else{
+            return -1;
+        }
+    }
 }    

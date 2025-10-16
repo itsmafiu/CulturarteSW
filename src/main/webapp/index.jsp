@@ -13,7 +13,7 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    
+    <div class="container-fluid bg-black" style="padding: 1px"></div>
     <%
     
     List<DataPropuesta> DPcreadas = (List) request.getSession().getAttribute("propuestasCreadas");
@@ -30,7 +30,6 @@
             <footer class="blockquote-footer pt-4">Pablo Picasso</footer>
         </blockquote>
     </div>
-    <div class="container-fluid bg-black"></div>
 
    <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">

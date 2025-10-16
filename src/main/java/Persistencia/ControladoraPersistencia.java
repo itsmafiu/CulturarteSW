@@ -17,6 +17,7 @@ public class ControladoraPersistencia {
 
     UsuarioJpaController usuJPA = new UsuarioJpaController();
     private CategoriaJpaController catJPA = new CategoriaJpaController();
+    
 
     public Usuario buscarUsuario(String nick) {
         return usuJPA.findUsuario(nick);
@@ -188,13 +189,27 @@ public class ControladoraPersistencia {
         }
     }
     
-    public void borrarAporte(Aporte a) {
+    public void borrarAporte(Aporte a, String titulo, Colaborador c) throws Exception {
         try {
             aporteJPA.destroy(a.getId());
+            Propuesta p = propJPA.findPropuesta(titulo);
+            propJPA.edit(p);
+            colaJPA.edit(c);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+    public void editarAporte(Aporte a) {
+        try {
+            aporteJPA.edit(a);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public List<Aporte> getAportes(){
+        return aporteJPA.findAporteEntities();
+    }
     
 }

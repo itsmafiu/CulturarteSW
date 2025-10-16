@@ -49,7 +49,7 @@
                             <div class="form-group mb-3">
                                 <label for="monto">Monto: </label>
                                 <input type="text" class="form-control form-control-lg" id="monto" name="monto" required>
-                                <div class="invalid-feedback">Ingrese un nick.</div>
+                                <div class="invalid-feedback">Ingrese un monto.</div>
                             </div>                            
                             <p>Elija el tipo de Retorno:<br>
                                 <input type="radio" id="prop" name="tipoRetorno" value="ENTRADAS" checked> <label for="entradas">Entradas Gratis</label>
@@ -65,22 +65,21 @@
                                 <div class="col">
                                     <div class="card h-100">
                                         <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8")%>">
-                                            <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 414px; height: 300px; align-items: center">
+                                            <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
                                         </a>
-                                            <div class="card-body mb-4" style="max-height: 300px; overflow: hidden;">
-                                                <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
-                                                <div class="text-center bg-secondary-subtle rounded">
-                                                    <a class="text-decoration-none"
-                                                       href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
-                                                        by <%= p.getNickProponenteDe()%>
-                                                    </a>
-                                                </div>
-                                                <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                                                    <%=p.getDescripcion()%>
-                                                </p>
-                                                <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
-                                                <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
-                                                <div class="progress mb-3 position-relative" style="height: 20px;">
+                                        <div class="card-body" style="max-height: 300px; overflow: hidden;">
+                                            <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
+                                            <div class="text-center bg-secondary-subtle rounded">
+                                                <a class="text-decoration-none"
+                                                   href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
+                                                    by <%= p.getNickProponenteDe()%>
+                                                </a>
+                                            </div>
+                                            <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
+                                                <%=p.getDescripcion()%></p>
+                                            <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
+                                            <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
+                                            <div class="progress mb-3 position-relative" style="height: 20px;">
                                                 <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;">
                                                 </div>
                                                 <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
@@ -89,8 +88,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
                             <br>
                         </div>
                     </div>

@@ -4,12 +4,12 @@
 <header class="bg-dark-subtle">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid align-items-center">
-            <a class="navbar-brand btn text-primary fs-4" href="SvCargaProp">Culturarte</a>
+            <a class="navbar-brand btn text-primary fw-bold fs-4" href="SvCargaProp">Culturarte</a>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <c:choose>
                     <c:when test="${tipoUsuario == 'prop'}">
                         <li class="nav-item">
-                            <a class="nav-link" href="altaPropuesta.jsp">Alta Propuesta</a>
+                            <a class="nav-link" href="SvAltaProp">Alta Propuesta</a>
                         </li>
                     </c:when>
                         <c:otherwise>
@@ -25,10 +25,17 @@
                     <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" style="min-width: 300px">
-                <input class="form-control me-2" type="search" placeholder="titulo, descripción, lugar" aria-label="Buscar"/>
+
+            <form id="form-buscar" class="d-flex" role="search" action="SvBuscador" method="POST" style="min-width: 400px">
+                <div class="dropdown me-1">
+                    <input id="buscar" name="query" class="form-control" type="search" placeholder="título, descripción, lugar" autocomplete="off" aria-label="Buscar" />
+                    <ul id="resultados" class="dropdown-menu "></ul>
+                </div>
                 <button class="btn bg-primary-subtle" type="submit">Buscar</button>
             </form>
+
+            <script src="js/buscarPropuestas.js"></script>
+
             <c:choose>
                 <c:when test="${empty nick}">
                     <ul class="navbar-nav ms-2">

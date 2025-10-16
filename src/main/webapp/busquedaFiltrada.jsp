@@ -24,8 +24,8 @@
         
          <% 
         
-        List<DataPropuesta> DP = (List) request.getSession().getAttribute("DP");
-        int tamanio = DP.size();
+        List<DataPropuesta> DPF = (List) request.getSession().getAttribute("DPF");
+        int tamanio = DPF.size();
         %>
         
         <div class="container my-4">
@@ -36,7 +36,7 @@
         <div class="row row-cols-1 row-cols-md-3 g-4">
             
         <%
-        for(DataPropuesta p : DP){
+        for(DataPropuesta p : DPF){
         int colabs = p.getMisAportes().size();
         long diasRestantes;
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){

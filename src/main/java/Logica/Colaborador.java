@@ -7,27 +7,25 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
+
 @Entity
 @PrimaryKeyJoinColumn(name = "nickname")
 public class Colaborador extends Usuario {
-    
+
     @OneToMany(mappedBy = "miColaborador")
     private List<Aporte> misAportes;
-    
-    @OneToMany(mappedBy = "miColaborador")
-    private List<Comentario> misComentarios;
 
     public Colaborador() {
         //this.misAportes = new ArrayList<>();
     }
-    
+
     public Colaborador(String nickname, String email, String nombre, String apellido, LocalDate fecNac, String imagen, String contraseña, String imagenWeb) {
         super(nickname, email, nombre, apellido, fecNac, imagen, contraseña, imagenWeb);
         this.misAportes = new ArrayList<>();
     }
-    
-    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno){
-        
+
+    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno) {
+
         if (!misAportes.isEmpty()) {
             for (Aporte mio : misAportes) {
                 if (titulo.equals(mio.getTituloMiPropuesta())) {
@@ -35,13 +33,13 @@ public class Colaborador extends Usuario {
                 }
             }
         }
-        Aporte a = new Aporte(this , $aporte, cantidad, retorno);
+        Aporte a = new Aporte(this, $aporte, cantidad, retorno);
         //misAportes.add(a);
         return a;
     }
-    
-    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno,LocalDateTime fecAp){
-        
+
+    public Aporte createAporte(String titulo, double $aporte, int cantidad, EnumRetorno retorno, LocalDateTime fecAp) {
+
         if (!misAportes.isEmpty()) {
             for (Aporte mio : misAportes) {
                 if (titulo.equals(mio.getTituloMiPropuesta())) {
@@ -49,46 +47,65 @@ public class Colaborador extends Usuario {
                 }
             }
         }
-        Aporte a = new Aporte(this , $aporte, cantidad, retorno,fecAp);
+        Aporte a = new Aporte(this, $aporte, cantidad, retorno, fecAp);
         //misAportes.add(a);
         return a;
     }
-    
-    public void añadirAporte(Aporte a){
-       misAportes.add(a);
+
+    public void añadirAporte(Aporte a) {
+        misAportes.add(a);
     }
-    
-    
-    public List<DataPropuesta> getPropuestas(){
+
+    public List<DataPropuesta> getPropuestas() {
         List<DataPropuesta> listaPropuestasColas = new ArrayList<>();
         DataPropuesta DP;
-        for(Aporte a: misAportes){
+        for (Aporte a : misAportes) {
             DP = a.getPropuesta();
-            if(DP != null)
+            if (DP != null) {
                 listaPropuestasColas.add(a.getPropuesta());
+            }
         }
         return listaPropuestasColas;
     }
-    public List<String> getTituloPropuestas(){
+
+    public List<String> getTituloPropuestas() {
         List<String> listaPropuestas = new ArrayList<>();
-        for(Aporte a: this.misAportes){
+        for (Aporte a : this.misAportes) {
             listaPropuestas.add(a.getTituloNickMiPropuesta());
-        }   
+        }
         return listaPropuestas;
     }
-    
-    public DataAporte getDataAporte(String tituloNick){
-        for(Aporte a: misAportes){
-            if(tituloNick.equals(a.getTituloNickMiPropuesta())){
-                return new DataAporte(a.get$aporte(),a.getFechaHora(),a.getCantidad(),a.getRetorno(),a.getNicknameMiColaborador(),a.getTituloMiPropuesta(),a.getImagenMiPropuesta(),a.getNecesaria());
+
+    public DataAporte getDataAporte(String tituloNick) {
+        for (Aporte a : misAportes) {
+            if (tituloNick.equals(a.getTituloNickMiPropuesta())) {
+                return new DataAporte(a.get$aporte(), a.getFechaHora(), a.getCantidad(), a.getRetorno(), a.getNicknameMiColaborador(), a.getTituloMiPropuesta(), a.getImagenMiPropuesta(), a.getNecesaria());
+            }
+        }
+        return null;
+    }
+
+    public Aporte getAporte(String tituloNick) {
+        for (Aporte a : misAportes) {
+            if (tituloNick.equals(a.getTituloNickMiPropuesta())) {
+                return a;
             }
         }
         return null;
     }
     
-    public Aporte borrarAporte(String tituloNick){
-        for(Aporte a: misAportes){
-            if(tituloNick.equals(a.getTituloNickMiPropuesta())){
+    public Aporte getAporteXtitulo(String titulo) {
+        for (Aporte a : misAportes) {
+            if (a.getTituloMiPropuesta().equals(titulo)) {
+                return a;
+            }
+        }
+        return null;
+    }
+
+    public Aporte borrarAporte(String tituloNick) {
+        for (Aporte a : misAportes) {
+            if (tituloNick.equals(a.getTituloNickMiPropuesta())) {
                 a.desvincular();
                 misAportes.remove(a);
                 return a;
@@ -96,19 +113,16 @@ public class Colaborador extends Usuario {
         }
         return null;
     }
-    
-    public List<DataAporte> getListaAportes(){
+
+    public List<DataAporte> getListaAportes() {
         List<DataAporte> listaAportes = new ArrayList<>();
-        for(Aporte a: misAportes){
-            DataAporte aporteActual = new DataAporte(a.get$aporte(),a.getFechaHora(),a.getTituloMiPropuesta());
+        for (Aporte a : misAportes) {
+            DataAporte aporteActual = new DataAporte(a.get$aporte(), a.getFechaHora(), a.getTituloMiPropuesta());
             listaAportes.add(aporteActual);
         }
         return listaAportes;
     }
-    
-    
 
-    public List<Comentario> getMisComentarios() {
-        return misComentarios;
-    }
+   
+
 }

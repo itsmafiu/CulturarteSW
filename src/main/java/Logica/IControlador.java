@@ -42,6 +42,8 @@ public interface IControlador {
     DataColaborador consultaDeColaborador(String NickName);
     
     DataUsuario consultaDeColaboradorWeb(String NickName);
+    
+    List<DataCategoria> cargarCategoriasWeb();
             
     List<String> getSeguidos(String seguidor);
     
@@ -65,9 +67,9 @@ public interface IControlador {
     
     DataPropuesta getDataPropuesta(String titulo_nick);
     
-    List<String> getEstados();
+    DataPropuestaSimple getDataPropuestaSimple(String titulo);
     
-    List<String> getPropXEstado(String estado);
+    List<String> getEstados();
      
     List<String> getPropuestasXColaborador(String nick);
     
@@ -91,5 +93,15 @@ public interface IControlador {
         
     boolean esFavorita(String titulo, String nick);
     
-    int cambiarFavorita(String titulo, String nick);
+    boolean cambiarFavorita(String titulo, String nick);
+    
+    void addComentario(String titulo, String nick, String comentario);
+    
+    DataComentario getDataComentario(String titulo, String nick);
+    
+    List<DataComentario> getDataComentarios(String titulo);
+    
+    int extenderFinanciacion(String titulo);
+    
+    int cancelarPropuesta(String titulo);
 }

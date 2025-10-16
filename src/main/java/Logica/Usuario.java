@@ -36,7 +36,7 @@ public class Usuario implements Serializable {
     @JoinTable(name = "UsuarioSeguidos", joinColumns = @JoinColumn(name = "nickSeguidor"), inverseJoinColumns = @JoinColumn(name = "nickSeguido"))
     List<Usuario> misSeguidos = new ArrayList<>();
     @ManyToMany
-     @JoinTable(name = "Favoritas", joinColumns = @JoinColumn(name = "nick_usuario"), inverseJoinColumns = @JoinColumn(name = "titulo_propuesta"))
+    @JoinTable(name = "Favoritas", joinColumns = @JoinColumn(name = "nick_usuario"), inverseJoinColumns = @JoinColumn(name = "titulo_propuesta"))
     List<Propuesta> misFavoritas = new ArrayList<>();
 
     public Usuario() {
@@ -185,10 +185,14 @@ public class Usuario implements Serializable {
     public List<Propuesta> getMisFavoritas() {
         return misFavoritas;
     }
+
+    public void setMisFavoritas(List<Propuesta> misFavoritas) {
+        this.misFavoritas = misFavoritas;
+    }
     
     public boolean esFavorita(Propuesta prop){
         for (Propuesta p : this.misFavoritas) {
-            if (p.equals(prop)){
+            if (p.getTitulo().equals(prop.getTitulo())){
                 return true; //propuesta pertenece
             }
         }

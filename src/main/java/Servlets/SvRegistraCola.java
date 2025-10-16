@@ -61,17 +61,14 @@ public class SvRegistraCola extends HttpServlet {
             
             switch(resultado){
                 case 0:
-                    response.sendRedirect("ups.jsp");
-                    break;
-                case -2:
-                    response.sendRedirect("ups.jsp");
+                    response.sendRedirect("colaRegistrada.jsp");
                     break;
                 case -3:
-                    response.sendRedirect("ups.jsp");
-                    break;
+                    request.setAttribute("error", "Usted ya colabora con esta propuesta.");
+                    request.getRequestDispatcher("registraCola.jsp").forward(request, response);
                 case -4:
-                    response.sendRedirect("ups.jsp");
-                    break;
+                    request.setAttribute("error", "Tipo de Retorno no válido.");
+                    request.getRequestDispatcher("registraCola.jsp").forward(request, response);
             }
                        
 
