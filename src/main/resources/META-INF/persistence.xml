@@ -11,7 +11,7 @@
     <class>Logica.Usuario</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3307/culturarte"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mariadb://localhost:3306/culturarte"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value=""/>

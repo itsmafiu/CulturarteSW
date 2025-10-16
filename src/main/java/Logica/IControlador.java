@@ -67,6 +67,8 @@ public interface IControlador {
     
     DataPropuesta getDataPropuesta(String titulo_nick);
     
+    DataPropuestaSimple getDataPropuestaSimple(String titulo);
+    
     List<String> getEstados();
     
     List<String> getPropXEstado(String estado);
