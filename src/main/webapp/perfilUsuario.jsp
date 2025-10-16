@@ -256,7 +256,7 @@
                      <div class="col-md-6 col-lg-4">
         <div class="card h-100">
             <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8") %>">
-            <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+                <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
             </a>
             <div class="card-body" style="max-height: 300px; overflow: hidden;">
                 <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
@@ -311,13 +311,17 @@
                 boton.addEventListener("click", () => { 
                     clearTimeout(timerSeguir); 
                     if(boton.textContent === "Seguir"){ 
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
                         timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-success", "btn-danger"); 
                                     boton.textContent = "Dejar de Seguir"; 
+                                    boton.disabled = false;
                                 } else { 
                                     console.error("Error: No deberia llegar aqui"); 
+                                    boton.disabled = false;
                                 } 
                             }, error: function(){ 
                                 console.error("Error fatal"); 
@@ -325,13 +329,17 @@
                         }); 
                         }, 500); 
                     }else if(boton.textContent === "Dejar de Seguir"){ 
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
                         timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-danger", "btn-success"); 
                                     boton.textContent = "Seguir"; 
+                                    boton.disabled = false;
                                 } else { 
-                                    console.error("Error: No deberia llegar aqui"); 
+                                    console.error("Error: No deberia llegar aqui");
+                                    boton.disabled = false;
                                 } 
                             }, error: function(){ 
                                 console.error("Error fatal"); 
