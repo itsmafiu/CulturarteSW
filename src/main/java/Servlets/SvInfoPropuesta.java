@@ -66,9 +66,9 @@ public class SvInfoPropuesta extends HttpServlet {
         
         String nick = (String) misesion.getAttribute("nick");
         if(nick!=null){
-            Boolean esFavorita = (Boolean) ic.esFavorita(titulo, nick);
+            boolean esFavorita = ic.esFavorita(titulo, nick);
             misesion.setAttribute("esFavorita", esFavorita);
-            System.out.println(esFavorita.booleanValue());
+            System.out.println("SVINFOPROP: "+esFavorita);
         }
         
         response.sendRedirect("infoPropuesta.jsp");

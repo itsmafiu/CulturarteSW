@@ -146,5 +146,9 @@ public class Aporte implements Serializable {
     public void setFecComentario(LocalDateTime fecComentario) {
         this.fecComentario = fecComentario;
     }
+    
+    public Propuesta getPropuestaP(){
+        return this.miPropuesta;
+    }
 
 }

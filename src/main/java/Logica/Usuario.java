@@ -192,7 +192,7 @@ public class Usuario implements Serializable {
     
     public boolean esFavorita(Propuesta prop){
         for (Propuesta p : this.misFavoritas) {
-            if (p.equals(prop)){
+            if (p.getTitulo().equals(prop.getTitulo())){
                 return true; //propuesta pertenece
             }
         }

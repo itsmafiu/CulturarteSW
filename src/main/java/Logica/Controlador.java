@@ -779,31 +779,6 @@ public class Controlador implements IControlador{
     }
     
     @Override
-    public List<String> getPropXEstado(String estado){
-//        List<String> listaPropuestas = new ArrayList<>();
-//        String aux;
-//        for(Propuesta p : misPropuestas){
-//            aux = p.getTitulo();
-//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-//                listaPropuestas.add(aux);
-//            }
-//        }
-//        return listaPropuestas;
-        
-        //PERSISTENCIA
-        
-        List<String> listaPropuestas = new ArrayList<>();
-        String aux;
-        for(Propuesta p : cp.getListaPropuestas()){
-            aux = p.getTitulo();
-            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-                listaPropuestas.add(aux);
-            }
-        }
-        return listaPropuestas;
-    }
-    
-    @Override
     public List<String> getPropuestasXColaborador(String colab){
         //CON MEMEORIA LOCAL
 //        for(Colaborador c : this.misColaboradores){
@@ -855,7 +830,12 @@ public class Controlador implements IControlador{
         for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 Aporte a = c.borrarAporte(tituloNick);
-                cp.borrarAporte(a);
+                 try {
+                    cp.borrarAporte(a,a.getPropuestaP().getTitulo(),c);
+                    
+                } catch (Exception ex) {
+                    System.getLogger(Controlador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
                 break;
             }
         }
@@ -999,13 +979,13 @@ public class Controlador implements IControlador{
         Usuario u = cp.buscarUsuario(nick);
         Propuesta p = cp.getPropuesta(titulo);
         
-        if(u.esFavorita(p)){
+        if(!(u.esFavorita(p))){
             u.addFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
             return true;
         }else{
-            u.eliminarFavorita(p);
+            u.getMisFavoritas().removeIf(prop -> prop.getTitulo().equals(p.getTitulo()));
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
             return false;

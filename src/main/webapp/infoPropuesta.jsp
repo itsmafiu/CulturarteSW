@@ -166,10 +166,12 @@
 
                     <c:choose>
                         <c:when test="${not empty nick}">
+                            
                             <form action="SvFavorita" method="POST">
                                 <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
                                 <%
                                     Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                                    System.out.println(esFavorita);
                                     if (esFavorita != null && esFavorita) {
                                 %>
                                 <button type="submit" class="btn btn-warning fw-bold text-light">
