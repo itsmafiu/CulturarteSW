@@ -68,18 +68,18 @@ public class ControladorTest {
 //    public static void setUpClass() throws Exception {
 //    }
 //
-//    @org.junit.jupiter.api.AfterAll
+//    @AfterAll
 //    public static void tearDownClass() throws Exception {
 //    }
 //
-//    @org.junit.jupiter.api.BeforeEach
+//    @BeforeEach
 //    public void setUp() throws Exception {
 //    }
 //
-//    @org.junit.jupiter.api.AfterEach
+//    @AfterEach
 //    public void tearDown() throws Exception {
 //    }
-    
+//
 //    @BeforeAll
 //    public static void setUpClass() {
 //    }

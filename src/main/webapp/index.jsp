@@ -1,3 +1,4 @@
+<%@page import="Logica.EnumEstado"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
@@ -59,12 +60,13 @@
             <%
         for(DataPropuesta p : DPcreadas){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
-            }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
-            }
+            long diasRestantes;
+                if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
+                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+                } else {
+                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
+                }
+                
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -109,7 +111,7 @@
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
             }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
             }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
@@ -156,7 +158,7 @@
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
             }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
             }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
@@ -203,7 +205,7 @@
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
             }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
             }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
@@ -250,7 +252,7 @@
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
             }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";

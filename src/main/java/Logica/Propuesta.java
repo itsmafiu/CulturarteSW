@@ -101,7 +101,7 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
+        this.fechaLimit = fechaActual.atStartOfDay().plusDays(30);
         
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
         
@@ -167,10 +167,6 @@ public class Propuesta implements Serializable {
         montoAlcanzada+=a.get$aporte();
         if(this.getEstadoActual().getEstado()== EnumEstado.PUBLICADA){
             Estado estado = new Estado(EnumEstado.EN_FINANCIACION, LocalDate.now());
-            this.estadoActual = estado;
-            this.misEstados.add(estado);
-        }else if(this.getNecesaria()<=this.getAlcanzada()){
-            Estado estado = new Estado(EnumEstado.FINANCIADA, LocalDate.now());
             this.estadoActual = estado;
             this.misEstados.add(estado);
         }

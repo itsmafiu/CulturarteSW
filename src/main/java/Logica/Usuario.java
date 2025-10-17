@@ -185,7 +185,20 @@ public class Usuario implements Serializable {
     public List<Propuesta> getMisFavoritas() {
         return misFavoritas;
     }
-
+    
+    public List<DataPropuesta> getMisFavoritasData() {
+        List<DataPropuesta> DataPropFav = new ArrayList<>();
+        for (Propuesta prop : misFavoritas){
+            DataPropuesta data = new DataPropuesta(prop.getAlcanzada(),prop.getTitulo(),prop.getEstadoActual(),prop.getLugar());
+            data.setDesc(prop.getDescripcion());
+            data.setImagen(prop.getImagen());
+            data.setFechaPubli(prop.getFechaARealizar());
+            data.setCantidadColaboradores(prop.getAportes().size());
+            DataPropFav.add(data);
+        }
+        return DataPropFav;
+    }
+    
     public void setMisFavoritas(List<Propuesta> misFavoritas) {
         this.misFavoritas = misFavoritas;
     }

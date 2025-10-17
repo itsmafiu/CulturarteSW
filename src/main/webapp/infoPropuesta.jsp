@@ -37,7 +37,7 @@
             if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
             }else{
-                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
             }
 
             int colabs = p.getMisAportes().size();

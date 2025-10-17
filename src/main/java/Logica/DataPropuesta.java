@@ -24,15 +24,17 @@ public class DataPropuesta {
     double $entrada;
     double $necesaria;
     double $alcanzada;
+    LocalDate fecha;
     LocalDate fechaPubli;
     LocalDateTime fechaLimit; 
     EnumRetorno posibleRetorno;
     String categoria;
     String nickProponenteDe;
+    private int cantidadColaboradores;
     private List<Aporte> misAportes = new ArrayList<>();
     
     
-    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
+    public DataPropuesta(String titulo, String imagen, Estado estadoActual, Proponente p, String descrip, String lugar, double entrada, double necesaria,double alcanzada,LocalDate fecha, LocalDate fechaP, LocalDateTime fechaL , EnumRetorno retorno, String categoria, List<Aporte> misAportes ){
         this.$alcanzada = alcanzada;
         this.titulo = titulo;
         this.imagen = imagen;
@@ -42,6 +44,7 @@ public class DataPropuesta {
         this.lugar = lugar;
         this.$entrada = entrada;
         this.$necesaria = necesaria;
+        this.fecha = fecha;
         this.fechaPubli = fechaP;
         this.fechaLimit = fechaL;
         this.posibleRetorno = retorno;
@@ -141,6 +144,23 @@ public class DataPropuesta {
         this.fechaLimit = fechaLimit;
     }
 
+    public int getCantidadColaboradores() {
+        return cantidadColaboradores;
+    }
+
+    public void setCantidadColaboradores(int cantidadColaboradores) {
+        this.cantidadColaboradores = cantidadColaboradores;
+    }
+       
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    
     
    
 }

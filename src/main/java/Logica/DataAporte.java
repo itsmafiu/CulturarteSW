@@ -12,7 +12,7 @@ public class DataAporte {
     private final String miColaborador;
     private final String miPropuesta;
     private final Double $necesaria;
-
+    
     public DataAporte(double $aporte, LocalDateTime fechaHora, int cantidad, EnumRetorno retorno, String miColaborador, String miPropuesta, String imagen, double $necesaria) {
         this.$aporte = $aporte;
         this.fechaHora = fechaHora;
@@ -65,5 +65,5 @@ public class DataAporte {
     public Double getNecesaria() {
         return $necesaria;
     }
-    
+
 }

@@ -153,7 +153,79 @@
             <% } %>
         </div>
     </div>
+    <!-- Propuestas Favoritas -->
+         <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Ingresadas -->
+    <button class="btn btn-outline-secondary mb-2" type="button"
+            data-bs-toggle="collapse" data-bs-target="#collapsePropuestasFav"
+            aria-expanded="false" aria-controls="collapsePropuestasFav">
+        Mostrar/Ocultar Propuestas Favoritas
+    </button>
+    
+    <div class="collapse mb-4" id="collapsePropuestasFav">
+    
+        <h3>Propuestas favoritas de <%=usuario.getNickname()%></h3>
+        <div class="container my-4">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <%
+                List<DataPropuesta> propuestasFavs = usuario.getMisPropuestasFav();
+                if (propuestasFavs != null && !propuestasFavs.isEmpty()) {
+                    for (DataPropuesta prop : propuestasFavs) {
+                    String imagenPropuestaFavs = "";
+                    if (prop.getImagen() == null || prop.getImagen().isBlank()) {
+                        imagenPropuestaFavs = "fotos/default.jpg";
+                    }else{
+                        imagenPropuestaFavs = prop.getImagen();
+                    }
+                    int colabs = prop.getCantidadColaboradores();
+                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaARealizar()), 0);
+                    int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
+                    
+            %>
+    <div class="col-md-6 col-lg-4 d-flex">
+        <div class="card h-100 d-flex flex-column justify-content-between">
+            <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8") %>">
+                <img src="<%=imagenPropuestaFavs%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
+            </a>
 
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
+
+                <% if (!esProponente) { %>
+                <div class="text-center bg-secondary-subtle rounded mb-2">
+                    <a class="text-decoration-none"
+                       href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente"> by <%= prop.getNickProponenteDe()%>
+                    </a>
+                </div>
+                <% } %>
+
+                <p class="card-text flex-grow-1"  
+                   style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                    <%=prop.getDescripcion()%>
+                </p>
+
+                <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
+
+                <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
+
+                <div class="mt-auto">
+                    <div class="progress mb-3 position-relative" style="height: 20px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;"></div>
+                        <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
+                            <%= porcentaje%>%
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%      }
+            } else { %>
+    <p>No tiene propuestas favoritas.</p>
+    <% } %>
+        </div>
+        </div>
+    </div>
     <!-- Propuestas -->
          <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Ingresadas -->
     <button class="btn btn-outline-secondary mb-2" type="button"
@@ -182,47 +254,58 @@
                     }else{
                         imagenPropuesta = prop.getImagen();
                     }
-                    int colabs = prop.getMisAportes().size();
+                    int colabs = prop.getCantidadColaboradores();
                     long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaARealizar()), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
-    <div class="col-md-6 col-lg-4">
-        <div class="card h-100">
+    <div class="col-md-6 col-lg-4 d-flex">
+        <div class="card h-100 d-flex flex-column justify-content-between">
             <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8") %>">
-            <img src="<%=imagenPropuesta%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+                <img src="<%=imagenPropuesta%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
             </a>
-            <div class="card-body" style="max-height: 300px; overflow: hidden;">
+
+            <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
-                <% if (!esProponente) {%>
-                <div class="text-center bg-secondary-subtle rounded">
+
+                <% if (!esProponente) { %>
+                <div class="text-center bg-secondary-subtle rounded mb-2">
                     <a class="text-decoration-none"
-                       href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente">
-                        by <%= prop.getNickProponenteDe()%>
+                       href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente"> by <%= prop.getNickProponenteDe()%>
                     </a>
                 </div>
-                <% }%>
-                <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                    <%=prop.getDescripcion()%> </p>
-                <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
-                <% if (!esProponente && esMiPerfil) {
-                        DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
-                %>
-                <p> Aporte: <%=aporte.get$aporte()%></p>
-                <p> Fecha del Aporte: <%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%></p>
+                <% } %>
 
-                <% }%>
+                <p class="card-text flex-grow-1"  
+                   style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
+                    <%=prop.getDescripcion()%>
+                </p>
+
+                <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
+
+                <% if (!esProponente && esMiPerfil) {
+                    DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
+                %>
+                <div class="d-flex justify-content-between align-items-center text-secondary mb-2" style="font-size: 0.95rem;">
+                    <span><b>Aporte:</b> <%=aporte.get$aporte()%></span>
+                    <span>📅 <%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%></span>
+                </div>
+                <% } %>
+
                 <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
-                <div class="progress mb-3 position-relative" style="height: 20px;">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;">
+
+                <div class="mt-auto">
+                    <div class="progress mb-3 position-relative" style="height: 20px;">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;"></div>
+                        <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
+                            <%= porcentaje%>%
+                        </span>
                     </div>
-                    <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
-                        <%= porcentaje%>%
-                    </span>
-                </div>             
-            </div>      
+                </div>
+            </div>
         </div>
     </div>
+
     <%      }
             } else { %>
     <p>No tiene propuestas activas.</p>

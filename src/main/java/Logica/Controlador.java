@@ -597,7 +597,7 @@ public class Controlador implements IControlador{
 
         //persistencia
         Propuesta p = cp.getPropuesta(titulo);
-        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
+        return new DataPropuesta(titulo, p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getAlcanzada(),p.getFecha() , p.getFechaARealizar(),p.getFechaLimit(),  p.getRetorno(), p.getCategoria()/*"SIN FUNCIONAR"*/, p.getAportes());
     }
     
     @Override
@@ -616,7 +616,7 @@ public class Controlador implements IControlador{
         DataPropuesta DP = null;
         for (Propuesta p : cp.getListaPropuestas()) {
             if (p.getTitulo_Nickname().equalsIgnoreCase(titulo_nick)) {
-                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(), p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
+                DP = new DataPropuesta(p.getTitulo(), p.getImagen(), p.getEstadoActual(), p.getProponente(), p.getDescripcion(), p.getLugar(), p.getEntrada(), p.getNecesaria(),p.getmontoAlcanzada(),p.getFecha() ,p.getFechaARealizar(),p.getFechaLimit(), p.getRetorno(), p.getCategoria(), p.getAportes());
                 return DP;
             }
         }
@@ -654,6 +654,7 @@ public class Controlador implements IControlador{
                     dataProp.setDesc(prop.getDescripcion());
                     dataProp.setImagen(prop.getImagen());
                     dataProp.setFechaPubli(prop.getFechaARealizar());
+                    dataProp.setCantidadColaboradores(prop.getAportes().size());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -703,22 +704,7 @@ public class Controlador implements IControlador{
                     }else{
                         propuestasIngresadas.add(prop);
                     }
-                }
-                
-                /*
-                //Por ahora lo dejo comentado pero luego haré que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
-                //especiales
-                for (DataPropuesta prop : DProp.getPropuestas()) {
-                    if (nickSesion.equals(DProp.getNickname()) || !"Ingresada".equalsIgnoreCase(prop.getEstado())) {
-                        propuestasFiltradas.add(prop);
-                    }
-                }
-
-                DProp.setMisPropuestas(propuestasFiltradas);
-                */
-                
-                //Me falta aun un Propuestas Favoritas aunque aun no se agregan en ningun lado por lo que ta
-                
+                }           
                 
                 DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
                 usuario.setEmail(DProp.getEmail());
@@ -727,6 +713,7 @@ public class Controlador implements IControlador{
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
                 usuario.setMisPropuestasIngresadas(propuestasIngresadas);
+                usuario.setMisPropuestasFav(p.getMisFavoritasData());
                 
                 return usuario;
     }
@@ -746,6 +733,8 @@ public class Controlador implements IControlador{
         usuario.setDireccion("");
         
         usuario.setSitioWeb("");
+        
+        usuario.setMisPropuestasFav(c.getMisFavoritasData());
         
         if(usuario.getTipo().equals("Colaborador")){
             usuario.setListaAporte(c.getListaAportes());
