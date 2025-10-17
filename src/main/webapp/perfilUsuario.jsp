@@ -315,13 +315,17 @@
                 boton.addEventListener("click", () => { 
                     clearTimeout(timerSeguir); 
                     if(boton.textContent === "Seguir"){ 
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
                         timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-success", "btn-danger"); 
                                     boton.textContent = "Dejar de Seguir"; 
+                                    boton.disabled = false;
                                 } else { 
                                     console.error("Error: No deberia llegar aqui"); 
+                                    boton.disabled = false;
                                 } 
                             }, error: function(){ 
                                 console.error("Error fatal"); 
@@ -329,13 +333,17 @@
                         }); 
                         }, 500); 
                     }else if(boton.textContent === "Dejar de Seguir"){ 
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
                         timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-danger", "btn-success"); 
                                     boton.textContent = "Seguir"; 
+                                    boton.disabled = false;
                                 } else { 
                                     console.error("Error: No deberia llegar aqui"); 
+                                    boton.disabled = false;
                                 } 
                             }, error: function(){ 
                                 console.error("Error fatal"); 
