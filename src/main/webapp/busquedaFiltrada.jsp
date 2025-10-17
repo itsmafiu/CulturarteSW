@@ -30,7 +30,7 @@
         <div class="container my-4">            
 
             <div class="d-flex justify-content-between align-items-center mt-3">
-                <h2 class="">Resultados: <%= tamanio%></h2>
+                <h2 class="">Resultados para "<%= query%>" : <%= tamanio%></h2>
 
                 <div class="d-flex align-items-center mt-2">
                     <p class="mb-0 mx-1">Ordenar:</p>
@@ -155,7 +155,7 @@
                             if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
                                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
                             } else {
-                                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit());
+                                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
                             }
                             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
                             String imagen = "";

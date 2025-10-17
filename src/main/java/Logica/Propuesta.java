@@ -101,7 +101,7 @@ public class Propuesta implements Serializable {
         this.montoNecesaria = montoNecesario;
         this.posibleRetorno = posibleRetorno;
         this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
+        this.fechaLimit = fechaActual.atStartOfDay().plusDays(30);
         
         Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
         
