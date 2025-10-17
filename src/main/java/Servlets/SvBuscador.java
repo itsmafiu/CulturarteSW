@@ -6,6 +6,7 @@ package Servlets;
 
 import Logica.DataPropuesta;
 import Logica.DataPropuestaSimple;
+import Logica.EnumEstado;
 import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.Comparator;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -44,7 +46,7 @@ public class SvBuscador extends HttpServlet {
         String query = request.getParameter("query");
         List<String> titulos = ic.getPropuestas();
         List<DataPropuestaSimple> resultados = new ArrayList<>();
-
+        
         for (String t : titulos) {
             DataPropuestaSimple dp = ic.getDataPropuestaSimple(t);
             if (query == null || query.trim().isEmpty() || dp.getTitulo().toLowerCase().contains(query.toLowerCase())) {
@@ -61,6 +63,7 @@ public class SvBuscador extends HttpServlet {
             out.print(json);
             out.flush();
         }
+        
     }
 
     @Override
@@ -89,11 +92,49 @@ public class SvBuscador extends HttpServlet {
                 }
             }
         }
+        
+        
+        String orden = request.getParameter("orden");
+        if (orden != null) {
+            switch (orden) {
+                case "az":
+                    resultados.sort(Comparator.comparing(DataPropuesta::getTitulo, String.CASE_INSENSITIVE_ORDER));
+                    break;
+                case "fecha_desc":
+                    resultados.sort(Comparator.comparing(DataPropuesta::getFecha).reversed());
+                    break;
+            }
+        }
+        String estado = request.getParameter("estado");
+        if (estado != null) {
+            switch (estado) {
+                case "PUB":
+                    resultados.removeIf(p->p.getEstadoActual().getEstado()!=EnumEstado.PUBLICADA);
+                    break;
+                case "ENF":
+                    resultados.removeIf(p->p.getEstadoActual().getEstado()!=EnumEstado.EN_FINANCIACION);
+                    break;
+                case "NOF":
+                    resultados.removeIf(p->p.getEstadoActual().getEstado()!=EnumEstado.NO_FINANCIADA);
+                    break;
+                case "CAN":
+                    resultados.removeIf(p->p.getEstadoActual().getEstado()!=EnumEstado.CANCELADA);
+                    break;
+                case "FIN":
+                    resultados.removeIf(p->p.getEstadoActual().getEstado()!=EnumEstado.FINANCIADA);
+                    break;
+            }
+        }
 
         HttpSession misesion = request.getSession();
-
-        misesion.setAttribute(
-                "DPF", resultados);
+        misesion.setAttribute("query", query); 
+        if (orden != null) {
+        misesion.setAttribute("orden",orden);
+        }
+        if (estado != null){
+            misesion.setAttribute("estado",estado);
+        }
+        misesion.setAttribute("DPF", resultados);
 
         response.sendRedirect(
                 "busquedaFiltrada.jsp");
