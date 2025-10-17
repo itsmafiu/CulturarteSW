@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
@@ -13,7 +14,7 @@
 </head>
 <body>
     <%@ include file="header.jsp" %>
-    <div class="container-fluid bg-black" style="padding: 1px"></div>
+    
     <%
     
     List<DataPropuesta> DPcreadas = (List) request.getSession().getAttribute("propuestasCreadas");
@@ -58,7 +59,12 @@
             <%
         for(DataPropuesta p : DPcreadas){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -99,7 +105,12 @@
             <%
         for(DataPropuesta p : DPef){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -141,7 +152,12 @@
             <%
         for(DataPropuesta p : DPf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -183,7 +199,12 @@
             <%
         for(DataPropuesta p : DPnf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -225,7 +246,12 @@
             <%
         for(DataPropuesta p : DPca){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()); 
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {

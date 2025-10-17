@@ -77,8 +77,8 @@ public class Aporte implements Serializable {
     
     public void desvincular(){
         this.miPropuesta.desvincularAporte(this);
-        miColaborador=null;
-        miPropuesta=null;
+        //miColaborador=null;
+        //miPropuesta=null;
     }
     
     public double get$aporte() {

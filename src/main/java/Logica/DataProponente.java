@@ -24,17 +24,17 @@ public class DataProponente {
     List<DataPropuesta> misPropuestas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
-    public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb) {
-        this.nickname = nickname;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.email = email;
-        this.fecNac = fecNac;
-        this.imagen = imagen;
-        this.direccion = direccion;
-        this.biografia = biografia;
-        this.sitioWeb = sitioWeb;
-    }
+//    public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb) {
+//        this.nickname = nickname;
+//        this.nombre = nombre;
+//        this.apellido = apellido;
+//        this.email = email;
+//        this.fecNac = fecNac;
+//        this.imagen = imagen;
+//        this.direccion = direccion;
+//        this.biografia = biografia;
+//        this.sitioWeb = sitioWeb;
+//    }
      public DataProponente(String nickname,String nombre, String apellido,String email,LocalDate fecNac, String imagen,String direccion, String biografia, String sitioWeb,List<DataPropuesta> propuestas) {
         this.nickname = nickname;
         this.nombre = nombre;

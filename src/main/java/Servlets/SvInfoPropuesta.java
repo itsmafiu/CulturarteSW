@@ -40,6 +40,8 @@ public class SvInfoPropuesta extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        ic.comprobarPropuestas();
+        
         HttpSession misesion = request.getSession();
         
         String titulo = request.getParameter("titulo");

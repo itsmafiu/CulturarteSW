@@ -104,4 +104,6 @@ public interface IControlador {
     int extenderFinanciacion(String titulo);
     
     int cancelarPropuesta(String titulo);
+    
+    void comprobarPropuestas();
 }

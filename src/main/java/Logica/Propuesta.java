@@ -52,44 +52,44 @@ public class Propuesta implements Serializable {
     public Propuesta(){
     }
     
-    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
-        this.miProponente = prop;
-        this.titulo = titulo;
-        this.descrip = descripcion;
-        this.lugar = lugar;
-        this.fechaPubli = fechaPrev;
-        this.montoEntrada = montoXentrada;
-        this.montoNecesaria = montoNecesario;
-        this.posibleRetorno = posibleRetorno;
-        this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
-        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
-        this.estadoActual = estado;
-        this.misEstados.add(estado);
-
-        //DIALOGAR PARA VER QUE HACEMOS CON ESTA EN ESPECIFICO!!!!!!!!!!!!!
-    }
+//    public Propuesta(Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+//        this.miProponente = prop;
+//        this.titulo = titulo;
+//        this.descrip = descripcion;
+//        this.lugar = lugar;
+//        this.fechaPubli = fechaPrev;
+//        this.montoEntrada = montoXentrada;
+//        this.montoNecesaria = montoNecesario;
+//        this.posibleRetorno = posibleRetorno;
+//        this.fecha = fechaActual;
+//        this.fechaLimit = LocalDateTime.now().plusDays(30);
+//        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+//        
+//        this.estadoActual = estado;
+//        this.misEstados.add(estado);
+//
+//        //DIALOGAR PARA VER QUE HACEMOS CON ESTA EN ESPECIFICO!!!!!!!!!!!!!
+//    }
     
-    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
-        this.miProponente = prop;
-        this.titulo = titulo;
-        this.descrip = descripcion;
-        this.lugar = lugar;
-        this.fechaPubli = fechaPrev;
-        this.montoEntrada = montoXentrada;
-        this.montoNecesaria = montoNecesario;
-        this.posibleRetorno = posibleRetorno;
-        this.fecha = fechaActual;
-        this.fechaLimit = LocalDateTime.now().plusDays(30);
-        
-        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
-        
-        this.estadoActual = estado;
-        this.misEstados.add(estado);
-        this.categoria = c;
-
-    }
+//    public Propuesta(Categoria c,Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual) {
+//        this.miProponente = prop;
+//        this.titulo = titulo;
+//        this.descrip = descripcion;
+//        this.lugar = lugar;
+//        this.fechaPubli = fechaPrev;
+//        this.montoEntrada = montoXentrada;
+//        this.montoNecesaria = montoNecesario;
+//        this.posibleRetorno = posibleRetorno;
+//        this.fecha = fechaActual;
+//        this.fechaLimit = LocalDateTime.now().plusDays(30);
+//        
+//        Estado estado = new Estado(EnumEstado.valueOf("INGRESADA"), fechaActual);
+//        
+//        this.estadoActual = estado;
+//        this.misEstados.add(estado);
+//        this.categoria = c;
+//
+//    }
     
     public Propuesta(Categoria c, Proponente prop, String titulo, String descripcion, String lugar, LocalDate fechaPrev, double montoXentrada, double montoNecesario, EnumRetorno posibleRetorno, LocalDate fechaActual, String imagen) {
         this.miProponente = prop;

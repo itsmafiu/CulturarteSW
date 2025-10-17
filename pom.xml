@@ -176,6 +176,16 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
+
+                <configuration>
+                    <excludes>
+                        <exclude>**/*_*.class</exclude>
+                        <exclude>**/generated/**</exclude>
+                        <exclude>**/metamodel/**</exclude>
+                        <exclude>**/Fabrica.class</exclude>
+                    </excludes>
+                </configuration>
+
                 <executions>
                     <execution>
                         <goals>

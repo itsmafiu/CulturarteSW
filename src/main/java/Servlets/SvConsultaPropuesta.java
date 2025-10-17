@@ -39,6 +39,8 @@ public class SvConsultaPropuesta extends HttpServlet {
         
         ic = Fabrica.getInstancia().getIControlador();
         
+        ic.comprobarPropuestas();
+        
         List<String> listaPropStr = new ArrayList<>();
         
         listaPropStr = ic.getPropuestas();

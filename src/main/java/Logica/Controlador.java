@@ -837,8 +837,7 @@ public class Controlador implements IControlador{
             if(nick.equals(c.getNickname())){
                 Aporte a = c.borrarAporte(tituloNick);
                  try {
-                    cp.borrarAporte(a,a.getPropuestaP().getTitulo(),c);
-                    
+                    cp.borrarAporte(a,a.getPropuestaP(),c);  
                 } catch (Exception ex) {
                     System.getLogger(Controlador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                 }
@@ -1051,6 +1050,17 @@ public class Controlador implements IControlador{
             return 0;
         }else{
             return -1;
+        }
+    }
+    
+    @Override
+    public void comprobarPropuestas(){
+        List<Propuesta> props = cp.getListaPropuestas();
+        for (Propuesta p : props) {
+            if (p.getFechaLimit().equals(LocalDateTime.now()) || p.getFechaLimit().isBefore(LocalDateTime.now()) || p.getFechaARealizar().isBefore(LocalDate.now())) {
+                p.actualizarEstadoActual(EnumEstado.CANCELADA);
+                cp.editarPropuesta(p);
+            }
         }
     }
 }    

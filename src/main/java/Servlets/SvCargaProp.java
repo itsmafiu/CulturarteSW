@@ -23,7 +23,9 @@ public class SvCargaProp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
+        ic.comprobarPropuestas();
+        
         HttpSession misesion = request.getSession();
         
         List<String> listaPropStr = new ArrayList<>();
@@ -79,12 +81,6 @@ public class SvCargaProp extends HttpServlet {
         misesion.setAttribute("propuestasFinanciadas", DPf);
         misesion.setAttribute("propuestasNoFinanciadas", DPnf);
         misesion.setAttribute("propuestasCanceladas", DPca);
-        
-//        misesion.setAttribute("propuestasCreadas", ic.getPropXEstado("PUBLICADA"));
-//        misesion.setAttribute("propuestasEnFinanciacion", ic.getPropXEstado("EN_FINANCIACION"));
-//        misesion.setAttribute("propuestasFinanciadas", ic.getPropXEstado("FINANCIADA"));
-//        misesion.setAttribute("propuestasNoFinanciadas", ic.getPropXEstado("NO_FINANCIADA"));
-//        misesion.setAttribute("propuestasCanceladas", ic.getPropXEstado("CANCELADA"));
 
         response.sendRedirect("index.jsp");
     }
