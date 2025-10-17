@@ -37,14 +37,17 @@ public class SvFavorita extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession(false);
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        
+        HttpSession session = request.getSession();
         String nick = (String) session.getAttribute("nick");
         String titulo = request.getParameter("titulo");
 
-        boolean esFavorita;//ic.esFavorita(titulo, nick);
-        //System.out.println("titulo: "+titulo);
-        //System.out.println("nick: "+nick);
+        boolean esFavorita;
+        System.out.println("titulo: "+titulo);
+        System.out.println("nick: "+nick);
         
         esFavorita = ic.cambiarFavorita(titulo, nick);
                 

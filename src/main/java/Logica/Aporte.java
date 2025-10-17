@@ -77,8 +77,8 @@ public class Aporte implements Serializable {
     
     public void desvincular(){
         this.miPropuesta.desvincularAporte(this);
-        miColaborador=null;
-        miPropuesta=null;
+        //miColaborador=null;
+        //miPropuesta=null;
     }
     
     public double get$aporte() {
@@ -110,6 +110,7 @@ public class Aporte implements Serializable {
             dataProp.setDesc(miPropuesta.getDescripcion());
             dataProp.setImagen(miPropuesta.getImagen());
             dataProp.setFechaPubli(miPropuesta.getFechaARealizar());
+            dataProp.setCantidadColaboradores(this.getCantidadcolaboradores());
             return dataProp;
         }
         return null;
@@ -146,5 +147,13 @@ public class Aporte implements Serializable {
     public void setFecComentario(LocalDateTime fecComentario) {
         this.fecComentario = fecComentario;
     }
-
+    
+    public Propuesta getPropuestaP(){
+        return this.miPropuesta;
+    }
+    
+    public int getCantidadcolaboradores(){
+        return this.miPropuesta.getAportes().size();
+    }
+    
 }

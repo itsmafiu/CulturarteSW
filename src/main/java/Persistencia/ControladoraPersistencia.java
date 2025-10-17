@@ -189,9 +189,11 @@ public class ControladoraPersistencia {
         }
     }
     
-    public void borrarAporte(Aporte a) {
+    public void borrarAporte(Aporte a, Propuesta p, Colaborador c) throws Exception {
         try {
             aporteJPA.destroy(a.getId());
+            propJPA.edit(p);
+            colaJPA.edit(c);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }

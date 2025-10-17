@@ -70,8 +70,6 @@ public interface IControlador {
     DataPropuestaSimple getDataPropuestaSimple(String titulo);
     
     List<String> getEstados();
-    
-    List<String> getPropXEstado(String estado);
      
     List<String> getPropuestasXColaborador(String nick);
     
@@ -106,4 +104,6 @@ public interface IControlador {
     int extenderFinanciacion(String titulo);
     
     int cancelarPropuesta(String titulo);
+    
+    void comprobarPropuestas();
 }

@@ -30,6 +30,7 @@ public class DataPropuesta {
     EnumRetorno posibleRetorno;
     String categoria;
     String nickProponenteDe;
+    private int cantidadColaboradores;
     private List<Aporte> misAportes = new ArrayList<>();
     
     
@@ -143,6 +144,14 @@ public class DataPropuesta {
         this.fechaLimit = fechaLimit;
     }
 
+    public int getCantidadColaboradores() {
+        return cantidadColaboradores;
+    }
+
+    public void setCantidadColaboradores(int cantidadColaboradores) {
+        this.cantidadColaboradores = cantidadColaboradores;
+    }
+       
     public LocalDate getFecha() {
         return fecha;
     }

@@ -40,6 +40,8 @@ public class SvBuscador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        ic.comprobarPropuestas();
 
         response.setContentType("application/json;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");

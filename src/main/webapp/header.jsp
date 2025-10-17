@@ -50,7 +50,7 @@
                 <c:otherwise>    
                     <ul class="navbar-nav ms-2">
                         <li class="nav-item">
-                            <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" width="40">                            
+                            <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" style="width: 60px; height: 100%">                            
                         </li>
                         <li class="nav-item">
                             <a class="nav-link " href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a>
@@ -65,6 +65,7 @@
             </c:choose>
         </div>
     </nav>
+    <div class="container-fluid bg-black" style="padding: 1px"></div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="js/validacionAltaPropu.js"></script>
 </header>

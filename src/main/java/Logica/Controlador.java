@@ -654,6 +654,7 @@ public class Controlador implements IControlador{
                     dataProp.setDesc(prop.getDescripcion());
                     dataProp.setImagen(prop.getImagen());
                     dataProp.setFechaPubli(prop.getFechaARealizar());
+                    dataProp.setCantidadColaboradores(prop.getAportes().size());
                     propuestasDe.add(dataProp);
                 }
                 DProp = new DataProponente(NickName, p.getNombre(),p.getApellido(),p.getEmail(),p.getFecNac(),p.getImagen(),p.getDireccion(),p.getBiografia(),p.getSitioWeb(),propuestasDe);
@@ -703,22 +704,7 @@ public class Controlador implements IControlador{
                     }else{
                         propuestasIngresadas.add(prop);
                     }
-                }
-                
-                /*
-                //Por ahora lo dejo comentado pero luego haré que estas dos funciones reciban otro parametro que sea el NickName de quien esta iniciado para estos casos
-                //especiales
-                for (DataPropuesta prop : DProp.getPropuestas()) {
-                    if (nickSesion.equals(DProp.getNickname()) || !"Ingresada".equalsIgnoreCase(prop.getEstado())) {
-                        propuestasFiltradas.add(prop);
-                    }
-                }
-
-                DProp.setMisPropuestas(propuestasFiltradas);
-                */
-                
-                //Me falta aun un Propuestas Favoritas aunque aun no se agregan en ningun lado por lo que ta
-                
+                }           
                 
                 DataUsuario usuario = new DataUsuario(DProp.getNickname(),DProp.getNombre(),DProp.getApellido(),"Proponente",propuestasFiltradas,this.getSeguidores(p),p.getDtUSeguidos());
                 usuario.setEmail(DProp.getEmail());
@@ -727,6 +713,7 @@ public class Controlador implements IControlador{
                 usuario.setBiografia(DProp.getBiografia());
                 usuario.setSitioWeb(DProp.getSitioWeb());
                 usuario.setMisPropuestasIngresadas(propuestasIngresadas);
+                usuario.setMisPropuestasFav(p.getMisFavoritasData());
                 
                 return usuario;
     }
@@ -746,6 +733,8 @@ public class Controlador implements IControlador{
         usuario.setDireccion("");
         
         usuario.setSitioWeb("");
+        
+        usuario.setMisPropuestasFav(c.getMisFavoritasData());
         
         if(usuario.getTipo().equals("Colaborador")){
             usuario.setListaAporte(c.getListaAportes());
@@ -782,31 +771,6 @@ public class Controlador implements IControlador{
         listaEstados.add(e.name());
     }
     return listaEstados;
-    }
-    
-    @Override
-    public List<String> getPropXEstado(String estado){
-//        List<String> listaPropuestas = new ArrayList<>();
-//        String aux;
-//        for(Propuesta p : misPropuestas){
-//            aux = p.getTitulo();
-//            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-//                listaPropuestas.add(aux);
-//            }
-//        }
-//        return listaPropuestas;
-        
-        //PERSISTENCIA
-        
-        List<String> listaPropuestas = new ArrayList<>();
-        String aux;
-        for(Propuesta p : cp.getListaPropuestas()){
-            aux = p.getTitulo();
-            if(p.getEstadoActual().getEstado().toString().equalsIgnoreCase(estado)){
-                listaPropuestas.add(aux);
-            }
-        }
-        return listaPropuestas;
     }
     
     @Override
@@ -861,7 +825,11 @@ public class Controlador implements IControlador{
         for(Colaborador c : cp.getColaboradores()){
             if(nick.equals(c.getNickname())){
                 Aporte a = c.borrarAporte(tituloNick);
-                cp.borrarAporte(a);
+                 try {
+                    cp.borrarAporte(a,a.getPropuestaP(),c);  
+                } catch (Exception ex) {
+                    System.getLogger(Controlador.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
                 break;
             }
         }
@@ -1005,13 +973,13 @@ public class Controlador implements IControlador{
         Usuario u = cp.buscarUsuario(nick);
         Propuesta p = cp.getPropuesta(titulo);
         
-        if(u.esFavorita(p)){
+        if(!(u.esFavorita(p))){
             u.addFavorita(p);
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
             return true;
         }else{
-            u.eliminarFavorita(p);
+            u.getMisFavoritas().removeIf(prop -> prop.getTitulo().equals(p.getTitulo()));
             cp.editarUsuario(u);
             cp.editarPropuesta(p);
             return false;
@@ -1071,6 +1039,17 @@ public class Controlador implements IControlador{
             return 0;
         }else{
             return -1;
+        }
+    }
+    
+    @Override
+    public void comprobarPropuestas(){
+        List<Propuesta> props = cp.getListaPropuestas();
+        for (Propuesta p : props) {
+            if (p.getFechaLimit().equals(LocalDateTime.now()) || p.getFechaLimit().isBefore(LocalDateTime.now()) || p.getFechaARealizar().isBefore(LocalDate.now())) {
+                p.actualizarEstadoActual(EnumEstado.CANCELADA);
+                cp.editarPropuesta(p);
+            }
         }
     }
 }    
