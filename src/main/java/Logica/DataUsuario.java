@@ -15,6 +15,7 @@ public class DataUsuario {
     String direccion;
     String sitioWeb = "";
     List<DataPropuesta> misPropuestas;
+    List<DataPropuesta> misPropuestasFav;
     List<DataPropuesta> misPropuestasIngresadas;
     List<DataUsuario> meSiguen;
     List<DataUsuario> losSigo;
@@ -230,6 +231,14 @@ public class DataUsuario {
             return false;
         }
         return Objects.equals(this.ListaAporte, other.ListaAporte);
+    }
+
+    public List<DataPropuesta> getMisPropuestasFav() {
+        return misPropuestasFav;
+    }
+
+    public void setMisPropuestasFav(List<DataPropuesta> misPropuestasFav) {
+        this.misPropuestasFav = misPropuestasFav;
     }
     
     
