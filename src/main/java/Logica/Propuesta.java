@@ -169,10 +169,6 @@ public class Propuesta implements Serializable {
             Estado estado = new Estado(EnumEstado.EN_FINANCIACION, LocalDate.now());
             this.estadoActual = estado;
             this.misEstados.add(estado);
-        }else if(this.getNecesaria()<=this.getAlcanzada()){
-            Estado estado = new Estado(EnumEstado.FINANCIADA, LocalDate.now());
-            this.estadoActual = estado;
-            this.misEstados.add(estado);
         }
     }
     
