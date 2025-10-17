@@ -260,7 +260,7 @@
                      <div class="col-md-6 col-lg-4">
         <div class="card h-100">
             <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8") %>">
-            <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+                <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
             </a>
             <div class="card-body" style="max-height: 300px; overflow: hidden;">
                 <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
@@ -342,7 +342,7 @@
                                     boton.textContent = "Seguir"; 
                                     boton.disabled = false;
                                 } else { 
-                                    console.error("Error: No deberia llegar aqui"); 
+                                    console.error("Error: No deberia llegar aqui");
                                     boton.disabled = false;
                                 } 
                             }, error: function(){ 

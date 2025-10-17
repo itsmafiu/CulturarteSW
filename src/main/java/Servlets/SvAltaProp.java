@@ -103,7 +103,7 @@ public class SvAltaProp extends HttpServlet {
         }else{
             nombreArchivo = "default.jpg";
         }
-
+        
         EnumRetorno posibleRetorno;
         
         String ruta = "fotos" + File.separator + nombreArchivo;
