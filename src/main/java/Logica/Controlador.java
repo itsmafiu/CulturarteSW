@@ -763,6 +763,19 @@ public class Controlador implements IControlador{
         return ListaDataCat; 
     }
     
+    public List<String> getCategorias(){
+        List<Categoria> todas = cp.listarCategorias();
+        List<String> ListaCat= new ArrayList<>();
+        for (Categoria cat : todas){
+            
+            if(!cat.getNombre().equalsIgnoreCase("Categoria")){
+                ListaCat.add(cat.getNombre());
+            }
+        }
+
+        return ListaCat; 
+    }
+    
     
     @Override
     public List<String> getEstados(){

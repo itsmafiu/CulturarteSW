@@ -190,14 +190,12 @@
             <div class="card-body d-flex flex-column">
                 <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
 
-                <% if (!esProponente) { %>
                 <div class="text-center bg-secondary-subtle rounded mb-2">
                     <a class="text-decoration-none"
                        href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente"> by <%= prop.getNickProponenteDe()%>
                     </a>
                 </div>
-                <% } %>
-
+                
                 <p class="card-text flex-grow-1"  
                    style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                     <%=prop.getDescripcion()%>

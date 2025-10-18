@@ -18,42 +18,79 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <style>
+            /* Mantener fijo el panel lateral en pantallas medianas o grandes */
+            @media (min-width: 768px) {
+              #filtroCategorias {
+                position: sticky;
+                top: 1rem;
+              }
+            }
+        </style>
     </head>
     <body>
         <%@ include file="header.jsp" %>
         
-         <% 
+    <div class="container-fluid mt-3">
+        <div class="row">
+
+        <!--  Panel lateral --> 
         
-        List<DataPropuesta> DP = (List) request.getSession().getAttribute("DP");
-        int tamanio = DP.size();
-        %>
-        
-        <div class="container my-4">
-        <h2>Explora entre <%=tamanio%> Propuestas :</h2>
+        <div class="col-12 col-md-3 mb-3">
+          <div class="p-3 border rounded bg-light" style="max-height: 800px; overflow-y: auto;">
+            <h5 class="mb-3">Filtrar por Categoría</h5>
+
+            <div id="filtroCategorias">
+              <div class="form-check">
+                <input class="form-check-input categoria-check" type="checkbox" id="cat-todas" value="todas" checked>
+                <label class="form-check-label" for="cat-todas">Todas</label>
+              </div>
+
+              <% List<String> categorias = (List) request.getSession().getAttribute("categorias"); 
+                for (String cat : categorias) { %> 
+                <div class="form-check">
+                  <input class="form-check-input categoria-check" type="checkbox" id="cat-<%=cat%>" value="<%=cat%>">
+                  <label class="form-check-label" for="cat-<%=cat%>"><%=cat%></label>
+                </div>
+              <% } %>
+            </div>
+          </div>
         </div>
-        
-        <div class="container my-4">
+
+        <!--  Zona de tarjetas --> 
+        <div class="col-12 col-md-9">
+        <%         
+            List<DataPropuesta> DP = (List) request.getSession().getAttribute("DP");
+            int tamanio = DP.size();
+        %>  
+          
+            <div class="container my-4">
+                <% if(tamanio==0){ %>
+                    <h2 id = "tituloExplora">No hay propuestas en el Sistema</h2>
+                <%}else{ %>
+                    <h2 id = "tituloExplora">Explora entre <%=tamanio%> Propuestas :</h2>
+                <% } %>
+            </div>
         <div class="row row-cols-1 row-cols-md-3 g-4">
-            
+                
         <%
-        for(DataPropuesta p : DP){
-        int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            for(DataPropuesta p : DP){
+            int colabs = p.getMisAportes().size();
+            long diasRestantes;
+                if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+                }else{
+                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                }
+            int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
+            String imagen = "";
+            if (p.getImagen().isBlank()) {
+                imagen = "fotos/default.jpg";
             }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                imagen = p.getImagen();
             }
-        int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
-        String imagen = "";
-        if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
-        }else{
-            imagen = p.getImagen();
-        }
-        %>
-        
-        <div class="col-md-6 col-lg-4">
+            %>
+            <div class="col-md-6 col-lg-4 propuesta-card" data-categoria ="<%=p.getCategoria()%>">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
               <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
@@ -80,12 +117,58 @@
         </div>
             </div>
         </div>
+        
               
-        <% } %>
-        
+            <% } %>
+          </div>
         </div>
-        </div>
-        
-         
+
+  </div>
+</div>
+
+         <script>
+            const checks = document.querySelectorAll('.categoria-check');
+            const tarjetas = document.querySelectorAll('.propuesta-card');
+            const tituloExplora = document.getElementById('tituloExplora');
+
+            checks.forEach(check => {
+              check.addEventListener('change', () => {
+                // Desmarcar los demás
+                checks.forEach(c => {
+                  if (c !== check) c.checked = false;
+                });
+                // Si se desmarca el actual, volver a marcar "todas"
+                if (!check.checked) {
+                  document.getElementById('cat-todas').checked = true;
+                }
+
+                const seleccion = document.querySelector('.categoria-check:checked').value.toLowerCase();
+                let visibles = 0;
+
+                tarjetas.forEach(card => {
+                  const categoria = card.getAttribute('data-categoria').toLowerCase();
+                  if (seleccion === 'todas' || categoria === seleccion) {
+                    card.style.display = 'block';
+                    visibles++;
+                  } else {
+                    card.style.display = 'none';
+                  }
+                });
+
+                if (seleccion === 'todas') {
+                  tituloExplora.textContent = visibles === 0
+                    ? "No hay propuestas en el sistema."
+                    : "Explora entre " + visibles + " Propuestas :";
+                } else {
+                  const categoriaMayus = seleccion.charAt(0).toUpperCase() + seleccion.slice(1);
+                  tituloExplora.textContent = visibles === 0
+                    ? "No hay propuestas de la categoría: " + categoriaMayus
+                    : "Explora entre " + visibles + " Propuestas de " + categoriaMayus + " :";
+                }
+              });
+            });
+
+          </script>
+
     </body>
 </html>
