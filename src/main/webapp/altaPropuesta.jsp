@@ -106,8 +106,9 @@
             </div>
             
             </div>
+           </form>
             </div>
-        </form>
+        
         <!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
         
         <%@include file="footer.jsp" %>

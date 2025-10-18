@@ -304,7 +304,7 @@
                 <li class="list-group-item">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div> 
-                            <p class="mb-0 opacity-75">Porpuesta aún sin comentarios.</p>
+                            <p class="mb-0 opacity-75">Propuesta aún sin comentarios.</p>
                         </div>
                         <small class="opacity-50 text-nowrap"></small> 
                     </div>
