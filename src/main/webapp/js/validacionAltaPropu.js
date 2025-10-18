@@ -5,11 +5,10 @@
 
 $(document).ready(function() {
     
-        $(function(){
-         $("#altaProp").click(function(){
-            alert("Debes ser proponente para dar de alta una propuesta");
-         });
+    $("#altaProp").click(function(){
+       alert("Debes ser proponente para dar de alta una propuesta");
     });
+    
 });
 
 

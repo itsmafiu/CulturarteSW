@@ -238,7 +238,7 @@
             <p>No tiene colaboradores aún.</p>
        <%}%>
         </div>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
+       <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>--%>                      
       <div class="m-1">
           <p class="mx-3">Comentarios</p>
           <ul class="list-group list-group-flush">
@@ -314,6 +314,7 @@
                 <%}%>
             </ul>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>                      
+                <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>  --%> 
+        <%@include file="footer.jsp" %>
     </body>
 </html>

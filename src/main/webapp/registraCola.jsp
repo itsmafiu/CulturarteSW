@@ -88,9 +88,14 @@
                                             </div>
                                         </div>
                                     </div>
-                            <br>
+                                <br>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <%@include file="footer.jsp" %>
+    </body>
+</html>

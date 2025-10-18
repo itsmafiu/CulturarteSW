@@ -34,7 +34,7 @@
                 <button class="btn bg-primary-subtle" type="submit">Buscar</button>
             </form>
 
-            <script src="js/buscarPropuestas.js"></script>
+            <!--<script src="js/buscarPropuestas.js"></script>-->
 
             <c:choose>
                 <c:when test="${empty nick}">
@@ -65,8 +65,10 @@
         </div>
     </nav>
     <div class="container-fluid bg-black" style="padding: 1px"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/validacionAltaPropu.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.4.min.js" defer></script>
+    <script src="js/validacionAltaPropu.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>-->
+    
     <style>
         .nav-item.dropdown {
             position: relative;

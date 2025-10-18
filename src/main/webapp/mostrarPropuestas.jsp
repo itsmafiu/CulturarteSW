@@ -126,6 +126,8 @@
   </div>
 </div>
 
+        <%@include file="footer.jsp" %>
+        
          <script>
             const checks = document.querySelectorAll('.categoria-check');
             const tarjetas = document.querySelectorAll('.propuesta-card');

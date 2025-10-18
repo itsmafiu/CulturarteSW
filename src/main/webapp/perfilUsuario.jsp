@@ -49,7 +49,7 @@
         
     <!-- Datos del usuario -->
     <div class="d-flex align-items-center">
-        <img src="<%= imagenUserPerfil %>" alt="Foto de Perfil" class="card-img-top mb-2" style="max-height:400px; max-width:400px;">
+        <img src="<%= imagenUserPerfil %>" alt="Foto de Perfil" class="card-img-top mb-2 rounded-circle" style="max-height:400px; max-width:400px;">
         <div class="p-2">                    </div>
         <div>
             <h3><%=usuario.getTipo()%></h3>
@@ -378,10 +378,12 @@
         
 
 </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+        <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --%>
+        <%@include file="footer.jsp" %>
+        
         <script>
             $(document).ready(function() {     
-        const boton = document.getElementById("botonSeguir"); 
+                const boton = document.getElementById("botonSeguir"); 
                 const loSigo = <%= loSigo%>;
                 
                 if(loSigo){ 
