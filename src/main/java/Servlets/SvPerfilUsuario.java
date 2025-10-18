@@ -1,9 +1,11 @@
 package Servlets;
 
+import Logica.DataUsuario;
 import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -47,7 +49,7 @@ public class SvPerfilUsuario extends HttpServlet {
                         response.getWriter().write("error");
                     }
                     return;
-            }
+        }
         }
         
         String nick = request.getParameter("nickTarjeta");
