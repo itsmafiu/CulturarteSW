@@ -1002,6 +1002,7 @@ public class Controlador implements IControlador{
     @Override
     public void addComentario(String titulo, String nick, String comentario){
         Colaborador c = cp.buscarColaborador(nick);
+        //System.out.println(titulo);
         Aporte a = c.getAporteXtitulo(titulo);
         a.setComentario(comentario);
         a.setFecComentario(LocalDateTime.now());
