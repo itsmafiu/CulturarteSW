@@ -34,7 +34,7 @@
                 <button class="btn bg-primary-subtle" type="submit">Buscar</button>
             </form>
 
-            <script src="js/buscarPropuestas.js"></script>
+            <!--<script src="js/buscarPropuestas.js"></script>-->
 
             <c:choose>
                 <c:when test="${empty nick}">
@@ -49,16 +49,15 @@
                 </c:when>
                 <c:otherwise>    
                     <ul class="navbar-nav ms-2">
-                        <li class="nav-item">
-                            <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" style="width: 60px; height: 100%">                            
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link " href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a>
-                        </li>
-                        <li class="nav-item">
-                            <form action="cerrarSesion" method="GET">
-                                <button type="submit" class="btn">Cerrar Sesión</button>
-                            </form>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="${pageContext.request.contextPath}/${datosUsuario.imagenWeb}" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
+                                <li><a class="dropdown-item" href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a></li>
+                                <li><div class="dropdown-divider"></div></li>
+                                <li><a class="dropdown-item" href="cerrarSesion">Cerrar Sesión</a></li>
+                            </ul>
                         </li>
                     </ul>                     
                 </c:otherwise>
@@ -66,6 +65,24 @@
         </div>
     </nav>
     <div class="container-fluid bg-black" style="padding: 1px"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="js/validacionAltaPropu.js"></script>
+<!--    <script src="https://code.jquery.com/jquery-3.6.4.min.js" defer></script>
+    <script src="js/validacionAltaPropu.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>-->
+    
+    <style>
+        .nav-item.dropdown {
+            position: relative;
+        }
+
+        .nav-item.dropdown .dropdown-menu {
+            right: 0;
+            left: auto; /* fuerza que aparezca hacia la izquierda del botón si está a la derecha */
+            transform: translateX(-10px); /* opcional, pequeño ajuste visual */
+        }
+
+        .navbar, header {
+            overflow: visible !important; /* evita que el menú se recorte */
+        }
+        
+    </style>
 </header>

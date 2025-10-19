@@ -193,7 +193,8 @@ public class Usuario implements Serializable {
             data.setDesc(prop.getDescripcion());
             data.setImagen(prop.getImagen());
             data.setFechaPubli(prop.getFechaARealizar());
-            data.setCantidadColaboradores(prop.getAportes().size());
+            data.setCantidadColaboradores(prop.getAportes().size()); 
+            data.setNickProponenteDe(prop.getProponente().getNickname());
             DataPropFav.add(data);
         }
         return DataPropFav;

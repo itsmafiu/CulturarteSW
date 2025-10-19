@@ -44,7 +44,9 @@ public interface IControlador {
     DataUsuario consultaDeColaboradorWeb(String NickName);
     
     List<DataCategoria> cargarCategoriasWeb();
-            
+    
+    List<String> getCategorias();
+    
     List<String> getSeguidos(String seguidor);
     
     List<String> getColaboradores();

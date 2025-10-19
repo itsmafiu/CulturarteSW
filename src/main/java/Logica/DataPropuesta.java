@@ -160,6 +160,10 @@ public class DataPropuesta {
         this.fecha = fecha;
     }
 
+    public void setNickProponenteDe(String nickProponenteDe) {
+        this.nickProponenteDe = nickProponenteDe;
+    }
+
     
     
    

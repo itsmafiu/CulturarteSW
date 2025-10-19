@@ -763,6 +763,19 @@ public class Controlador implements IControlador{
         return ListaDataCat; 
     }
     
+    public List<String> getCategorias(){
+        List<Categoria> todas = cp.listarCategorias();
+        List<String> ListaCat= new ArrayList<>();
+        for (Categoria cat : todas){
+            
+            if(!cat.getNombre().equalsIgnoreCase("Categoria")){
+                ListaCat.add(cat.getNombre());
+            }
+        }
+
+        return ListaCat; 
+    }
+    
     
     @Override
     public List<String> getEstados(){
@@ -1047,8 +1060,17 @@ public class Controlador implements IControlador{
         List<Propuesta> props = cp.getListaPropuestas();
         for (Propuesta p : props) {
             if (p.getFechaLimit().equals(LocalDateTime.now()) || p.getFechaLimit().isBefore(LocalDateTime.now()) || p.getFechaARealizar().isBefore(LocalDate.now())) {
-                p.actualizarEstadoActual(EnumEstado.CANCELADA);
-                cp.editarPropuesta(p);
+                if (p.getEstadoActual().getEstado().equals(EnumEstado.PUBLICADA)) {
+                    p.actualizarEstadoActual(EnumEstado.NO_FINANCIADA);
+                    cp.editarPropuesta(p);
+                }else if(p.getEstadoActual().getEstado().equals(EnumEstado.EN_FINANCIACION)){
+                    if (p.getAlcanzada() >= p.getNecesaria()) {
+                        p.actualizarEstadoActual(EnumEstado.FINANCIADA);
+                    }else{
+                        p.actualizarEstadoActual(EnumEstado.NO_FINANCIADA);
+                    }
+                    cp.editarPropuesta(p);
+                }
             }
         }
     }

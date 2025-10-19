@@ -91,52 +91,14 @@
             </div>
                 
             <div class="ms-1">
-                <script>
-                   $('#miFormulario').on('submit', function(e) {
-                    if ($('#categoriaSeleccionada').val() === "") {
-                        e.preventDefault(); // Esto evita que se envíe el formulario
-                        alert("Por favor, selecciona una categoría");
-                    }
-                });
-                </script>
+                
                 <button type="submit">Enviar</button>
             </div>
             </div>
             <div class='col mt-4 mt-md-0' style="max-height: 874px; overflow-y: auto; border: 1px solid #ccc;">
                     <div id="arbolCategorias"></div>
 
-            <script>
-                // Pasamos el JSON desde JSP al script JS
-                const datosCategorias = <%= jsonArray.toString() %>;
-
-                $(function () {
-                    $('#arbolCategorias').jstree({
-                        'core': {
-                            'data': datosCategorias,
-                            'multiple': false
-                        },
-                        'plugins': ['wholerow']
-                    })
-                
-                //Terminaste de crear el jstree desplega todos los nodos
-                        .on('ready.jstree', function() {
-                    $(this).jstree('open_all');
-                });
-                 
-                //Seleccionaste un nodo --mostralo--
-                $('#arbolCategorias').on('select_node.jstree', function(e, data) {
-                    const texto = data.node.text;
-                    const id = data.node.id;
-                    if (id === "Categoria") {
-                        e.preventDefault();
-                        $('#arbolCategorias').jstree(true).deselect_node(id);
-                        return false;
-                    }
-                    $('#categoriaSeleccionada').val(texto);          // se ve el valor
-                    $('#categoriaSeleccionada').attr('placeholder', texto); // también cambia placeholder
-                });
-            });
-            </script>
+            
             <!--String categoria = request.getParameter("categoriaSeleccionada");   Asi se llega desde el Servlet-->
 
            <% } %>
@@ -144,10 +106,55 @@
             </div>
             
             </div>
+           </form>
             </div>
-        </form>
-        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        
+        <!--<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+        
+        <%@include file="footer.jsp" %>
+        
         <script src="https://cdn.jsdelivr.net/npm/jstree@3.3.15/dist/jstree.min.js"></script>
         <script src="js/validacionAltaProp.js"></script>  
+        
+        <script>
+            $('#miFormulario').on('submit', function(e) {
+             if ($('#categoriaSeleccionada').val() === "") {
+                 e.preventDefault(); // Esto evita que se envíe el formulario
+                 alert("Por favor, selecciona una categoría");
+             }
+         });
+        </script>
+        <script>
+            // Pasamos el JSON desde JSP al script JS
+            const datosCategorias = <%= jsonArray.toString() %>;
+
+            $(function () {
+                $('#arbolCategorias').jstree({
+                    'core': {
+                        'data': datosCategorias,
+                        'multiple': false
+                    },
+                    'plugins': ['wholerow']
+                })
+
+            //Terminaste de crear el jstree desplega todos los nodos
+                    .on('ready.jstree', function() {
+                $(this).jstree('open_all');
+            });
+
+            //Seleccionaste un nodo --mostralo--
+            $('#arbolCategorias').on('select_node.jstree', function(e, data) {
+                const texto = data.node.text;
+                const id = data.node.id;
+                if (id === "Categoria") {
+                    e.preventDefault();
+                    $('#arbolCategorias').jstree(true).deselect_node(id);
+                    return false;
+                }
+                $('#categoriaSeleccionada').val(texto);          // se ve el valor
+                $('#categoriaSeleccionada').attr('placeholder', texto); // también cambia placeholder
+            });
+        });
+        </script>
     </body>
 </html>

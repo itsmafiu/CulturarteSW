@@ -54,8 +54,12 @@ public class SvConsultaPropuesta extends HttpServlet {
             }
         }
         
+        //Agregado para filtrar por Categoria
+        List<String> categorias = ic.getCategorias();
+        
         HttpSession misesion = request.getSession();
         misesion.setAttribute("DP", DP);
+        misesion.setAttribute("categorias", categorias); 
         
         response.sendRedirect("mostrarPropuestas.jsp");
         
