@@ -9,6 +9,7 @@ import Logica.Fabrica;
 import Logica.IControlador;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
 public class SvComentario extends HttpServlet {
 
     IControlador ic = Fabrica.getInstancia().getIControlador();
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -35,7 +36,7 @@ public class SvComentario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
 //        HttpSession sesion = request.getSession();
 //        String titulo = (String) sesion.getAttribute("titulo");
 //        
@@ -43,7 +44,7 @@ public class SvComentario extends HttpServlet {
 //        
 //        sesion.setAttribute("DCs", DCs);
 //        
-//        response.sendRedirect("infoPropuesta.jsp");        
+//        response.sendRedirect("infoPropuesta.jsp");      
     }
 
     @Override
@@ -53,11 +54,12 @@ public class SvComentario extends HttpServlet {
         String titulo = (String) request.getParameter("titulo");
         String nick = (String) request.getParameter("nick");
         String comentario = (String) request.getParameter("comentario");
-        //System.out.println(titulo);
-        //System.out.println(nick);
-        //System.out.println(comentario);
+        System.out.println(titulo);
+        System.out.println(nick);
         ic.addComentario(titulo, nick, comentario);
-        response.sendRedirect("infoPropuesta.jsp");        
+        List<DataComentario> DCs = ic.getDataComentarios(titulo);
+        sesion.setAttribute("DCs", DCs);
+        response.sendRedirect("infoPropuesta.jsp");
     }
 
     @Override

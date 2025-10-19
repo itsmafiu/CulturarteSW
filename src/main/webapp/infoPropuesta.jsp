@@ -168,10 +168,9 @@
                         <c:when test="${not empty nick}">
                             
                             <form action="SvFavorita" method="POST">
-                                <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
+                                <input type="hidden" class="form-control" autocomplete="off" name="titulo" value="<%=p.getTitulo()%>" required>
                                 <%
                                     Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
-                                    System.out.println(esFavorita);
                                     if (esFavorita != null && esFavorita) {
                                 %>
                                 <button type="submit" class="btn btn-warning fw-bold text-light">
@@ -271,7 +270,7 @@
                                     <div class="col-6">
                                     <input type="text" class="form-control" id="comentario" name="comentario" required>
                                     <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
-                                    <input type="hidden" class="form-control" name="titulo" value="<%=URLEncoder.encode(p.getTitulo(),"UTF-8")%>" required>
+                                    <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
                                     <div class="invalid-feedback">Ingrese un comentario.</div>
                                     </div>
                                     <div class="col-1">
