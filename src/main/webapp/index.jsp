@@ -52,21 +52,19 @@
   </ul>
     
     <div class="tab-content min-vh-100 w-100 d-flex align-items-center justify-content-center bg-dark-subtle" id="myTabContent">
-        <div class="tab-pane fade" id="creadas" role="tabpanel">
-            
+        <div class="tab-pane fade" id="creadas" role="tabpanel" style="width: 100%">
             <div class="container my-4">
             <div class="row row-cols-1 row-cols-md-3 g-4">
             
             <%
         for(DataPropuesta p : DPcreadas){
         int colabs = p.getMisAportes().size();
-            long diasRestantes;
-                if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
-                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
-                } else {
-                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-                }
-                
+        long diasRestantes;
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            }else{
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
+            }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -100,7 +98,7 @@
         </div>
         </div>
   </div>
-   <div class="tab-pane fade" id="financiacion" role="tabpanel">
+   <div class="tab-pane fade" id="financiacion" role="tabpanel" style="width: 100%">
       <div class="container my-4">
             <div class="row row-cols-1 row-cols-md-3 g-4">
             
