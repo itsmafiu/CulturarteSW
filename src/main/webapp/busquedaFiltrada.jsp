@@ -78,7 +78,7 @@
                             // arreglo de pares {value, textoVisible}
                             String[][] estados = {
                                 {"PUB", "Publicadas"},
-                                {"ENF", "En evaluación"},
+                                {"ENF", "En financiación"},
                                 {"NOF", "No financiadas"},
                                 {"CAN", "Canceladas"},
                                 {"FIN", "Finalizadas"}

@@ -22,6 +22,7 @@
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
     </head>
     <body class="bg-light">
 
@@ -78,7 +79,7 @@
                 </div>
 
                 <div class="col-md-5">
-                    <h2 class="fw-bold mb-2"><%= p.getTitulo()%></h2>
+                    <h2 class="fw-bold mb-2"><%= p.getTitulo() %></h2>
                     <div class="text-center bg-secondary-subtle rounded">
                         <a class="text-decoration-none"
                            href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
@@ -168,10 +169,9 @@
                         <c:when test="${not empty nick}">
                             
                             <form action="SvFavorita" method="POST">
-                                <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
+                                <input type="hidden" class="form-control" autocomplete="off" name="titulo" value="<%= p.getTitulo() %>" required>
                                 <%
                                     Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
-                                    System.out.println(esFavorita);
                                     if (esFavorita != null && esFavorita) {
                                 %>
                                 <button type="submit" class="btn btn-warning fw-bold text-light">
@@ -212,7 +212,7 @@
                 <h3>Colaboradores</h3>
             </div>
             <%if(!(colab.isEmpty())){ %>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4" id="listaColaboradores">
                 <%
                     String img;
                     for (DataColaborador c : colab) {
@@ -222,12 +222,13 @@
                             img = c.getImagen();
                     }
                 %>
-                            <div class="col-sm-6 col-lg-4">
-                                <div class="card h-100">
-                                    <img src="<%=img %>" alt="Foto de Perfil" class="card-img-top" style="max-height:250px; height: 100%">
-                                    <div class="card-body" style="max-height: 300px;">
-                                        <h5 class="card-title"><%= c.getNickname() %></h5>
-                                        <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" class="btn btn-primary">Ver Perfil</a>
+                            <div class="usuario col-sm-6 col-lg-4">
+                                <div class="card" style="width: 18rem;">
+                                    <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta="Colaborador" >
+                                        <img src="<%= img %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                    </a>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-center"><%= c.getNickname() %></h5>
                                     </div>
                                 </div>
                             </div>
@@ -271,7 +272,7 @@
                                     <div class="col-6">
                                     <input type="text" class="form-control" id="comentario" name="comentario" required>
                                     <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
-                                    <input type="hidden" class="form-control" name="titulo" value="<%=URLEncoder.encode(p.getTitulo(),"UTF-8")%>" required>
+                                    <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
                                     <div class="invalid-feedback">Ingrese un comentario.</div>
                                     </div>
                                     <div class="col-1">
@@ -304,7 +305,7 @@
                 <li class="list-group-item">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div> 
-                            <p class="mb-0 opacity-75">Porpuesta aún sin comentarios.</p>
+                            <p class="mb-0 opacity-75">Propuesta aún sin comentarios.</p>
                         </div>
                         <small class="opacity-50 text-nowrap"></small> 
                     </div>

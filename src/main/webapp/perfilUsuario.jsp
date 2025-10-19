@@ -32,6 +32,7 @@
     <meta charset="UTF-8">
     <title>Perfil de <%= usuario.getNickname() %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
 </head>
 <body>
 <%@ include file="header.jsp" %>
@@ -66,7 +67,7 @@
                 <p><b>Sitio Web:</b> <a href="<%= usuario.getSitioWeb() %>" target="_blank"><%= usuario.getSitioWeb() %></a></p>
             <% } %>
             <% if(!esMiPerfil && request.getSession().getAttribute("nick")!=null){ %>
-                <button class="btn btn-success" id="botonSeguir">Seguir</button>
+                <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
             <% } %>
         </div>
      </div>
@@ -82,7 +83,7 @@
     </button>
     <div class="collapse mb-4" id="collapseSeguidores">
         <h3>Seguidores</h3>
-        <div class="row row-cols-1 row-cols-md-3 g-4" id="listaSeguidoresRow">
+        <div class="row" id="listaSeguidores">
             <%
                 List<DataUsuario> seguidores = usuario.getMeSiguen();
                 if (seguidores != null && !seguidores.isEmpty()) {
@@ -95,7 +96,7 @@
                     }
             %>
           
-            <div class="col-md-6 col-lg-3">
+            <div class="usuario col-md-6 col-lg-3">
                 <div class="card" style="width: 18rem;">                                    
                     <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" >
                         <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
@@ -112,7 +113,7 @@
             <% } %>
         </div>
     </div>
-
+        
     <!-- Usuarios que sigue -->
      <!-- 🔽 BOTÓN para mostrar/ocultar Seguidos -->
     <button class="btn btn-outline-secondary mb-2" type="button"
@@ -123,7 +124,7 @@
 
     <div class="collapse mb-4" id="collapseSeguidos">
         <h3>Seguidos</h3>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="row listaSeguidos">
             <%
                 List<DataUsuario> losSigo = usuario.getLosSigo();
                 if (losSigo != null && !losSigo.isEmpty()) {
@@ -136,7 +137,7 @@
                     }
             %>
                     
-            <div class="col-md-6 col-lg-3">
+            <div class="usuario col-md-6 col-lg-3">
                <div class="card" style="width: 18rem;">
                     <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" >
                         <img src="<%= imagenSeguidos %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
@@ -434,7 +435,7 @@
                         }); 
                         }, 500); 
                     } 
-                }); 
+                });
             });
         </script>
 </body>
