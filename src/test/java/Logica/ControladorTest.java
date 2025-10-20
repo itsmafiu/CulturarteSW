@@ -566,6 +566,7 @@ public class ControladorTest {
 //        //System.out.println("consultaDeColaborador");
 //        String NickName = "a";
 //        String expResult = "a";
+//        DataColaborador DC = new DataColaborador("","","","",LocalDate.now(),"");
 //        DataColaborador resultado = instance.consultaDeColaborador(NickName);
 //        String result = resultado.getNickname();
 //        assertEquals(expResult, result);
@@ -915,5 +916,10 @@ public class ControladorTest {
 //        DPS.setLugar(DPS.getLugar());
 //        DPS.setDescripcion(DPS.getDescripcion());
 //    }
-////    
+//    
+//    @Test
+//    public void testGetCategorias(){
+//        instance.getCategorias();
+//    }
+//    
 }

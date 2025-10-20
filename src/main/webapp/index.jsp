@@ -34,21 +34,31 @@
     </div>
 
    <ul class="nav nav-tabs" id="myTab" role="tablist">
+       <div class="col-12 col-md-4 col-xxl-2">
     <li class="nav-item" role="presentation">
-      <button class="nav-link bg-dark-subtle rounded" id="creadas-tab" data-bs-toggle="tab" data-bs-target="#creadas" type="button" role="tab">Propuestas Creadas</button>
+      <button class="nav-link bg-dark-subtle rounded" id="creadas-tab" data-bs-toggle="tab" data-bs-target="#creadas" type="button" role="tab" style="width: 100%">Propuestas Creadas</button>
     </li>
+        </div>
+       <div class="col-12 col-md-4 col-xxl-2">
     <li class="nav-item" role="presentation">
-      <button class="nav-link bg-dark-subtle rounded" id="financiacion-tab" data-bs-toggle="tab" data-bs-target="#financiacion" type="button" role="tab">Propuestas en Financiación</button>
+        <button class="nav-link bg-dark-subtle rounded" id="financiacion-tab" data-bs-toggle="tab" data-bs-target="#financiacion" type="button" role="tab" style="width: 100%">Propuestas en Financiación</button>
     </li>
+    </div>
+       <div class="col-12 col-md-4 col-xxl-2">
     <li class="nav-item" role="presentation">
-      <button class="nav-link bg-dark-subtle rounded" id="financiadas-tab" data-bs-toggle="tab" data-bs-target="#financiadas" type="button" role="tab">Propuestas Financiadas</button>
+      <button class="nav-link bg-dark-subtle rounded" id="financiadas-tab" data-bs-toggle="tab" data-bs-target="#financiadas" type="button" role="tab" style="width: 100%">Propuestas Financiadas</button>
     </li>
+       </div>
+       <div class="col-12 col-md-6 col-xxl-2">
     <li class="nav-item" role="presentation">
-      <button class="nav-link bg-dark-subtle rounded" id="noFinanciadas-tab" data-bs-toggle="tab" data-bs-target="#noFinanciadas" type="button" role="tab">Propuestas NO Financiadas</button>
+      <button class="nav-link bg-dark-subtle rounded" id="noFinanciadas-tab" data-bs-toggle="tab" data-bs-target="#noFinanciadas" type="button" role="tab" style="width: 100%">Propuestas NO Financiadas</button>
     </li>
+       </div>
+       <div class="col-12 col-md-6 col-xxl-2">
     <li class="nav-item" role="presentation">
-      <button class="nav-link bg-dark-subtle rounded" id="canceladas-tab" data-bs-toggle="tab" data-bs-target="#canceladas" type="button" role="tab">Propuestas Canceladas</button>
+      <button class="nav-link bg-dark-subtle rounded" id="canceladas-tab" data-bs-toggle="tab" data-bs-target="#canceladas" type="button" role="tab" style="width: 100%">Propuestas Canceladas</button>
     </li>
+    </div>
   </ul>
     
     <div class="tab-content min-vh-100 w-100 d-flex align-items-center justify-content-center bg-dark-subtle" id="myTabContent">
@@ -145,7 +155,7 @@
         </div>
   </div>
 
-  <div class="tab-pane fade" id="financiadas" role="tabpanel">
+  <div class="tab-pane fade" id="financiadas" role="tabpanel" style="width: 100%">
        <div class="container my-4">
             <div class="row row-cols-1 row-cols-md-3 g-4">
             
@@ -192,7 +202,7 @@
         </div>
   </div>
 
-  <div class="tab-pane fade" id="noFinanciadas" role="tabpanel">
+  <div class="tab-pane fade" id="noFinanciadas" role="tabpanel" style="width: 100%">
        <div class="container my-4">
             <div class="row row-cols-1 row-cols-md-3 g-4">
             
@@ -239,7 +249,7 @@
         </div>
   </div>
 
-  <div class="tab-pane fade" id="canceladas" role="tabpanel">
+  <div class="tab-pane fade" id="canceladas" role="tabpanel" style="width: 100%">
        <div class="container my-4">
             <div class="row row-cols-1 row-cols-md-3 g-4">
             
