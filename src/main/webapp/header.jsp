@@ -25,11 +25,11 @@
                     <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                 </li>
             </ul>
-
+            
             <form id="form-buscar" class="d-flex" role="search" action="SvBuscador" method="POST" style="min-width: 400px">
                 <div class="dropdown me-1">
-                    <input id="buscar" name="query" class="form-control" type="search" placeholder="título, descripción, lugar" autocomplete="off" aria-label="Buscar" />
-                    <ul id="resultados" class="dropdown-menu "></ul>
+                    <input id="buscar" name="query" class="form-control" type="search" placeholder="título, descripción, lugar" autocomplete="off" aria-label="Buscar" style="width: 300px"/>
+                    <ul id="resultados" class="dropdown-menu " style="width: 300px"></ul>
                 </div>
                 <button class="btn bg-primary-subtle" type="submit">Buscar</button>
             </form>

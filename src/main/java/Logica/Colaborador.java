@@ -95,7 +95,7 @@ public class Colaborador extends Usuario {
     
     public Aporte getAporteXtitulo(String titulo) {
         for (Aporte a : misAportes) {
-            if (a.getTituloMiPropuesta().equals(titulo)) {
+            if (titulo.equals(a.getTituloMiPropuesta())) {
                 return a;
             }
         }
