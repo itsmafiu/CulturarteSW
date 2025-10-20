@@ -12,7 +12,14 @@ $(document).ready(function() {
             $("#errorNick").hide();
             return;
         }
-
+        
+//        if(nick.includes(" ")){
+//            $("#errorNick").show();
+//            return;
+//        }else{
+//            $("#errorNick").hide();
+//        }
+        
         timerNick = setTimeout(function() {$.ajax({url: "altaUsuario", method: "GET", data: { verificarNick: nick, tipoVerificarUsuario: "nick"}, 
                 success: function(respuesta) {
                     if (respuesta === "existe") {
@@ -40,7 +47,7 @@ $(document).ready(function() {
         timerCorreo = setTimeout(function() {$.ajax({url: "altaUsuario", method: "GET", data: { verificarCorreo: correo, tipoVerificarUsuario: "correo"}, 
                 success: function(respuesta) {
                     if (respuesta === "existe") {
-                        $("#errorCorreo").show();
+                        $("#errorCorreo").text("Este correo ya está en uso.").show();
                     } else {
                         $("#errorCorreo").hide();
                     }

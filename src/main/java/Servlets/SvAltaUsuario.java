@@ -93,6 +93,8 @@ public class SvAltaUsuario extends HttpServlet {
         
         List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));
         
+        request.setCharacterEncoding("UTF-8");
+        
         String nick = request.getParameter("nick").trim();
         String nombre = request.getParameter("nombre").trim();
         String apellido = request.getParameter("apellido").trim();
@@ -132,12 +134,12 @@ public class SvAltaUsuario extends HttpServlet {
         }
         
         
-        if(nicksProhibidos.contains(nick)){
+        if(nicksProhibidos.contains(nick) || nick.contains(" ")){
             request.setAttribute("error", "El nick ingresado no está permitido.");
             request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
             return;
         }
-        if(!correo.contains("@") || correo.contains(" ") || !correo.contains(".")){
+        if(!correo.contains("@") ||  !correo.contains(".") || correo.contains(" ")){
             request.setAttribute("error", "El correo ingresado no es válido.");
             request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
             return;
@@ -147,8 +149,13 @@ public class SvAltaUsuario extends HttpServlet {
 //            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
 //            return;
 //        }
-        if(!nombre.matches("[\\p{L} ]+") || !apellido.matches("[\\p{L} ]+")){
-            request.setAttribute("error", "El nombre/apellido ingresado contiene caracteres inválidos.");
+        if(!nombre.matches("[\\p{L} ]+")){
+            request.setAttribute("error", "El nombre ingresado contiene caracteres inválidos.");
+            request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
+            return;
+        }
+        if(!apellido.matches("[\\p{L} ]+")){
+            request.setAttribute("error", "El apellido ingresado contiene caracteres inválidos.");
             request.getRequestDispatcher("altaUsuario.jsp").forward(request, response);
             return;
         }
