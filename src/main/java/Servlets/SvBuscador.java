@@ -58,6 +58,10 @@ public class SvBuscador extends HttpServlet {
             } else if (query == null || query.trim().isEmpty() || dp.getLugar().toLowerCase().contains(query.toLowerCase())) {
                 resultados.add(dp);
             }
+            
+            if(dp.getEnumEstado() == EnumEstado.INGRESADA || dp.getEnumEstado() == EnumEstado.CANCELADA){
+                resultados.remove(dp);
+            }
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -90,7 +94,9 @@ public class SvBuscador extends HttpServlet {
                 if (dp.getTitulo().toLowerCase().contains(query)
                         || dp.getDescripcion().toLowerCase().contains(query)
                         || dp.getLugar().toLowerCase().contains(query)) {
-                    resultados.add(dp);
+                    if(dp.getEstadoActual().getEstado()!=EnumEstado.INGRESADA){
+                      resultados.add(dp);  
+                    }
                 }
             }
         }

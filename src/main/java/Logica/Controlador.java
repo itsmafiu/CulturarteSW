@@ -627,7 +627,7 @@ public class Controlador implements IControlador{
     @Override
     public DataPropuestaSimple getDataPropuestaSimple(String titulo){
         Propuesta p = cp.getPropuesta(titulo);        
-        return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar());
+        return new DataPropuestaSimple(p.getTitulo(),p.getDescripcion(),p.getLugar(),p.getEstadoActual().getEstado());
     }
     
     @Override

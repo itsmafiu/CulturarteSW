@@ -13,14 +13,16 @@ public class DataPropuestaSimple {
     private String titulo;
     private String descripcion;
     private String lugar;
+    private EnumEstado enumEstado;
 
     public DataPropuestaSimple() {
     }   
     
-    public DataPropuestaSimple(String titulo, String descripcion, String lugar) {
+    public DataPropuestaSimple(String titulo, String descripcion, String lugar,EnumEstado enumEstado) {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.lugar = lugar;
+        this.enumEstado = enumEstado;
     }
 
     public String getTitulo() {
@@ -45,6 +47,14 @@ public class DataPropuestaSimple {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public EnumEstado getEnumEstado() {
+        return enumEstado;
+    }
+
+    public void setEnumEstado(EnumEstado enumEstado) {
+        this.enumEstado = enumEstado;
     }
     
     
