@@ -22,7 +22,7 @@
                 <h5 class="text-secondary">Lamentamos que hayas cancelado esta propuesta.</h5>
             </div>
             <div class="text-center btn bg-secondary-subtle rounded">
-                <a href="index.jsp" class="text-decoration-none text-center">
+                <a href="SvCargaProp" class="text-decoration-none text-center">
                     Seguir explorando
                 </a>
             </div>

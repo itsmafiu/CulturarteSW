@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
@@ -13,30 +14,44 @@
         <title>Registra Colaboración</title>
         <!-- Latest compiled and minified CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            input[type=text]{
-                width: 100%;
-            }
-            input[type=date]{
-                width: 50%;
-            }
-            div{
-                margin: auto;
-            }
-        </style>
     </head>
     <body>
         <%@ include file="header.jsp" %>
         <%
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
-            int colabs = p.getMisAportes().size();
-            long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
+
+            long diasRestantes;
+
+            if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            } else {
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
+            }
+
+            int colabs = p.getMisAportes().size();
+
             String imagen = "";
+
             if (p.getImagen().isBlank()) {
                 imagen = "fotos/default.jpg";
             } else {
                 imagen = p.getImagen();
+            }
+
+            String estado = p.getEstadoActual().getEstado().toString();
+
+            if (estado == "EN_FINANCIACION") {
+                estado = "En Financiación";
+            } else if (estado == "PUBLICADA") {
+                estado = "Publicada";
+            } else if (estado == "CANCELADA") {
+                estado = "Cancelada";
+            } else if (estado == "NO_FINANCIADA") {
+                estado = "No Financiada";
+            } else if (estado == "FINANCIADA") {
+                estado = "Financiada";
             }
         %>
         <div class="container mt-4">
@@ -80,7 +95,7 @@
                                             <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
                                             <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
                                             <div class="progress mb-3 position-relative" style="height: 20px;">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width: <%= porcentaje%>%;">
+                                                <div class="progress-bar bg-success" role="progressbar" style="width:<%= porcentaje%>%;">
                                                 </div>
                                                 <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
                                                     <%= porcentaje%>%
@@ -88,7 +103,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                <br>
+                                    <br>
                                 </div>
                             </div>
                         </div>

@@ -162,14 +162,16 @@
                                 }
                             %> 
                         </c:otherwise>
-                            
+
                     </c:choose>                                          
 
                     <c:choose>
                         <c:when test="${not empty nick}">
-                            
+                            <%
+                                if (p.getEstadoActual().getEstado() != EnumEstado.INGRESADA) {
+                            %>
                             <form action="SvFavorita" method="POST">
-                                <input type="hidden" class="form-control" autocomplete="off" name="titulo" value="<%= p.getTitulo() %>" required>
+                                <input type="hidden" class="form-control" autocomplete="off" name="titulo" value="<%= p.getTitulo()%>" required>
                                 <%
                                     Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
                                     if (esFavorita != null && esFavorita) {
@@ -184,6 +186,7 @@
                                     Favorita
                                 </button>
                                 <%
+                                        }
                                     }
                                 %>
                             </form>
