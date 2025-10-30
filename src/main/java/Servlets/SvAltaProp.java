@@ -4,25 +4,23 @@
  */
 package Servlets;
 
-import Logica.DataCategoria;
-import Logica.EnumRetorno;
-import Logica.Fabrica;
-import Logica.IControlador;
+import WebServices.DataCategoria;
+import WebServices.EnumRetorno;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.HttpSession;
 
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024, // 1 MB
@@ -37,7 +35,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SvAltaProp", urlPatterns = {"/SvAltaProp"})
 public class SvAltaProp extends HttpServlet {
     
-    private IControlador ic;
+//    private IControlador ic;
+    LogicaWS_Service service;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,7 +46,9 @@ public class SvAltaProp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         ic = Fabrica.getInstancia().getIControlador();
+//        ic = Fabrica.getInstancia().getIControlador();
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         List<DataCategoria> listaCategorias = ic.cargarCategoriasWeb();
         
@@ -64,7 +65,8 @@ public class SvAltaProp extends HttpServlet {
         
         //FALTAN CONTROLES DE SI LAS COSAS VIENEN VACIAS!
         
-        ic = Fabrica.getInstancia().getIControlador();
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
         
         String proponente = (String) misesion.getAttribute("nick");
@@ -122,7 +124,7 @@ public class SvAltaProp extends HttpServlet {
         
         LocalDate fechaActual = LocalDate.now();
         
-        ic.altaPropuesta(proponente, categoria, titulo, descripcion, lugar, fecha, montoEntrada, montoNecesario, posibleRetorno, fechaActual, ruta);
+        ic.altaPropuesta(proponente, categoria, titulo, descripcion, lugar, fecha, montoEntrada, montoNecesario, posibleRetorno, fechaActual, ruta); //CAMBIAR DATE A STRING
         
         response.sendRedirect("index.jsp");
     }

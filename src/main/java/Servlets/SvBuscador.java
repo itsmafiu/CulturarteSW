@@ -4,24 +4,23 @@
  */
 package Servlets;
 
-import Logica.DataPropuesta;
-import Logica.DataPropuestaSimple;
-import Logica.EnumEstado;
-import Logica.Fabrica;
-import Logica.IControlador;
+import WebServices.DataPropuesta;
+import WebServices.DataPropuestaSimple;
+import WebServices.EnumEstado;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Comparator;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,7 +29,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "SvBuscador", urlPatterns = {"/SvBuscador"})
 public class SvBuscador extends HttpServlet {
 
-    private IControlador ic = Fabrica.getInstancia().getIControlador();
+//    private IControlador ic = Fabrica.getInstancia().getIControlador();
+    LogicaWS_Service service;
+
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +41,9 @@ public class SvBuscador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();
 
@@ -79,6 +83,9 @@ public class SvBuscador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
+        
         String query = request.getParameter("query");
         List<String> titulos = ic.getPropuestas();
         List<DataPropuesta> resultados = new ArrayList<>();
@@ -88,11 +95,11 @@ public class SvBuscador extends HttpServlet {
         }
 
         for (String t : titulos) {
-            DataPropuesta dp = ic.consultaDePropuesta(t);
+            DataPropuesta dp = ic.consultaDePropuesta(t); 
 
             if (query != null && !query.isEmpty()) {
                 if (dp.getTitulo().toLowerCase().contains(query)
-                        || dp.getDescripcion().toLowerCase().contains(query)
+                        || dp.getDesc().toLowerCase().contains(query)
                         || dp.getLugar().toLowerCase().contains(query)) {
                     if(dp.getEstadoActual().getEstado()!=EnumEstado.INGRESADA){
                       resultados.add(dp);  

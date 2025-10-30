@@ -4,25 +4,31 @@
  */
 package Servlets;
 
-import Logica.DataPropuesta;
-import Logica.EnumEstado;
-import Logica.Fabrica;
-import Logica.IControlador;
+import WebServices.DataPropuesta;
+import WebServices.EnumEstado;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
 
 @WebServlet(name = "SvCargaProp", urlPatterns = {"/SvCargaProp"})
 public class SvCargaProp extends HttpServlet {
 
-    private final IControlador ic = Fabrica.getInstancia().getIControlador();
+//    private final IControlador ic = Fabrica.getInstancia().getIControlador();
 
+    LogicaWS_Service service;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();
         

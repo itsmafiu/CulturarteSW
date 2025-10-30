@@ -4,20 +4,19 @@
  */
 package Servlets;
 
-import Logica.Fabrica;
-import Logica.IControlador;
-import Logica.Proponente;
-import Logica.Usuario;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
+import WebServices.Proponente;
+import WebServices.Usuario;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -26,7 +25,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "inicioSesion", urlPatterns = {"/inicioSesion"})
 public class SvInicioSesion extends HttpServlet {
 
-    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+//    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+    
+    LogicaWS_Service service;
+    
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,6 +44,8 @@ public class SvInicioSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));
         

@@ -4,24 +4,23 @@
  */
 package Servlets;
 
-import Logica.DataPropuesta;
-import Logica.EnumRetorno;
-import Logica.Fabrica;
-import Logica.IControlador;
+import WebServices.EnumRetorno;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDateTime;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "SvRegistraCola", urlPatterns = {"/SvRegistraCola"})
 public class SvRegistraCola extends HttpServlet {
 
-    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+//    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+    LogicaWS_Service service;
     
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -38,7 +37,8 @@ public class SvRegistraCola extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
 
         String montoStr = request.getParameter("monto");
@@ -57,7 +57,7 @@ public class SvRegistraCola extends HttpServlet {
                 retorno = EnumRetorno.PORCENTAJE_VENTAS;
             }         
             
-            int resultado = ic.altaAporte(nick, tituloProp , monto, 0, retorno, LocalDateTime.now());
+            int resultado = ic.altaAporteF(nick, tituloProp , monto, 0, retorno, LocalDateTime.now()); //CAMBIAR DATE A STRING
             
             switch(resultado){
                 case 0:

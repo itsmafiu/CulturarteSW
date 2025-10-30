@@ -4,11 +4,17 @@
  */
 package Servlets;
 
-import Logica.Colaborador;
-import Logica.Fabrica;
-import Logica.IControlador;
-import Logica.Proponente;
-import Logica.Usuario;
+import WebServices.DataUsuario;
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,15 +23,6 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.Part;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -35,8 +32,8 @@ import org.mindrot.jbcrypt.BCrypt;
 @WebServlet(name = "altaUsuario", urlPatterns = {"/altaUsuario"})
 @MultipartConfig
 public class SvAltaUsuario extends HttpServlet {
-
-    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
+    
+    LogicaWS_Service service;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,6 +43,8 @@ public class SvAltaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         String tipo = request.getParameter("tipoVerificarUsuario");
         if(tipo == null){
@@ -90,6 +89,9 @@ public class SvAltaUsuario extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        service = new LogicaWS_Service();
+        LogicaWS ic = service.getLogicaWSPort();
         
         List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));
         
@@ -168,7 +170,7 @@ public class SvAltaUsuario extends HttpServlet {
         String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
         
         int aux;
-        Usuario usu;
+        DataUsuario usu;
         boolean tipoUsu;
         if(tipoUsuario.equals("Proponente")){
             String direccion = request.getParameter("direccion");
@@ -186,12 +188,22 @@ public class SvAltaUsuario extends HttpServlet {
                 return;
             }
             
-            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb);
-            usu = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
+            aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb); //CAMBIAR DATE A STRING 
+            //usu = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
+            if(aux == 1){
+                usu = ic.getDataUsuarioWeb(nick);
+            }else{
+                usu = null;
+            }
             tipoUsu = true;
         }else{ //tipoUsuario.equals("Colaborador")
-            aux = ic.añadirUsuario(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
-            usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
+            aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb); //CAMBIAR DATE A STRING
+            //usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
+            if(aux == 1){
+                usu = ic.getDataUsuarioWeb(nick);
+            }else{
+                usu = null;
+            }
             tipoUsu = false;
         }
         
