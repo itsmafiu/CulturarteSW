@@ -188,7 +188,7 @@ public class SvAltaUsuario extends HttpServlet {
                 return;
             }
             
-            aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb); //CAMBIAR DATE A STRING 
+            aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb); //CAMBIAR DATE A STRING 
             //usu = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
                 usu = ic.getDataUsuarioWeb(nick);
@@ -197,7 +197,7 @@ public class SvAltaUsuario extends HttpServlet {
             }
             tipoUsu = true;
         }else{ //tipoUsuario.equals("Colaborador")
-            aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb); //CAMBIAR DATE A STRING
+            aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, rutaWeb); //CAMBIAR DATE A STRING
             //usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
                 usu = ic.getDataUsuarioWeb(nick);

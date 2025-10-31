@@ -116,7 +116,7 @@ public class SvBuscador extends HttpServlet {
                     resultados.sort(Comparator.comparing(DataPropuesta::getTitulo, String.CASE_INSENSITIVE_ORDER));
                     break;
                 case "fecha_desc":
-                    resultados.sort(Comparator.comparing(DataPropuesta::getFecha).reversed());
+                    resultados.sort(Comparator.comparing(DataPropuesta::getFecha).reversed()); //LocalDate no funciona al pasarlo al web, podriamos hacer un getFechaString y comparar eso
                     break;
             }
         }

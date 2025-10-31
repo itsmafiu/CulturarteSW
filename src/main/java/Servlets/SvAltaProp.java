@@ -74,10 +74,10 @@ public class SvAltaProp extends HttpServlet {
         String titulo = request.getParameter("titulo");
         String descripcion = request.getParameter("descripcion");
         String lugar = request.getParameter("lugar");
-        String fechaStr = request.getParameter("fecha");
+        String fecha = request.getParameter("fecha");
         String retorno = request.getParameter("retorno");
         
-        LocalDate fecha = LocalDate.parse(fechaStr);
+        //LocalDate fecha = LocalDate.parse(fechaStr);
         
         String montoEntrada = request.getParameter("montoEntrada");
                 
@@ -122,7 +122,7 @@ public class SvAltaProp extends HttpServlet {
                 break;
         }
         
-        LocalDate fechaActual = LocalDate.now();
+        String fechaActual = "fechaActual";
         
         ic.altaPropuesta(proponente, categoria, titulo, descripcion, lugar, fecha, montoEntrada, montoNecesario, posibleRetorno, fechaActual, ruta); //CAMBIAR DATE A STRING
         

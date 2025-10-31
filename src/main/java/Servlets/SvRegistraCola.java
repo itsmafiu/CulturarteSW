@@ -57,7 +57,7 @@ public class SvRegistraCola extends HttpServlet {
                 retorno = EnumRetorno.PORCENTAJE_VENTAS;
             }         
             
-            int resultado = ic.altaAporteF(nick, tituloProp , monto, 0, retorno, LocalDateTime.now()); //CAMBIAR DATE A STRING
+            int resultado = ic.altaAporteF(nick, tituloProp , monto, 0, retorno, "fechaActual"); //CAMBIAR DATE A STRING
             
             switch(resultado){
                 case 0:

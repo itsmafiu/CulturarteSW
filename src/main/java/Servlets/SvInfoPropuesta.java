@@ -4,8 +4,7 @@
  */
 package Servlets;
 
-import Logica.Aporte;
-import Logica.DataColaborador;
+import WebServices.Aporte;
 import WebServices.DataColaborador;
 import WebServices.DataComentario;
 import WebServices.DataPropuesta;
@@ -56,8 +55,9 @@ public class SvInfoPropuesta extends HttpServlet {
         List<DataColaborador> colabs = new ArrayList<>();
             
         for(Aporte a : DP.getMisAportes()){
-            a.getColaborador();
-            DataColaborador DC = new DataColaborador(a.getColaborador().getNickname(), a.getColaborador().getNombre(), a.getColaborador().getApellido(), a.getColaborador().getEmail(), a.getColaborador().getFecNac(), a.getColaborador().getImagenWeb());
+            a.getMiColaborador();
+            DataColaborador DC = ic.getDataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac().toString(), a.getMiColaborador().getImagenWeb());
+            //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
             colabs.add(DC);
         } 
         
