@@ -53,13 +53,13 @@ public class SvInfoPropuesta extends HttpServlet {
         DataPropuesta DP = ic.consultaDePropuesta(titulo);
         
         List<DataColaborador> colabs = new ArrayList<>();
-            
-        for(Aporte a : DP.getMisAportes()){
-            a.getMiColaborador();
-            DataColaborador DC = ic.getDataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac().toString(), a.getMiColaborador().getImagenWeb());
-            //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
-            colabs.add(DC);
-        } 
+//            
+//        for(Aporte a : DP.getMisAportes()){
+//            a.getMiColaborador();
+//            DataColaborador DC = ic.getDataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac().toString(), a.getMiColaborador().getImagenWeb());
+//            //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
+//            colabs.add(DC);
+//        } 
         
         List<DataComentario> DCs = ic.getDataComentarios(titulo);
         

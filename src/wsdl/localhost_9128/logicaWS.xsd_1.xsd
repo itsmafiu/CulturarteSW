@@ -128,14 +128,6 @@
 
 <xs:element name="verificarUsuarioResponse" type="tns:verificarUsuarioResponse"/>
 
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
-</xs:complexType>
-
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -146,6 +138,14 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="getUsuarioPorMail">
@@ -193,16 +193,21 @@
 
 <xs:complexType name="dataPropuesta">
 <xs:sequence>
+<xs:element name="alcanzada" type="xs:double"/>
 <xs:element name="cantidadColaboradores" type="xs:int"/>
 <xs:element name="categoria" type="xs:string" minOccurs="0"/>
 <xs:element name="desc" type="xs:string" minOccurs="0"/>
+<xs:element name="entrada" type="xs:double"/>
 <xs:element name="estadoActual" type="tns:estado" minOccurs="0"/>
 <xs:element name="fecha" type="tns:localDate" minOccurs="0"/>
 <xs:element name="fechaLimit" type="tns:localDateTime" minOccurs="0"/>
+<xs:element name="fechaLimitStr" type="xs:string" minOccurs="0"/>
 <xs:element name="fechaPubli" type="tns:localDate" minOccurs="0"/>
+<xs:element name="fechaPubliStr" type="xs:string" minOccurs="0"/>
 <xs:element name="imagen" type="xs:string" minOccurs="0"/>
 <xs:element name="lugar" type="xs:string" minOccurs="0"/>
 <xs:element name="misAportes" type="tns:aporte" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="necesaria" type="xs:double"/>
 <xs:element name="nickProponenteDe" type="xs:string" minOccurs="0"/>
 <xs:element name="p" type="tns:proponente" minOccurs="0"/>
 <xs:element name="posibleRetorno" type="tns:enumRetorno" minOccurs="0"/>
@@ -349,18 +354,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getUsuario">
-<xs:sequence>
-<xs:element name="nick" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getUsuarioResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:usuario" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getDataComentarios">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -375,6 +368,18 @@
 
 <xs:complexType name="dataComentario">
 <xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getUsuario">
+<xs:sequence>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:usuario" minOccurs="0"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="addComentario">
@@ -613,6 +618,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="cambiarFavorita">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarFavoritaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="añadirUsuarioP">
 <xs:sequence>
 <xs:element name="nick" type="xs:string" minOccurs="0"/>
@@ -632,19 +650,6 @@
 <xs:complexType name="añadirUsuarioPResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="cambiarFavorita">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-<xs:element name="nick" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="cambiarFavoritaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 

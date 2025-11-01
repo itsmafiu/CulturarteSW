@@ -3,8 +3,8 @@
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="Logica.DataPropuesta"%>
-<%@page import="Logica.Propuesta"%>
+<%@page import="WebServices.DataPropuesta"%>
+<%@page import="WebServices.Propuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -24,10 +24,13 @@
 
             long diasRestantes;
 
-            if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+            java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+            java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+            if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
             } else {
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
+             diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
             }
 
             int colabs = p.getMisAportes().size();
@@ -91,7 +94,7 @@
                                                 </a>
                                             </div>
                                             <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                                                <%=p.getDescripcion()%></p>
+                                                <%=p.getDesc()%></p>
                                             <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
                                             <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
                                             <div class="progress mb-3 position-relative" style="height: 20px;">

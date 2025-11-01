@@ -178,7 +178,10 @@
                         imagenPropuestaFavs = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
+
+                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+
+                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -254,7 +257,9 @@
                         imagenPropuesta = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
+                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+
+                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -335,7 +340,9 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
-                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
+                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+
+                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>

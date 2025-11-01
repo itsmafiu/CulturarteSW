@@ -68,14 +68,16 @@
             <%
         for(DataPropuesta p : DPcreadas){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = 0;
-        /*
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
-            }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-            }
-            */
+        long diasRestantes;
+
+        java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+        java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+        if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+            diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+        } else {
+         diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+        }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -116,14 +118,16 @@
             <%
         for(DataPropuesta p : DPef){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = 0;
-        /*
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
-            }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-            }
-            */
+        long diasRestantes;
+
+        java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+        java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+        if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+            diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+        } else {
+         diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+        }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -165,14 +169,16 @@
             <%
         for(DataPropuesta p : DPf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = 0;
-        /*
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
-            }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-            }
-            */
+        long diasRestantes;
+
+        java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+        java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+        if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+            diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+        } else {
+         diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+        }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -214,14 +220,16 @@
             <%
         for(DataPropuesta p : DPnf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = 0;
-        /*
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
-            }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-            }
-            */
+        long diasRestantes;
+
+        java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+        java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+        if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+            diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+        } else {
+         diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+        }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -263,14 +271,16 @@
             <%
         for(DataPropuesta p : DPca){
         int colabs = p.getMisAportes().size();
-        long diasRestantes = 0;
-        /*
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
-            }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-            }
-            */
+        long diasRestantes;
+
+        java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
+        java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
+
+        if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+            diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+        } else {
+         diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+        }
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {

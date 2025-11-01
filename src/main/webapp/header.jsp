@@ -13,9 +13,7 @@
                         </li>
                     </c:when>
                         <c:otherwise>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" id="altaProp">Alta Propuesta</a>
-                            </li>
+                           
                         </c:otherwise>
                 </c:choose>
                 <li class="nav-item">
