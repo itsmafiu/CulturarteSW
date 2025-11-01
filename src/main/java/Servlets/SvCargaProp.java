@@ -8,15 +8,17 @@ import WebServices.DataPropuesta;
 import WebServices.EnumEstado;
 import WebServices.LogicaWS;
 import WebServices.LogicaWS_Service;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.xml.namespace.QName;
 
 @WebServlet(name = "SvCargaProp", urlPatterns = {"/SvCargaProp"})
 public class SvCargaProp extends HttpServlet {
@@ -27,7 +29,9 @@ public class SvCargaProp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        service = new LogicaWS_Service();
+        URL wsdlURL = new URL("http://localhost:9128/logicaWS?wsdl");
+        QName qname = new QName("http://WebServices/", "LogicaWS");
+        LogicaWS_Service service = new LogicaWS_Service(wsdlURL, qname);
         LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();

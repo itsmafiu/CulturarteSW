@@ -1,10 +1,9 @@
-<%@page import="Logica.EnumEstado"%>
+<%@page import="WebServices.DataPropuesta"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.List"%>
-<%@page import="Logica.DataPropuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="es">
@@ -14,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
 <body>
-    <%@ include file="header.jsp" %>
+    <%//@ include file="header.jsp" %>
     
     <%
     
@@ -69,12 +68,14 @@
             <%
         for(DataPropuesta p : DPcreadas){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -91,7 +92,7 @@
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                  <%=p.getDescripcion()%></p>
+                  <%=p.getDesc()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
               <div class="progress mb-3 position-relative" style="height: 20px;">
@@ -115,12 +116,14 @@
             <%
         for(DataPropuesta p : DPef){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -137,7 +140,7 @@
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                  <%=p.getDescripcion()%></p>
+                  <%=p.getDesc()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
               <div class="progress mb-3 position-relative" style="height: 20px;">
@@ -162,12 +165,14 @@
             <%
         for(DataPropuesta p : DPf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -184,7 +189,7 @@
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                  <%=p.getDescripcion()%></p>
+                  <%=p.getDesc()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
               <div class="progress mb-3 position-relative" style="height: 20px;">
@@ -209,12 +214,14 @@
             <%
         for(DataPropuesta p : DPnf){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -231,7 +238,7 @@
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                  <%=p.getDescripcion()%></p>
+                  <%=p.getDesc()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
               <div class="progress mb-3 position-relative" style="height: 20px;">
@@ -256,12 +263,14 @@
             <%
         for(DataPropuesta p : DPca){
         int colabs = p.getMisAportes().size();
-        long diasRestantes;
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+        long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
@@ -278,7 +287,7 @@
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
               <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                  <%=p.getDescripcion()%></p>
+                  <%=p.getDesc()%></p>
               <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
               <div class="progress mb-3 position-relative" style="height: 20px;">
