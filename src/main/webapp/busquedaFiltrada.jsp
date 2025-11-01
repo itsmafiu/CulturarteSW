@@ -4,8 +4,8 @@
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="Logica.DataPropuesta"%>
-<%@page import="Logica.Propuesta"%>
+<%@page import="WebServices.DataPropuesta"%>
+<%@page import="WebServices.Propuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -151,12 +151,14 @@
                     <%
                         for (DataPropuesta p : DPF) {
                             int colabs = p.getMisAportes().size();
-                            long diasRestantes;
-                            if (p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())) {
-                                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
-                            } else {
-                                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
-                            }
+                            long diasRestantes = 0;
+                                /*
+                                if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
+                                }else{
+                                    diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
+                                }
+                                */
                             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
                             String imagen = "";
                             if (p.getImagen().isBlank()) {
@@ -180,7 +182,7 @@
                                     </a>
                                 </div>
                                 <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                                    <%=p.getDescripcion()%></p>
+                                    <%=p.getDesc()%></p>
                                 <p><b>Recaudado:</b> <%=p.getAlcanzada()%></p>
                                 <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
                                 <div class="progress mb-3 position-relative" style="height: 20px;">

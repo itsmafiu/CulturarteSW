@@ -2,9 +2,9 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="Logica.DataAporte"%>
-<%@page import="Logica.DataUsuario"%>
-<%@page import="Logica.DataPropuesta"%>
+<%//@page import="WebServices.DataAporte"%>
+<%@page import="WebServices.DataUsuario"%>
+<%@page import="WebServices.DataPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -178,7 +178,7 @@
                         imagenPropuestaFavs = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaARealizar()), 0);
+                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -199,7 +199,7 @@
                 
                 <p class="card-text flex-grow-1"  
                    style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
-                    <%=prop.getDescripcion()%>
+                    <%=prop.getDesc()%>
                 </p>
 
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
@@ -254,7 +254,7 @@
                         imagenPropuesta = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaARealizar()), 0);
+                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -277,17 +277,17 @@
 
                 <p class="card-text flex-grow-1"  
                    style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
-                    <%=prop.getDescripcion()%>
+                    <%=prop.getDesc()%>
                 </p>
 
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
 
-                <% if (!esProponente && esMiPerfil) {
-                    DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
+                <% if (false){//!esProponente && esMiPerfil) {
+                    //DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
                 %>
                 <div class="d-flex justify-content-between align-items-center text-secondary mb-2" style="font-size: 0.95rem;">
-                    <span><b>Aporte:</b> <%=aporte.get$aporte()%></span>
-                    <span>📅 <%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%></span>
+                    <span><b>Aporte:</b>NO SE ENCUENTRA EL DATA APORTE <!--%=aporte.get$aporte()%--></span>
+                    <span>📅 NO SE ENCUENTRA EL DATA APORTE<!--%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%--></span>
                 </div>
                 <% } %>
 
@@ -335,7 +335,7 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaARealizar()), 0);
+                    long diasRestantes = 0; // = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), prop.getFechaPubli()), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -355,7 +355,7 @@
                     </div>
                     <% } %>
                 <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
-                    <%=prop.getDescripcion()%> </p>
+                    <%=prop.getDesc()%> </p>
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
               <p><%= diasRestantes %> días restantes · <%=colabs%> colaboradores</p>
                 <div class="progress mb-3 position-relative" style="height: 20px;">

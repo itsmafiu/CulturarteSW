@@ -1,4 +1,4 @@
-<%@page import="Logica.DataUsuario"%>
+<%@page import="WebServices.DataUsuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

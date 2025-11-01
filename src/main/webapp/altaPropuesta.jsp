@@ -1,6 +1,6 @@
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="Logica.DataCategoria"%>
+<%@page import="WebServices.DataCategoria"%>
 <%@page import="java.util.List"%>
 <%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

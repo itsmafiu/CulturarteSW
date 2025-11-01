@@ -4,15 +4,15 @@
     Author     : nahud
 --%>
 
-<%@page import="Logica.EnumEstado"%>
-<%@page import="Logica.DataComentario"%>
+<%@page import="WebServices.EnumEstado"%>
+<%@page import="WebServices.DataComentario"%>
 <%@page import="java.util.List"%>
-<%@page import="Logica.DataColaborador"%>
+<%@page import="WebServices.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
-<%@page import="Logica.DataPropuesta"%>
+<%@page import="WebServices.DataPropuesta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -33,13 +33,14 @@
 
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
             
-           long diasRestantes;
-            
-            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaARealizar())){
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaARealizar()), 0);
+           long diasRestantes = 0;
+        /*
+            if(p.getFechaLimit().toLocalDate().isAfter(p.getFechaPubli())){
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), p.getFechaPubli()), 0);
             }else{
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0); 
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), p.getFechaLimit()), 0);
             }
+            */
 
             int colabs = p.getMisAportes().size();
 
@@ -86,7 +87,7 @@
                             by <%= p.getNickProponenteDe()%>
                         </a>
                     </div>
-                    <p class="text-muted mb-4"><%= p.getDescripcion()%></p>
+                    <p class="text-muted mb-4"><%= p.getDesc()%></p>
 
                     <h4 class="fw-semibold text-success mb-0">
                         <%= String.format("%.0f", p.getAlcanzada())%> $
@@ -260,7 +261,7 @@
                                   }
                               }
                           }
-                          
+                        /*
                           if (!(DCs.isEmpty())) {
                               for (DataComentario dc : DCs) {
                                   if (dc.getNickColaborador().equals(nick)) {
@@ -268,6 +269,7 @@
                                     }
                                 }
                             }
+                        */
                             if (esColab && !hizoComent) {%>
                         <li class="list-group-item">
                             <form action="SvComentario" class="needs-validation" method="POST">
@@ -297,10 +299,10 @@
                 <li class="list-group-item">
                     <div class="justify-content-between border border-secondary p-2 rounded">
                         <div> 
-                            <h6 class="mb-0"><%=dc.getNickColaborador()%></h6>
-                            <p class="mb-0 opacity-75"><%=dc.getComentario()%></p>
+                            <h6 class="mb-0">VACIO EL DC<!--%=dc.getNickColaborador()%--></h6>
+                            <p class="mb-0 opacity-75">VACIO EL DC<!--%=dc.getComentario()%--></p>
                         </div>
-                        <small class="opacity-50 text-nowrap"><%=dc.getFecComentario().toString()%></small> 
+                        <small class="opacity-50 text-nowrap">VACIO EL DC<!--%=dc.getFecComentario().toString()%--></small> 
                     </div>
                 </li>     
                 <%}}else{%>
