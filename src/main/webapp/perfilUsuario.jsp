@@ -2,7 +2,7 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
-<%//@page import="WebServices.DataAporte"%>
+<%@page import="WebServices.DataAporte"%>
 <%@page import="WebServices.DataUsuario"%>
 <%@page import="WebServices.DataPropuesta"%>
 <%@page import="java.util.List"%>
@@ -288,7 +288,7 @@
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
 
                 <% if (false){//!esProponente && esMiPerfil) {
-                    //DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo());
+                    //DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo()); //listaAporte es de tipo Hash, por eso el servicio no lo manda para acá, hay que cambiarlo
                 %>
                 <div class="d-flex justify-content-between align-items-center text-secondary mb-2" style="font-size: 0.95rem;">
                     <span><b>Aporte:</b>NO SE ENCUENTRA EL DATA APORTE <!--%=aporte.get$aporte()%--></span>
