@@ -7,25 +7,15 @@
         <title>Inicio Sesión</title>
             <!-- Latest compiled and minified CSS -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            input[type=text]{
-                width: 50%;
-            }
-            input[type=password]{
-                width: 50%;
-            }
-            div{
-                margin: auto;
-            }
-        </style>
     </head>
     <body>
+        
         <%@ include file="header.jsp" %>
         
         <div class="container mt-4">
             <div class="mt-4 p-5 bg-info text-bg-color rounded"> <%--Margin-Top-4(/5) | Padding(espacio interno)-5 | Background-(color) | text-background-color(se adapta solo) | borde redondeado--%>
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-12 col-md-4">
                         <h1>Inicio Sesión</h1>
                         <form action="inicioSesion" class="needs-validation" method="POST">
                             <div class="form-group">
@@ -46,6 +36,9 @@
                                 </c:if>
                             </div>
                         </form>
+                    </div>
+                    <div class="col-md-4">
+                        
                     </div>
                     <div class="col-md-4">
                         <div id="datosProponente" class="mt-4 p-5 bg-secondary text-bg-color rounded">

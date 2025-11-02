@@ -29,6 +29,9 @@ public class SvCargaProp extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        
+        
         URL wsdlURL = new URL("http://localhost:9128/logicaWS?wsdl");
         QName qname = new QName("http://WebServices/", "LogicaWS");
         LogicaWS_Service service = new LogicaWS_Service(wsdlURL, qname);
@@ -92,7 +95,14 @@ public class SvCargaProp extends HttpServlet {
         misesion.setAttribute("propuestasNoFinanciadas", DPnf);
         misesion.setAttribute("propuestasCanceladas", DPca);
 
-        response.sendRedirect("index.jsp");
+        String user = request.getHeader("User-Agent");
+        boolean esMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+        if(esMovil && request.getSession().getAttribute("nick") == null){
+            response.sendRedirect("inicioSesion.jsp");
+        }else{
+            response.sendRedirect("index.jsp");
+        }
+        
     }
 }
 

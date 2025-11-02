@@ -132,14 +132,6 @@
 
 <xs:element name="verificarUsuarioResponse" type="tns:verificarUsuarioResponse"/>
 
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
-</xs:complexType>
-
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -150,6 +142,14 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="getUsuarioPorMail">
@@ -183,6 +183,7 @@
 <xs:element name="direccion" type="xs:string" minOccurs="0"/>
 <xs:element name="email" type="xs:string" minOccurs="0"/>
 <xs:element name="imagen" type="xs:string" minOccurs="0"/>
+<xs:element name="imagenWeb" type="xs:string" minOccurs="0"/>
 <xs:element name="losSigo" type="tns:dataUsuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="meSiguen" type="tns:dataUsuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="misPropuestas" type="tns:dataPropuesta" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -518,18 +519,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="existeCorreo">
-<xs:sequence>
-<xs:element name="correo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreoResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="verificarUsuario">
 <xs:sequence>
 <xs:element name="usuario" type="xs:string" minOccurs="0"/>
@@ -543,16 +532,15 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="dejarSeguirUsuario">
+<xs:complexType name="existeCorreo">
 <xs:sequence>
-<xs:element name="nick1" type="xs:string" minOccurs="0"/>
-<xs:element name="nick2" type="xs:string" minOccurs="0"/>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="dejarSeguirUsuarioResponse">
+<xs:complexType name="existeCorreoResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int"/>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -565,6 +553,19 @@
 <xs:complexType name="consultaDePropuestaResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dejarSeguirUsuario">
+<xs:sequence>
+<xs:element name="nick1" type="xs:string" minOccurs="0"/>
+<xs:element name="nick2" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dejarSeguirUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

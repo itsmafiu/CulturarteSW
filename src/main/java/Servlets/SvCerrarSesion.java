@@ -40,7 +40,14 @@ public class SvCerrarSesion extends HttpServlet {
         misesion.setAttribute("tipoUsuario", null);
         misesion.setAttribute("datosUsuario", null);
         
-        response.sendRedirect("index.jsp");
+        String user = request.getHeader("User-Agent");
+        boolean esMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+        if(esMovil){
+            response.sendRedirect("inicioSesion.jsp");
+        }else{
+            response.sendRedirect("index.jsp");
+        }
+        
     }
 
     @Override

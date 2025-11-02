@@ -166,7 +166,7 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <!-- netbeans puede intentar agregar un plugin jaxws-maven-plugin:2.3 - ELIMINARLO si aparece -->
+            <!-- netbeans puede intentar agregar un plugin org.jvnet.jax-ws-commons:jaxws-maven-plugin:2.3 - ELIMINARLO si aparece -->
         </plugins>
     </build>
 </project>

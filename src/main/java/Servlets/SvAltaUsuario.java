@@ -122,14 +122,6 @@ public class SvAltaUsuario extends HttpServlet {
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".")); //solo extension (.jpg, .png, etc)
             String nombreUnico = nombreOriginal.subSequence(0, nombreOriginal.lastIndexOf(".")).toString() + ((int)(Math.random()*1001)) + extension; //nombre img + id unico para que no se repita + extension
 
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-            //ruta nahue: "C:\\Users\\nahud\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-            //ruta lucas: "C:\\Users\\brito\\Desktop\\Lucas\\Tecnologo en Informatica\\4Cuarto Semestre\\Laboratorio PApp\\Segundo Sprint\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-	    //String rutaBase = "C:\\Users\\brito\\Desktop\\Lucas\\Tecnologo en Informatica\\4Cuarto Semestre\\Laboratorio PApp\\Segundo Sprint\\CulturarteWeb\\src\\main\\webapp\\fotos"; //CAMBIAR RUTA SI SE QUIERE USAR IMAGENES
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-            //ruta mafiu: "C:\\Users\\mafiu\\Documents\\NetBeansProjects\\CulturarteOnline\\CulturarteWeb\\src\\main\\webapp\\fotos\\"
-
             Files.createDirectories(Paths.get(rutaBase));
             rutaImagen = rutaBase + File.separator + nombreUnico; //ruta para el servidor
             rutaWeb = "fotos" + File.separator + nombreUnico; //ruta para la web
