@@ -85,6 +85,7 @@ public class SvCargaProp extends HttpServlet {
 
         String user = request.getHeader("User-Agent");
         boolean esMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+        misesion.setAttribute("dispositivo", esMovil);
         if(esMovil && request.getSession().getAttribute("nick") == null){
             response.sendRedirect("inicioSesion.jsp");
         }else{
