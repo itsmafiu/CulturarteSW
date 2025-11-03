@@ -31,6 +31,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de <%= usuario.getNickname() %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
@@ -426,7 +427,6 @@
         
 
 </div>
-        <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --%>
         <%@include file="footer.jsp" %>
         
         
@@ -442,7 +442,7 @@
         <script>
             $(document).ready(function() {     
                 const boton = document.getElementById("botonSeguir"); 
-                const loSigo = <%= loSigo%>;
+                const loSigo = <%=loSigo%>;
                 
                 
                 var nicknameSesion = "<%= usuarioIniciado.getNickname() %>";
@@ -463,7 +463,8 @@
                     if(boton.textContent === "Seguir"){ 
                         boton.disabled = true;
                         boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                        timerSeguir = setTimeout(function() {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-success", "btn-danger"); 
@@ -486,7 +487,8 @@
                     }else if(boton.textContent === "Dejar de Seguir"){ 
                         boton.disabled = true;
                         boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                        timerSeguir = setTimeout(function() {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-danger", "btn-success"); 

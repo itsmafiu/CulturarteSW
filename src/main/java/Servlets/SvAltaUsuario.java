@@ -59,7 +59,8 @@ public class SvAltaUsuario extends HttpServlet {
                     if (nick == null || nick.trim().isEmpty()) {
                         response.getWriter().write("noexiste");
                         return;
-                    }       boolean existe = ic.existeNick(nick);
+                    }       
+                    boolean existe = ic.existeNick(nick);
                     if (existe) {
                         response.getWriter().write("existe");
                     } else {
@@ -73,7 +74,8 @@ public class SvAltaUsuario extends HttpServlet {
                     if (correo == null || correo.trim().isEmpty()) {
                         response.getWriter().write("noexiste");
                         return;
-                    }       boolean existe = ic.existeCorreo(correo);
+                    }       
+                    boolean existe = ic.existeCorreo(correo);
                     if (existe) {
                         response.getWriter().write("existe");
                     } else {

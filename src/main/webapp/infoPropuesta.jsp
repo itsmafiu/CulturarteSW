@@ -19,6 +19,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
@@ -79,7 +80,7 @@
                     <img src="<%=imagen%>" 
                          alt="Imagen de la propuesta" 
                          class="img-fluid rounded shadow-sm mb-3"
-                         style="height: 400px; object-fit: cover;">
+                         style="height: 400px; object-fit: contain;">
                 </div>
 
                 <div class="col-md-5">
@@ -180,15 +181,19 @@
                                     Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
                                     if (esFavorita != null && esFavorita) {
                                 %>
-                                <button type="submit" class="btn btn-warning fw-bold text-light">
-                                    Favorita
-                                </button>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-warning fw-bold text-light">
+                                        Favorita
+                                    </button>
+                                </div>
                                 <%
                                 } else {
                                 %>
-                                <button type="submit" class="btn btn-outline-warning fw-bold">
-                                    Favorita
-                                </button>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-outline-warning fw-bold" style="whith">
+                                        Favorita
+                                    </button>
+                                </div>
                                 <%
                                         }
                                     }

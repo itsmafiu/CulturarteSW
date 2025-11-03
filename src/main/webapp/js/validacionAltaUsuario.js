@@ -10,26 +10,31 @@ $(document).ready(function() {
 
         if (nick === "") {
             $("#errorNick").hide();
+            $("#correctoNick").hide();
             return;
         }
         
-//        if(nick.includes(" ")){
-//            $("#errorNick").show();
-//            return;
-//        }else{
-//            $("#errorNick").hide();
-//        }
-        
-        timerNick = setTimeout(function() {$.ajax({url: "altaUsuario", method: "GET", data: { verificarNick: nick, tipoVerificarUsuario: "nick"}, 
+        timerNick = setTimeout(function() {
+            $.ajax({url: "altaUsuario", method: "GET", data: { verificarNick: nick, tipoVerificarUsuario: "nick"}, dataType: "text",
                 success: function(respuesta) {
+                    respuesta = respuesta.trim();
                     if (respuesta === "existe") {
                         $("#errorNick").show();
-                    } else {
+                        $("#correctoNick").hide();
+                    } else if(respuesta === "noexiste") {
                         $("#errorNick").hide();
+                        $("#correctoNick").show();
+                    } else {
+                        console.warn("Respuesta no reconocida:", respuesta);
                     }
                 },
-                error: function() {
-                    console.error("Error al verificar el nick.");
+                error: function(xhr, status, error) {
+                    console.error("ERROR EJECUTADO");
+                    console.error("Status:", status);
+                    console.error("Error:", error);
+                    console.error("Response:", xhr.responseText);
+                    $("#errorNick").hide();
+                    $("#correctoNick").hide();
                 }
             });
         }, 500);
@@ -41,19 +46,28 @@ $(document).ready(function() {
 
         if (correo === "") {
             $("#errorCorreo").hide();
+            $("#correctoCorreo").hide();
             return;
         }
 
-        timerCorreo = setTimeout(function() {$.ajax({url: "altaUsuario", method: "GET", data: { verificarCorreo: correo, tipoVerificarUsuario: "correo"}, 
+        timerCorreo = setTimeout(function() {
+            $.ajax({url: "altaUsuario", method: "GET", data: { verificarCorreo: correo, tipoVerificarUsuario: "correo"}, 
                 success: function(respuesta) {
+                    respuesta = respuesta.trim();
                     if (respuesta === "existe") {
-                        $("#errorCorreo").text("Este correo ya está en uso.").show();
-                    } else {
+                        $("#errorCorreo").show();
+                        $("#correctoCorreo").hide();
+                    } else if (respuesta === "noexiste"){
                         $("#errorCorreo").hide();
+                        $("#correctoCorreo").show();
+                    } else{
+                        console.warn("Respuesta inesperada:", respuesta);
                     }
                 },
                 error: function() {
                     console.error("Error al verificar el correo.");
+                    $("#errorCorreo").hide();
+                    $("#correctoCorreo").hide();
                 }
             });
         }, 500);
@@ -81,6 +95,10 @@ $(document).ready(function() {
         if ($("#errorCorreo").is(":visible")) {
             e.preventDefault();
             alert("El correo ingresado ya existe. Por favor, elija otro.");
-        }   
+        }
+        if ($("#errorPass").is(":visible")){
+            e.preventDefault();
+            alert("Las contraseñas no coinciden.");
+        }
     });
 });

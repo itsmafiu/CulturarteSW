@@ -10,9 +10,6 @@
             <!-- Latest compiled and minified CSS -->
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <style>
-            input[type=text]{
-                width: 100%;
-            }
             input[type=date]{
                 width: 50%;
             }
@@ -41,12 +38,14 @@
                                 <input type="text" class="form-control form-control-lg" id="nick" name="nick" required>
                                 <div class="invalid-feedback">Ingrese un nick.</div>
                                 <span id="errorNick" style="color:red; display:none;">Este nick ya está en uso.</span>
+                                <span id="correctoNick" style="color:green; display:none;">Este nick está disponible.</span>
                             </div>
                             <div class="form-group">
                                 <label for="correo">Correo: </label> 
                                 <input type="email" class="form-control form-control-lg" id="correo" name="correo" required>
                                 <div class="invalid-feedback">Ingrese un correo.</div>
                                 <span id="errorCorreo" style="color:red; display:none;">Este correo ya está en uso.</span>
+                                <span id="correctoCorreo" style="color:green; display:none;">Este correo está disponible.</span>
                             </div>
                             <div class="form-group">
                                 <label for="nombre">Nombre: </label> 
@@ -73,6 +72,7 @@
                                 <div class="invalid-feedback">Ingrese la misma contraseña.</div>
                                 <span id="errorPass" style="color:red; display:none;">Debe confirmar la contraseña.</span>
                             </div>
+                            <br>
                             <p>Elija el tipo de Usuario:<br>
                                 <input type="radio" id="prop" name="tipoUsuario" value="Proponente" checked> <label for="prop">Proponente</label>
                                 <input type="radio" id="cola" name="tipoUsuario" value="Colaborador"> <label for="cola">Colaborador</label>
@@ -110,15 +110,23 @@
                 </form>
             </div>
         </div>
-
-            <!-- Latest compiled JavaScript -->
-<!--            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>-->
+        <div class="container mt-2 mb-4">
+            <div class="row">
+                <div class="col-10 col-md-4 mt-4 p-5 bg-secondary text-bg-color rounded">
+                    <h2>¿Ya tienes perfil?</h2>
+                    <h4>¡Inicia sesión aquí!</h4>
+                    <form action="inicioSesion" method="GET">
+                        <button type="submit" class="btn btn-success">Inicio Sesión</button>
+                    </form>
+                </div>
+            </div>
             
-            <%@include file="footer.jsp" %>
+        </div>
+            
+        <%@include file="footer.jsp" %>
 
-            <script src="js/validacionAltaUsuario.js"></script>
-            <script>
+        <script src="js/validacionAltaUsuario.js"></script>
+        <script>
             const prop = document.getElementById('prop');
             const cola = document.getElementById('cola');
             const collapse = new bootstrap.Collapse(document.getElementById('datosProponente'), {toggle: true});
@@ -134,7 +142,7 @@
                     collapse.hide();
                 }
             });
-            </script>
+        </script>
             
     </body>
 </html>

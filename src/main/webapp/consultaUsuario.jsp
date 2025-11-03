@@ -5,10 +5,11 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
-        <%@include file="footer.jsp" %>
+        
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -49,7 +50,7 @@
         for(DataUsuario usu : DtU){
         String imagen = "";
         if (usu.getImagen() == null || usu.getImagen().isBlank()) {
-            imagen = "fotos\\default.jpg";
+            imagen = "fotos" + File.separator + "default.jpg";
         }else{
             imagen = usu.getImagen();
         }
@@ -83,7 +84,7 @@
               
       </div>
         
-         
+        <%@include file="footer.jsp" %>
       
         <script>
         const noHayUser = <%= NoHayUsuarios %>  
