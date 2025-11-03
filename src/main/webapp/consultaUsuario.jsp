@@ -14,7 +14,7 @@
         <%@ include file="header.jsp" %>
         
         <% 
-        
+        boolean NoHayUsuarios = false;
         List<DataUsuario> DtU = (List) request.getSession().getAttribute("DtU");
         int tamanio = DtU.size();
         %>
@@ -27,7 +27,7 @@
             
         
             <!-- Filtros tipo pestaña -->
-            <ul class="nav nav-tabs mb-2">
+            <ul id = "filtros" class="nav nav-tabs mb-2">
               <li class="nav-item">
                 <button class="nav-link active bg-dark-subtle rounded" onclick="filtrarUsuarios('todos')">Todos</button>
               </li>
@@ -74,9 +74,10 @@
               
           </div>
         </div>
-              <% } }else{ %>
-              <h3> <b>No hay usuarios cargados o hubo error en la base de datos! </b></h3>
-              <% } %>
+              <% } }else{ 
+                NoHayUsuarios = true;
+              
+              } %>
         </div>
         </div>
               
@@ -85,6 +86,12 @@
          
       
         <script>
+        const noHayUser = <%= NoHayUsuarios %>  
+          if (noHayUser){
+              document.getElementById("tituloExplora").textContent = "No hay usuarios registrados, animate a ser el primero";
+              document.getElementById("filtros").style.display = "none";
+          }  
+        
         function filtrarUsuarios(tipo) {
           const usuarios = document.querySelectorAll('.usuario');
           const tituloExplora = document.getElementById('tituloExplora');

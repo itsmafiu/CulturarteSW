@@ -184,6 +184,7 @@
 <xs:element name="email" type="xs:string" minOccurs="0"/>
 <xs:element name="imagen" type="xs:string" minOccurs="0"/>
 <xs:element name="imagenWeb" type="xs:string" minOccurs="0"/>
+<xs:element name="listaAporte" type="tns:dataAporte" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="losSigo" type="tns:dataUsuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="meSiguen" type="tns:dataUsuario" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="misPropuestas" type="tns:dataPropuesta" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
@@ -194,6 +195,24 @@
 <xs:element name="sitioWeb" type="xs:string" minOccurs="0"/>
 <xs:element name="tipo" type="xs:string" minOccurs="0"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataAporte">
+<xs:sequence>
+<xs:element name="aporte" type="xs:double" minOccurs="0"/>
+<xs:element name="cantidad" type="xs:int"/>
+<xs:element name="fechaHora" type="tns:localDateTime" minOccurs="0"/>
+<xs:element name="fechaStr" type="xs:string" minOccurs="0"/>
+<xs:element name="imagen" type="xs:string" minOccurs="0"/>
+<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
+<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
+<xs:element name="necesaria" type="xs:double" minOccurs="0"/>
+<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="localDateTime" final="extension restriction">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="dataPropuesta">
@@ -229,10 +248,6 @@
 </xs:complexType>
 
 <xs:complexType name="localDate" final="extension restriction">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="localDateTime" final="extension restriction">
 <xs:sequence/>
 </xs:complexType>
 
@@ -481,18 +496,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="dataAporte">
-<xs:sequence>
-<xs:element name="cantidad" type="xs:int"/>
-<xs:element name="fechaHora" type="tns:localDateTime" minOccurs="0"/>
-<xs:element name="imagen" type="xs:string" minOccurs="0"/>
-<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
-<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
-<xs:element name="necesaria" type="xs:double" minOccurs="0"/>
-<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="consultaDeColaborador">
 <xs:sequence>
 <xs:element name="NickName" type="xs:string" minOccurs="0"/>
@@ -519,6 +522,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="existeCorreo">
+<xs:sequence>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeCorreoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="verificarUsuario">
 <xs:sequence>
 <xs:element name="usuario" type="xs:string" minOccurs="0"/>
@@ -529,18 +544,6 @@
 <xs:complexType name="verificarUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreo">
-<xs:sequence>
-<xs:element name="correo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreoResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -649,19 +652,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="cambiarFavorita">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-<xs:element name="nick" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="cambiarFavoritaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="añadirUsuarioP">
 <xs:sequence>
 <xs:element name="nick" type="xs:string" minOccurs="0"/>
@@ -681,6 +671,19 @@
 <xs:complexType name="añadirUsuarioPResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarFavorita">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarFavoritaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -724,6 +727,15 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:simpleType name="enumRetorno">
+<xs:restriction base="xs:string">
+<xs:enumeration value="ENTRADAS_GRATIS"/>
+<xs:enumeration value="PORCENTAJE_VENTAS"/>
+<xs:enumeration value="AMBOS"/>
+<xs:enumeration value="ERROR"/>
+</xs:restriction>
+</xs:simpleType>
+
 <xs:simpleType name="enumEstado">
 <xs:restriction base="xs:string">
 <xs:enumeration value="INGRESADA"/>
@@ -732,15 +744,6 @@
 <xs:enumeration value="FINANCIADA"/>
 <xs:enumeration value="NO_FINANCIADA"/>
 <xs:enumeration value="CANCELADA"/>
-</xs:restriction>
-</xs:simpleType>
-
-<xs:simpleType name="enumRetorno">
-<xs:restriction base="xs:string">
-<xs:enumeration value="ENTRADAS_GRATIS"/>
-<xs:enumeration value="PORCENTAJE_VENTAS"/>
-<xs:enumeration value="AMBOS"/>
-<xs:enumeration value="ERROR"/>
 </xs:restriction>
 </xs:simpleType>
 </xs:schema>

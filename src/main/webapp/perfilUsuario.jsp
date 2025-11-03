@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
@@ -96,7 +97,7 @@
                     }
             %>
           
-            <div class="usuario col-md-6 col-lg-3">
+            <div class="usuario col-md-6 col-lg-3" id="Seguidor-<%= u.getNickname() %>">
                 <div class="card" style="width: 18rem;">                                    
                     <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname() %>&tipoTarjeta=<%= u.getTipo() %>" >
                         <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
@@ -109,7 +110,7 @@
             </div>
             <%      }
                 } else { %>
-                <p><b>No tiene seguidores aún.</b></p>
+                <p  id="sinSeguidores"><b>No tiene seguidores aún.</b></p>
             <% } %>
         </div>
     </div>
@@ -155,7 +156,7 @@
         </div>
     </div>
     <!-- Propuestas Favoritas -->
-         <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Ingresadas -->
+         <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Favoritas -->
     <button class="btn btn-outline-secondary mb-2" type="button"
             data-bs-toggle="collapse" data-bs-target="#collapsePropuestasFav"
             aria-expanded="false" aria-controls="collapsePropuestasFav">
@@ -178,10 +179,17 @@
                         imagenPropuestaFavs = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-
+                    
+                    long diasRestantes;
+                    
                     java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                    if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                        diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+                    } else {
+                     diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+                    }
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -229,7 +237,7 @@
         </div>
     </div>
     <!-- Propuestas -->
-         <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Ingresadas -->
+         <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas -->
     <button class="btn btn-outline-secondary mb-2" type="button"
             data-bs-toggle="collapse" data-bs-target="#collapsePropuestas"
             aria-expanded="false" aria-controls="collapsePropuestas">
@@ -257,9 +265,17 @@
                         imagenPropuesta = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
+                    
+                    long diasRestantes;
+                    
                     java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                    if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                        diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+                    } else {
+                     diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+                    }
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -287,14 +303,30 @@
 
                 <p><b>Recaudado:</b> <%=prop.getAlcanzada()%></p>
 
-                <% if (false){//!esProponente && esMiPerfil) {
+                <% if (!esProponente && esMiPerfil){// {
+                boolean encontrada = false;
+                DataAporte encontrado = null;
+                    for (DataAporte aporte : usuario.getListaAporte()){
+                        if(aporte.getMiPropuesta().equals(prop.getTitulo())){
+                            encontrado = aporte;
+                            break;
+                        }
+                    }
+                    if(encontrado != null){
                     //DataAporte aporte = usuario.getListaAporte().get(prop.getTitulo()); //listaAporte es de tipo Hash, por eso el servicio no lo manda para acá, hay que cambiarlo
                 %>
                 <div class="d-flex justify-content-between align-items-center text-secondary mb-2" style="font-size: 0.95rem;">
-                    <span><b>Aporte:</b>NO SE ENCUENTRA EL DATA APORTE <!--%=aporte.get$aporte()%--></span>
-                    <span>📅 NO SE ENCUENTRA EL DATA APORTE<!--%=aporte.getFechaHora().format(DateTimeFormatter.ISO_DATE)%--></span>
+                    <span><b>Aporte:</b><%=encontrado.getAporte()%></span>
+                    <% java.time.LocalDateTime fechaAporte = java.time.LocalDateTime.parse(encontrado.getFechaStr()); 
+                    java.time.format.DateTimeFormatter formatter = 
+                        java.time.format.DateTimeFormatter.ofLocalizedDateTime(
+                        java.time.format.FormatStyle.MEDIUM, 
+                        java.time.format.FormatStyle.SHORT
+                        ).withLocale(java.util.Locale.forLanguageTag("es-UY"));%>
+                    <span>📅 <%=fechaAporte.format(formatter)%></span>
                 </div>
-                <% } %>
+                <% } 
+                } %>
 
                 <p><%= diasRestantes%> días restantes · <%=colabs%> colaboradores</p>
 
@@ -340,9 +372,17 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    
+                    long diasRestantes;
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
+
+                    if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                        diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
+                    } else {
+                     diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+                    }
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -389,10 +429,25 @@
         <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --%>
         <%@include file="footer.jsp" %>
         
+        
+        <%if (usuarioIniciado!=null){ 
+            String imagenUserIngresado = "";
+            if (usuarioIniciado.getImagen() == null || usuarioIniciado.getImagen().isBlank()) {
+                imagenUserIngresado = "fotos/default.jpg"; // 🔹 Usá "/" en lugar de "\" en rutas web
+            } else {
+                imagenUserIngresado = usuarioIniciado.getImagen();
+            }
+
+        %>
         <script>
             $(document).ready(function() {     
                 const boton = document.getElementById("botonSeguir"); 
                 const loSigo = <%= loSigo%>;
+                
+                
+                var nicknameSesion = "<%= usuarioIniciado.getNickname() %>";
+                var tipoSesion = "<%= usuarioIniciado.getTipo() %>";
+                var imagenSesion = "<%= imagenUserIngresado %>";
                 
                 if(loSigo){ 
                     boton.classList.replace("btn-success", "btn-danger"); 
@@ -414,6 +469,11 @@
                                     boton.classList.replace("btn-success", "btn-danger"); 
                                     boton.textContent = "Dejar de Seguir"; 
                                     boton.disabled = false;
+                                    generarTarjetaSeguidor({
+                                        nickname: nicknameSesion,
+                                        tipo: tipoSesion,
+                                        imagen: imagenSesion
+                                    });
                                 } else { 
                                     console.error("Error: No deberia llegar aqui"); 
                                     boton.disabled = false;
@@ -432,6 +492,7 @@
                                     boton.classList.replace("btn-danger", "btn-success"); 
                                     boton.textContent = "Seguir"; 
                                     boton.disabled = false;
+                                    ocultarTarjetaSeguidor(nicknameSesion); 
                                 } else { 
                                     console.error("Error: No deberia llegar aqui");
                                     boton.disabled = false;
@@ -443,7 +504,87 @@
                         }, 500); 
                     } 
                 });
+                function generarTarjetaSeguidor(usuario){
+                 const listaSeguidores = document.getElementById("listaSeguidores");
+                // Evita duplicados
+                if (document.getElementById("Seguidor-" + usuario.nickname)) {
+                    return;
+                }
+                const sinSeguidores = document.getElementById("sinSeguidores");
+                if (sinSeguidores){
+                    sinSeguidores.style.display = "none";
+                    console.log(document.getElementById("sinSeguidores"));
+                }
+                
+                // Crear el contenedor principal de la tarjeta
+                const divUsuario = document.createElement("div");
+                divUsuario.classList.add("usuario", "col-md-6", "col-lg-3");
+                divUsuario.id = "Seguidor-" + usuario.nickname; // para identificarla fácil
+
+                // Crear la estructura HTML interna
+                divUsuario.innerHTML =
+                    '<div class="card" style="width: 18rem;">' +
+                        '<a href="SvPerfilUsuario?nickTarjeta=' + usuario.nickname + '&tipoTarjeta=' + usuario.tipo + '">' +
+                            '<img src="' + usuario.imagen + '" alt="Foto de Perfil" class="card-img-top" style="width: 100%; height:200px; align-items: center">' +
+                        '</a>' +
+                        '<div class="card-body">' +
+                            '<h5 class="card-title text-center">' + usuario.nickname + '</h5>' +
+                            '<p class="card-text text-center">' + usuario.tipo + '</p>' +
+                        '</div>' +
+                    '</div>';
+
+                //console.log("HTML generado:", divUsuario.innerHTML);
+                // Agregar la tarjeta a la lista
+                const img = new Image();
+                img.src = usuario.imagen;
+
+                img.onload = () => {
+                    if (usuario.tipo === "Proponente") {
+                    // Insertar al principio si hay otros seguidores
+                        if (listaSeguidores.firstChild) {
+                            listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
+                        } else {
+                            listaSeguidores.appendChild(divUsuario);
+                        }
+                    } else {
+                        // Colaboradores al final
+                        listaSeguidores.appendChild(divUsuario);
+                    }
+                };
+                img.onerror = () => {
+                    divUsuario.querySelector("img").src = "fotos/default.jpg";
+                    if (usuario.tipo === "Proponente") {
+                        if (listaSeguidores.firstChild) {
+                            listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
+                        } else {
+                            listaSeguidores.appendChild(divUsuario);
+                        }
+                    } else {
+                        listaSeguidores.appendChild(divUsuario);
+                    }
+                };
+            }
+            function ocultarTarjetaSeguidor(nickname){
+                const tarjeta = document.getElementById("Seguidor-" + nickname);
+
+                if (tarjeta) {
+                     tarjeta.remove();
+                }
+                
+                const listaSeguidores = document.getElementById("listaSeguidores");
+                const tarjetas = listaSeguidores.querySelectorAll(".usuario");
+                
+                if (tarjetas.length === 0){
+                    const sinSeguidores = document.getElementById("sinSeguidores");
+                    if (sinSeguidores){
+                        sinSeguidores.style.display = "block";
+                        sinSeguidores.innerHTML = "<b>No tiene seguidores aún.</b>";
+                    }
+                }
+            }
+               
             });
         </script>
+        <% } %>
 </body>
 </html>
