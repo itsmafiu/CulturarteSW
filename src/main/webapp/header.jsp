@@ -1,10 +1,15 @@
+<%@page import="WebServices.Usuario"%>
+<%@page import="java.io.File"%>
+<%@page import="WebServices.DataUsuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String user = request.getHeader("User-Agent");
     boolean esMovil = user != null && (user.contains("Movi") || user.contains("Android") || user.contains("iPhone"));
-    %>
-    <% if(!esMovil || request.getSession().getAttribute("nick") != null) { %>
+    
+    if(!esMovil || request.getSession().getAttribute("nick") != null) { 
+    
+%>
 <header class="bg-dark-subtle">
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid align-items-center">
@@ -49,11 +54,20 @@
                         </li>
                     </ul> 
                 </c:when>
-                <c:otherwise>    
+                <c:otherwise>
+                    <%
+                        String imagen = "";
+                        Usuario usu = (Usuario) request.getSession().getAttribute("datosUsuario");
+                        if (usu.getImagenWeb() == null || usu.getImagenWeb().isBlank()) {
+                            imagen = "fotos" + File.separator + "default.jpg";
+                        }else{
+                            imagen = usu.getImagenWeb();
+                        }
+                        %>
                     <ul class="navbar-nav ms-2">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img src="${pageContext.request.contextPath}/${datosUsuario.imagen}" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
+                                <img src="<%=imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                 <li><a class="dropdown-item" href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a></li>

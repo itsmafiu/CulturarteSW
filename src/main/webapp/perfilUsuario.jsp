@@ -179,7 +179,14 @@
                     }
                     int colabs = prop.getCantidadColaboradores();
 
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+//                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDate fechaPubli;
+                    if (prop.getFechaPubliStr() != null && !prop.getFechaPubliStr().isEmpty()) {
+                        fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    } else {
+                        // Usa una fecha por defecto o la fecha actual
+                        fechaPubli = java.time.LocalDate.now();
+                    }
 
                     long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
@@ -257,7 +264,14 @@
                         imagenPropuesta = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+//                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDate fechaPubli;
+                    if (prop.getFechaPubliStr() != null && !prop.getFechaPubliStr().isEmpty()) {
+                        fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    } else {
+                        // Usa una fecha por defecto o la fecha actual
+                        fechaPubli = java.time.LocalDate.now();
+                    }
 
                     long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
@@ -340,7 +354,14 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+//                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    java.time.LocalDate fechaPubli;
+                    if (prop.getFechaPubliStr() != null && !prop.getFechaPubliStr().isEmpty()) {
+                        fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    } else {
+                        // Usa una fecha por defecto o la fecha actual
+                        fechaPubli = java.time.LocalDate.now();
+                    }
 
                     long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
@@ -386,13 +407,12 @@
         
 
 </div>
-        <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script> --%>
         <%@include file="footer.jsp" %>
         
         <script>
             $(document).ready(function() {     
                 const boton = document.getElementById("botonSeguir"); 
-                const loSigo = <%= loSigo%>;
+                const loSigo = <%=loSigo%>;
                 
                 if(loSigo){ 
                     boton.classList.replace("btn-success", "btn-danger"); 
@@ -408,7 +428,8 @@
                     if(boton.textContent === "Seguir"){ 
                         boton.disabled = true;
                         boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                        timerSeguir = setTimeout(function() {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-success", "btn-danger"); 
@@ -426,7 +447,8 @@
                     }else if(boton.textContent === "Dejar de Seguir"){ 
                         boton.disabled = true;
                         boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {$.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
+                        timerSeguir = setTimeout(function() {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
                             success: function(respuesta){ 
                                 if(respuesta === "exito"){ 
                                     boton.classList.replace("btn-danger", "btn-success"); 
