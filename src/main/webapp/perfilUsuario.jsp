@@ -30,6 +30,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil de <%= usuario.getNickname() %></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
@@ -179,9 +180,16 @@
                     }
                     int colabs = prop.getCantidadColaboradores();
 
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    long diasRestantes = 123;
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                            java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                            java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
+
+                            if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                                diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                            } else {
+                                diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDateTime.now(), fechaLimit), 0);
+                            }
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -257,9 +265,17 @@
                         imagenPropuesta = prop.getImagen();
                     }
                     int colabs = prop.getCantidadColaboradores();
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    long diasRestantes = 123;
+                    
+                            //java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                            //java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                           // if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                           //     diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                           // } else {
+                           //     diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDateTime.now(), fechaLimit), 0);
+                           // }
+                    
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
@@ -340,9 +356,16 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
-                    java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                    long diasRestantes = 123;
 
-                    long diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                            java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
+                            java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
+
+                            if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
+                                diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDate.now(), fechaPubli), 0);
+                            } else {
+                                diasRestantes = Math.max(ChronoUnit.DAYS.between(java.time.LocalDateTime.now(), fechaLimit), 0);
+                            }
                     int porcentaje = (int) Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
                     
             %>
