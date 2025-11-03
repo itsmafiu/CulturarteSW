@@ -27,87 +27,97 @@
             String estado = (String) request.getSession().getAttribute("estado");
         %>
 
-        <div class="container my-4">            
+        <div class="container my-4">
+    <div class="row align-items-center justify-content-between gy-3">
 
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <h2 class="">Resultados para "<%= query%>" : <%= tamanio%></h2>
+        <!-- Título -->
+        <div class="col-12 col-md-6">
+            <h2 class="mb-0">
+                Resultados para "<%= query %>" : <%= tamanio %>
+            </h2>
+        </div>
 
-                <div class="d-flex align-items-center mt-2">
-                    <p class="mb-0 mx-1">Ordenar:</p>
+        <!-- Controles de orden y filtro -->
+        <div class="col-12 col-md-6 d-flex flex-wrap align-items-center justify-content-md-end gap-3">
 
-                    <div class="dropdown">
-                        <button 
-                            class="btn btn-secondary dropdown-toggle" 
-                            type="button" 
-                            id="dropdownOrdenar" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
-                            Seleccionar criterio
-                        </button>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownOrdenar">
-                            <li>
-                                <form action="SvBuscador" method="POST" class="m-0">
-                                    <input type="hidden" name="query" value="<%= query%>">
-                                    <input type="hidden" name="orden" value="az">
-                                    <button type="submit" class="dropdown-item">Alfabéticamente (A-Z)</button>
-                                </form>
-                            <li>
-                                <form action="SvBuscador" method="POST" class="m-0">
-                                    <input type="hidden" name="query" value="<%= query%>">
-                                    <input type="hidden" name="orden" value="fecha_desc">
-                                    <button type="submit" class="dropdown-item">Fecha de creación (Desc)</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                    <p class="mb-0 mx-1">Filtrar:</p>
-
-                    <div class="dropdown">
-                        <button 
-                            class="btn btn-secondary dropdown-toggle" 
-                            type="button" 
-                            id="dropdownOrdenar" 
-                            data-bs-toggle="dropdown" 
-                            aria-expanded="false">
-                            Seleccionar estado
-                        </button>
-
-                        <%
-                            String estadoSesion = (String) request.getSession().getAttribute("estado");
-                            // arreglo de pares {value, textoVisible}
-                            String[][] estados = {
-                                {"PUB", "Publicadas"},
-                                {"ENF", "En financiación"},
-                                {"NOF", "No financiadas"},
-                                {"CAN", "Canceladas"},
-                                {"FIN", "Finalizadas"}
-                            };
-                        %>
-
-                        <ul class="dropdown-menu" aria-labelledby="dropdownEstados">
-                            <% for (int i = 0; i < estados.length; i++) {
-                                    String value = estados[i][0];
-                                    String label = estados[i][1];
-                            %>
-                            <li>
-                                <form action="SvBuscador" method="POST" class="m-0">
-                                    <input type="hidden" name="query" value="<%= query%>">
-                                    <input type="hidden" name="orden" value="<%= orden%>">
-                                    <input type="hidden" name="estado" value="<%= value%>">
-                                    <button type="submit" class="dropdown-item">
-                                        <%=label%>
-                                    </button>
-                                </form>
-                            
-                            <% } %>
-                            </li>
-                        </ul>
-                    </div>
+            <!-- Ordenar -->
+            <div class="d-flex align-items-center">
+                <p class="mb-0 me-2 fw-semibold">Ordenar:</p>
+                <div class="dropdown">
+                    <button 
+                        class="btn btn-outline-secondary dropdown-toggle" 
+                        type="button" 
+                        id="dropdownOrdenar" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                        Seleccionar criterio
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownOrdenar">
+                        <li>
+                            <form action="SvBuscador" method="POST" class="m-0">
+                                <input type="hidden" name="query" value="<%= query %>">
+                                <input type="hidden" name="orden" value="az">
+                                <button type="submit" class="dropdown-item">Alfabéticamente (A-Z)</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form action="SvBuscador" method="POST" class="m-0">
+                                <input type="hidden" name="query" value="<%= query %>">
+                                <input type="hidden" name="orden" value="fecha_desc">
+                                <button type="submit" class="dropdown-item">Fecha de creación (Desc)</button>
+                            </form>
+                        </li>
+                    </ul>
                 </div>
             </div>
-                        
-            <p class="text-center m-2 text-muted">
+
+            <!-- Filtrar -->
+            <div class="d-flex align-items-center">
+                <p class="mb-0 me-2 fw-semibold">Filtrar:</p>
+                <div class="dropdown">
+                    <button 
+                        class="btn btn-outline-secondary dropdown-toggle" 
+                        type="button" 
+                        id="dropdownEstados" 
+                        data-bs-toggle="dropdown" 
+                        aria-expanded="false">
+                        Seleccionar estado
+                    </button>
+
+                    <%
+                        String estadoSesion = (String) request.getSession().getAttribute("estado");
+                        String[][] estados = {
+                            {"PUB", "Publicadas"},
+                            {"ENF", "En financiación"},
+                            {"NOF", "No financiadas"},
+                            {"CAN", "Canceladas"},
+                            {"FIN", "Finalizadas"}
+                        };
+                    %>
+
+                    <ul class="dropdown-menu" aria-labelledby="dropdownEstados">
+                        <% for (int i = 0; i < estados.length; i++) {
+                            String value = estados[i][0];
+                            String label = estados[i][1];
+                        %>
+                        <li>
+                            <form action="SvBuscador" method="POST" class="m-0">
+                                <input type="hidden" name="query" value="<%= query %>">
+                                <input type="hidden" name="orden" value="<%= orden %>">
+                                <input type="hidden" name="estado" value="<%= value %>">
+                                <button type="submit" class="dropdown-item"><%= label %></button>
+                            </form>
+                        </li>
+                        <% } %>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+            <p class="text-center m-3 fw-bold text-muted">
                 Propuestas 
                 <% if (estado != null) {
                         switch (estado) {
