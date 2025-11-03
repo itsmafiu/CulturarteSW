@@ -373,6 +373,8 @@
                         imagen = prop.getImagen();
                     }
                     int colabs = prop.getMisAportes().size();
+                    
+                    long diasRestantes;
 
                     java.time.LocalDate fechaPubli = java.time.LocalDate.parse(prop.getFechaPubliStr());
                     java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(prop.getFechaLimitStr());
@@ -441,8 +443,11 @@
             $(document).ready(function() {     
                 const boton = document.getElementById("botonSeguir"); 
                 const loSigo = <%=loSigo%>;
-                    
-                    long diasRestantes;
+                
+                
+                var nicknameSesion = "<%= usuarioIniciado.getNickname() %>";
+                var tipoSesion = "<%= usuarioIniciado.getTipo() %>";
+                var imagenSesion = "<%= imagenUserIngresado %>";
                 
                 if(loSigo){ 
                     boton.classList.replace("btn-success", "btn-danger"); 
