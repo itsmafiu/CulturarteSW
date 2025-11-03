@@ -43,7 +43,7 @@
                     <div class="col-md-4">
                         <div id="datosProponente" class="mt-4 p-5 bg-secondary text-bg-color rounded">
                             <h3>¿No tienes usuario?</h3>
-                            <h4>Registrate aquí!</h4>
+                            <h4>¡Registrate aquí!</h4>
                             <form action="altaUsuario" method="GET">
                                 <button type="submit" class="btn btn-success">Registrarse</button>
                             </form>

@@ -1,10 +1,15 @@
+<%@page import="WebServices.Usuario"%>
+<%@page import="java.io.File"%>
+<%@page import="WebServices.DataUsuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     String user = request.getHeader("User-Agent");
     boolean esMovil = user != null && (user.contains("Movi") || user.contains("Android") || user.contains("iPhone"));
+    
+    if(!esMovil || request.getSession().getAttribute("nick") != null) { 
+    
 %>
-<% if (!esMovil || request.getSession().getAttribute("nick") != null) {%>
 <header class="bg-dark-subtle">
     <nav class="navbar navbar-expand-xl">
         <div class="container-fluid align-items-center">
@@ -68,7 +73,6 @@
                         </ul>                     
                     </c:otherwise>
                 </c:choose>
-            </div>
         </div>
     </nav>
     <div class="container-fluid bg-black" style="padding: 1px"></div>
