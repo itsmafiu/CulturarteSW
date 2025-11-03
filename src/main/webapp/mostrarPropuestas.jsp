@@ -16,6 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <style>
@@ -36,7 +37,8 @@
 
                 <!--  Panel lateral --> 
 
-                <div class="col-12 col-md-3 mb-3">
+                <div id = "filtros" class="col-12 col-md-3 mb-3">
+
                     <div class="p-3 border rounded bg-light" style="max-height: 800px; overflow-y: auto;">
                         <h5 class="mb-3">Filtrar por Categoría</h5>
 
@@ -58,14 +60,17 @@
                 </div>
 
                 <!--  Zona de tarjetas --> 
-                <div class="col-12 col-md-9">
+                <div class="col-12 col-sm-9">
                     <%
+                        boolean noHayPropuestas = false;
                         List<DataPropuesta> DP = (List) request.getSession().getAttribute("DP");
                         int tamanio = DP.size();
                     %>  
 
                     <div class="container my-4">
-                        <% if (tamanio == 0) { %>
+                        <% if (tamanio == 0) { 
+                            noHayPropuestas = true;
+                        %>
                         <h2 id = "tituloExplora">No hay propuestas en el Sistema</h2>
                         <%} else {%>
                         <h2 id = "tituloExplora">Explora entre <%=tamanio%> Propuestas :</h2>
@@ -133,6 +138,12 @@
         <%@include file="footer.jsp" %>
 
         <script>
+            
+            const noHayPropu = <%= noHayPropuestas %>  
+            if (noHayPropu){
+                document.getElementById("filtros").style.display = "none";
+            }  
+    
             const checks = document.querySelectorAll('.categoria-check');
             const tarjetas = document.querySelectorAll('.propuesta-card');
             const tituloExplora = document.getElementById('tituloExplora');

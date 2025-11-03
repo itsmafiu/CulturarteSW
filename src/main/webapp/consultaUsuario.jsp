@@ -5,6 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
@@ -14,7 +15,7 @@
         <%@ include file="header.jsp" %>
         
         <% 
-        
+        boolean NoHayUsuarios = false;
         List<DataUsuario> DtU = (List) request.getSession().getAttribute("DtU");
         int tamanio = DtU.size();
         %>
@@ -27,7 +28,7 @@
             
         
             <!-- Filtros tipo pestaña -->
-            <ul class="nav nav-tabs mb-2">
+            <ul id = "filtros" class="nav nav-tabs mb-2">
               <li class="nav-item">
                 <button class="nav-link active bg-dark-subtle rounded" onclick="filtrarUsuarios('todos')">Todos</button>
               </li>
@@ -74,9 +75,10 @@
               
           </div>
         </div>
-              <% } }else{ %>
-              <h3> <b>No hay usuarios cargados o hubo error en la base de datos! </b></h3>
-              <% } %>
+              <% } }else{ 
+                NoHayUsuarios = true;
+              
+              } %>
         </div>
         </div>
               
@@ -85,6 +87,12 @@
         <%@include file="footer.jsp" %>
       
         <script>
+        const noHayUser = <%= NoHayUsuarios %>  
+          if (noHayUser){
+              document.getElementById("tituloExplora").textContent = "No hay usuarios registrados, animate a ser el primero";
+              document.getElementById("filtros").style.display = "none";
+          }  
+        
         function filtrarUsuarios(tipo) {
           const usuarios = document.querySelectorAll('.usuario');
           const tituloExplora = document.getElementById('tituloExplora');
