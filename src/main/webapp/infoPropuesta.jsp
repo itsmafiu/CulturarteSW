@@ -269,7 +269,7 @@
                                   }
                               }
                           }
-                        /*
+                        
                           if (!(DCs.isEmpty())) {
                               for (DataComentario dc : DCs) {
                                   if (dc.getNickColaborador().equals(nick)) {
@@ -277,7 +277,7 @@
                                     }
                                 }
                             }
-                        */
+                        
                             if (esColab && !hizoComent) {%>
                         <li class="list-group-item">
                             <form action="SvComentario" class="needs-validation" method="POST">
@@ -307,10 +307,10 @@
                 <li class="list-group-item">
                     <div class="justify-content-between border border-secondary p-2 rounded">
                         <div> 
-                            <h6 class="mb-0">VACIO EL DC<!--%=dc.getNickColaborador()%--></h6>
-                            <p class="mb-0 opacity-75">VACIO EL DC<!--%=dc.getComentario()%--></p>
+                            <h6 class="mb-0"><%=dc.getNickColaborador()%></h6>
+                            <p class="mb-0 opacity-75"><%=dc.getComentario()%></p>
                         </div>
-                        <small class="opacity-50 text-nowrap">VACIO EL DC<!--%=dc.getFecComentario().toString()%--></small> 
+                        <small class="opacity-50 text-nowrap"><%=dc.getFecComentario()%></small> 
                     </div>
                 </li>     
                 <%}}else{%>

@@ -131,40 +131,23 @@
 
             <!-- JAX-WS wsimport -->
             <plugin>
-                <groupId>com.sun.xml.ws</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jaxws-maven-plugin</artifactId>
-                <version>2.3.5</version>
+                <version>2.6</version>
                 <executions>
                     <execution>
-                        <id>wsimport-generate-logicaWS</id>
                         <goals>
                             <goal>wsimport</goal>
                         </goals>
-                        <phase>generate-sources</phase>
                         <configuration>
                             <wsdlDirectory>${basedir}/src/wsdl</wsdlDirectory>
                             <wsdlFiles>
                                 <wsdlFile>localhost_9128/logicaWS.wsdl</wsdlFile>
                             </wsdlFiles>
-                            <wsdlLocation>http://localhost:9128/logicaWS?wsdl</wsdlLocation>
                             <packageName>WebServices</packageName>
-                            <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
-                            <keep>true</keep>
-                            <extension>true</extension>
-                            <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
-                            <args>
-                                <arg>-J-Djavax.xml.accessExternalSchema=all</arg>
-                            </args>
                         </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.sun.xml.ws</groupId>
-                        <artifactId>jaxws-tools</artifactId>
-                        <version>2.3.5</version>
-                    </dependency>
-                </dependencies>
             </plugin>
             <!-- netbeans puede intentar agregar un plugin org.jvnet.jax-ws-commons:jaxws-maven-plugin:2.3 - ELIMINARLO si aparece -->
         </plugins>
