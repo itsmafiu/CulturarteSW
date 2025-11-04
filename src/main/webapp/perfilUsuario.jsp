@@ -23,8 +23,8 @@
     DataUsuario usuarioIniciado = (DataUsuario) request.getSession().getAttribute("DTUsuario");
     List<DataUsuario> listaSeguidores = usuario.getMeSiguen();
     boolean loSigo = false;
-    if(listaSeguidores.contains(usuarioIniciado) && !esMiPerfil){ //si el usuario iniciado está en la lista de seguidores del usuario consultado entonces sabemos que lo sigue
-        loSigo = true;
+    if(usuarioIniciado != null && listaSeguidores != null && !esMiPerfil){ //si el usuario iniciado está en la lista de seguidores del usuario consultado entonces sabemos que lo sigue
+        loSigo = listaSeguidores.stream().anyMatch(seguidor -> seguidor.getNickname().equals(usuarioIniciado.getNickname()));
     }
 
 %>
