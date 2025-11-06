@@ -73,10 +73,19 @@
                         </ul> 
                     </c:when>
                     <c:otherwise>    
+                        <%
+                        String imagen = "";
+                        Usuario usu = (Usuario) request.getSession().getAttribute("datosUsuario");
+                        if (usu.getImagenWeb() == null || usu.getImagenWeb().isBlank()) {
+                            imagen = "fotos" + File.separator + "default.jpg";
+                        }else{
+                            imagen = usu.getImagenWeb();
+                        }
+                        %>
                         <ul class="navbar-nav ms-2">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/${datosUsuario.imagen}" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
+                                    <img src="<%=imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                     <li><a class="dropdown-item" href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a></li>

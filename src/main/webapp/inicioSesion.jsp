@@ -32,6 +32,7 @@
                             <div class="form-group">
                                 <button type="submit" id="entrar" class="btn btn-primary">Enviar</button>
                                 <c:if test="${not empty error}">
+                                    <br>
                                     <label for="entrar" style="color: red">${error}</p>
                                 </c:if>
                             </div>

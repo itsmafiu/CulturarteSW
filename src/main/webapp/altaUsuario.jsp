@@ -24,7 +24,10 @@
         <%
             String max = LocalDate.now().toString();
             String min = LocalDate.of(1900, 1, 1).toString();
-            
+
+            String usuarioIniciado = request.getHeader("User-Agent");
+            boolean esDispMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+
             %>
         
         <div class="container mt-4">
@@ -74,11 +77,16 @@
                             </div>
                             <br>
                             <p>Elija el tipo de Usuario:<br>
+                                <% if(!esDispMovil){ %>
                                 <input type="radio" id="prop" name="tipoUsuario" value="Proponente" checked> <label for="prop">Proponente</label>
                                 <input type="radio" id="cola" name="tipoUsuario" value="Colaborador"> <label for="cola">Colaborador</label>
+                                <% } else { %>
+                                <input type="radio" id="cola" name="tipoUsuario" value="Colaborador" checked> <label for="cola">Colaborador</label>
+                                <% } %>
                             </p>
                         </div>
                         <div class="col"> <%-- datos proponente extra e imagen --%>
+                            <% if(!esDispMovil){ %>
                             <div id="datosProponente" class="collapse mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
                                     <label for="direccion">Dirección: </label>
@@ -94,6 +102,7 @@
                                     <input type="text" class="form-control" id="sitioWeb" name="sitioWeb" placeholder="(Opcional)">
                                 </div>
                             </div>
+                            <% } %>
                             <div id="datosImagen" class="mt-4 p-5 bg-secondary text-bg-color rounded">
                                 <div class="form-group">
                                     <h5> Foto de perfil (Opcional)</h5>

@@ -4,7 +4,6 @@
 <%@page import="java.time.LocalDate"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="WebServices.DataPropuesta"%>
-<%@page import="WebServices.Propuesta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
