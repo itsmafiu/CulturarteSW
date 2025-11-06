@@ -7,6 +7,10 @@
     String user = request.getHeader("User-Agent");
     boolean esMovil = user != null && (user.contains("Movi") || user.contains("Android") || user.contains("iPhone"));
     
+    if(request.getSession().getAttribute("nick") == null){
+        String nick = "vacio";
+    }
+    
     if(!esMovil || request.getSession().getAttribute("nick") != null) { 
     
 %>
@@ -35,6 +39,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                     </li>
+                     <c:choose>
+                        <c:when test="${nick != null and tipoUsuario == 'cola'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="SvRecomendaciones">Sugerencias</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
 
                 <form id="form-buscar" class="d-flex" role="search" action="SvBuscador" method="POST" style="min-width: 400px">

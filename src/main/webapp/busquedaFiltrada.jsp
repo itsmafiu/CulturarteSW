@@ -5,7 +5,6 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="WebServices.DataPropuesta"%>
-<%@page import="WebServices.Propuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

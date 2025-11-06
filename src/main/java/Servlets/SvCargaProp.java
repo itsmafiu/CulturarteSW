@@ -4,7 +4,9 @@
  */
 package Servlets;
 
+import WebServices.DataAporte;
 import WebServices.DataPropuesta;
+import WebServices.DataProponente;
 import WebServices.EnumEstado;
 import WebServices.LogicaWS;
 import WebServices.LogicaWS_Service;
@@ -18,6 +20,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
 
 @WebServlet(name = "SvCargaProp", urlPatterns = {"/SvCargaProp"})

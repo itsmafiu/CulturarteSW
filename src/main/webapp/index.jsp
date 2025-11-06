@@ -68,7 +68,7 @@
             
             <%
         for(DataPropuesta p : DPcreadas){
-        int colabs = p.getMisAportes().size();
+        int colabs = 0; // = p.getMisAportes().size();
         long diasRestantes;
 
         java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
@@ -118,7 +118,7 @@
             
             <%
         for(DataPropuesta p : DPef){
-        int colabs = p.getMisAportes().size();
+        int colabs = 0; // = p.getMisAportes().size();
         long diasRestantes;
 
         java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
@@ -169,7 +169,7 @@
             
             <%
         for(DataPropuesta p : DPf){
-        int colabs = p.getMisAportes().size();
+        int colabs = 0; // = p.getMisAportes().size();
         long diasRestantes;
 
         java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
@@ -220,7 +220,7 @@
             
             <%
         for(DataPropuesta p : DPnf){
-        int colabs = p.getMisAportes().size();
+        int colabs = 0; // = p.getMisAportes().size();
         long diasRestantes;
 
         java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
@@ -271,7 +271,7 @@
             
             <%
         for(DataPropuesta p : DPca){
-        int colabs = p.getMisAportes().size();
+        int colabs = 0; // = p.getMisAportes().size();
         long diasRestantes;
 
         java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
