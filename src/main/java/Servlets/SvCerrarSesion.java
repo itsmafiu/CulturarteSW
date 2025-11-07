@@ -32,16 +32,22 @@ public class SvCerrarSesion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //System.out.println("URL: " + request.getRequestURL());
+        //System.out.println("Query: " + request.getQueryString());
 
         service = new LogicaWS_Service();
         LogicaWS ic = service.getLogicaWSPort();
         
-        String eliminar = (String) request.getAttribute("eliminarProp");
-        if(eliminar != null && eliminar.equals("si")){
-            String nick = (String) request.getAttribute("nick");
+        String eliminar = request.getParameter("eliminarProp");
+        if ("si".equals(eliminar)) {
+            String nick = request.getParameter("nickAEliminar");
+            
             ic.eliminarProponente(nick);
-        }
-        
+            //System.out.println("Entró al doGet y eliminar=" + eliminar);
+        } /*else {
+            System.out.println("No Entró al if, eliminar=" + eliminar);
+        }*/
+ 
         HttpSession misesion = request.getSession();
         misesion.setAttribute("nick", null);
         misesion.setAttribute("tipoUsuario", null);

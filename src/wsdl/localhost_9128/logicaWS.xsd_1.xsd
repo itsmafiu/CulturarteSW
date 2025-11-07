@@ -360,6 +360,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="ordenarDTUporSeguidores">
+<xs:sequence>
+<xs:element name="listaDTU" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ordenarDTUporSeguidoresResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="esFavorita">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -370,18 +382,6 @@
 <xs:complexType name="esFavoritaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ordenarDTUporSeguidores">
-<xs:sequence>
-<xs:element name="listaDTU" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="ordenarDTUporSeguidoresResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -427,6 +427,27 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getDataComentarios">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDataComentariosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataComentario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataComentario">
+<xs:sequence>
+<xs:element name="comentario" type="xs:string" minOccurs="0"/>
+<xs:element name="fecComentario" type="xs:string" minOccurs="0"/>
+<xs:element name="nickColaborador" type="xs:string" minOccurs="0"/>
+<xs:element name="tituloPropuesta" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getUsuario">
 <xs:sequence>
 <xs:element name="nick" type="xs:string" minOccurs="0"/>
@@ -449,27 +470,6 @@
 <xs:element name="imagenWeb" type="xs:string" minOccurs="0"/>
 <xs:element name="nickname" type="xs:string" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getDataComentarios">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getDataComentariosResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataComentario" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="dataComentario">
-<xs:sequence>
-<xs:element name="comentario" type="xs:string" minOccurs="0"/>
-<xs:element name="fecComentario" type="xs:string" minOccurs="0"/>
-<xs:element name="nickColaborador" type="xs:string" minOccurs="0"/>
-<xs:element name="tituloPropuesta" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -577,6 +577,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="consultaDeColaborador">
+<xs:sequence>
+<xs:element name="NickName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDeColaboradorResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataColaborador" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="existeCorreo">
 <xs:sequence>
 <xs:element name="correo" type="xs:string" minOccurs="0"/>
@@ -599,18 +611,6 @@
 <xs:complexType name="verificarUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="consultaDeColaborador">
-<xs:sequence>
-<xs:element name="NickName" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="consultaDeColaboradorResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataColaborador" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -653,6 +653,7 @@
 <xs:complexContent>
 <xs:extension base="tns:usuario">
 <xs:sequence>
+<xs:element name="activo" type="xs:boolean"/>
 <xs:element name="biografia" type="xs:string" minOccurs="0"/>
 <xs:element name="direccion" type="xs:string" minOccurs="0"/>
 <xs:element name="sitioWeb" type="xs:string" minOccurs="0"/>

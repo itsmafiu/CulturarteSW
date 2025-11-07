@@ -236,7 +236,7 @@
                 %>
                             <div class="usuario col-sm-6 col-lg-4">
                                 <div class="card" style="width: 18rem;">
-                                    <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta="Colaborador" >
+                                    <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" >
                                         <img src="<%= img %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                                     </a>
                                     <div class="card-body">
