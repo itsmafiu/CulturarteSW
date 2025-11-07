@@ -7,6 +7,7 @@ package Servlets;
 import WebServices.DataUsuario;
 import WebServices.LogicaWS;
 import WebServices.LogicaWS_Service;
+import WebServices.Usuario;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -164,7 +165,7 @@ public class SvAltaUsuario extends HttpServlet {
         String passHash = BCrypt.hashpw(pass, BCrypt.gensalt());
         
         int aux;
-        DataUsuario usu;
+        Usuario usu;
         boolean tipoUsu;
         if(tipoUsuario.equals("Proponente")){
             String direccion = request.getParameter("direccion");
@@ -185,7 +186,7 @@ public class SvAltaUsuario extends HttpServlet {
             aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb); //CAMBIAR DATE A STRING 
             //usu = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
-                usu = ic.getDataUsuarioWeb(nick);
+                usu = ic.getUsuario(nick);
             }else{
                 usu = null;
             }
@@ -194,7 +195,7 @@ public class SvAltaUsuario extends HttpServlet {
             aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, rutaWeb); //CAMBIAR DATE A STRING
             //usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
-                usu = ic.getDataUsuarioWeb(nick);
+                usu = ic.getUsuario(nick);
             }else{
                 usu = null;
             }

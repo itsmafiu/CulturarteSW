@@ -36,7 +36,7 @@ public class SvCargaProp extends HttpServlet {
         
         URL wsdlURL = new URL("http://localhost:9128/logicaWS?wsdl");
         QName qname = new QName("http://WebServices/", "LogicaWS");
-        LogicaWS_Service service = new LogicaWS_Service(wsdlURL, qname);
+        service = new LogicaWS_Service(wsdlURL, qname);
         LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();

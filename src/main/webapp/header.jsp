@@ -36,9 +36,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="SvConsultaPropuesta">Consulta Propuesta</a>
                     </li>
+                    <% if(!esMovil){ %>
                     <li class="nav-item">
                         <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                     </li>
+                    <% } %>
                      <c:choose>
                         <c:when test="${nick != null and tipoUsuario == 'cola'}">
                             <li class="nav-item">

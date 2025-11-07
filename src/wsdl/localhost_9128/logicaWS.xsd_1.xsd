@@ -140,6 +140,10 @@
 
 <xs:element name="getUsuarioResponse" type="tns:getUsuarioResponse"/>
 
+<xs:element name="ordenarDTUporSeguidores" type="tns:ordenarDTUporSeguidores"/>
+
+<xs:element name="ordenarDTUporSeguidoresResponse" type="tns:ordenarDTUporSeguidoresResponse"/>
+
 <xs:element name="seguirUsuario" type="tns:seguirUsuario"/>
 
 <xs:element name="seguirUsuarioResponse" type="tns:seguirUsuarioResponse"/>
@@ -270,6 +274,14 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
+</xs:complexType>
+
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -280,14 +292,6 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="eliminarProponente">
@@ -366,6 +370,18 @@
 <xs:complexType name="esFavoritaResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ordenarDTUporSeguidores">
+<xs:sequence>
+<xs:element name="listaDTU" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="ordenarDTUporSeguidoresResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -598,6 +614,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="consultaDePropuesta">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDePropuestaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="dejarSeguirUsuario">
 <xs:sequence>
 <xs:element name="nick1" type="xs:string" minOccurs="0"/>
@@ -608,18 +636,6 @@
 <xs:complexType name="dejarSeguirUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="consultaDePropuesta">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="consultaDePropuestaResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -664,23 +680,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="altaAporteF">
-<xs:sequence>
-<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
-<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
-<xs:element name="aporte" type="xs:double"/>
-<xs:element name="cantidad" type="xs:int"/>
-<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
-<xs:element name="fecAp" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="altaAporteFResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="cargarCategoriasWeb">
 <xs:sequence/>
 </xs:complexType>
@@ -695,6 +694,23 @@
 <xs:sequence>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
 <xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaAporteF">
+<xs:sequence>
+<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
+<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
+<xs:element name="aporte" type="xs:double"/>
+<xs:element name="cantidad" type="xs:int"/>
+<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
+<xs:element name="fecAp" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaAporteFResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 

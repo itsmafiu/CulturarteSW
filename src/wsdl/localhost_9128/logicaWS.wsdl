@@ -4,35 +4,35 @@
 <xsd:import namespace="http://WebServices/" schemaLocation="http://localhost:9128/logicaWS?xsd=1"/>
 </xsd:schema>
 </types>
-<message name="getCategorias">
-<part name="parameters" element="tns:getCategorias"/>
+<message name="getDataPropuestaSimple">
+<part name="parameters" element="tns:getDataPropuestaSimple"/>
 </message>
-<message name="getCategoriasResponse">
-<part name="parameters" element="tns:getCategoriasResponse"/>
+<message name="getDataPropuestaSimpleResponse">
+<part name="parameters" element="tns:getDataPropuestaSimpleResponse"/>
 </message>
-<message name="altaPropuesta">
-<part name="parameters" element="tns:altaPropuesta"/>
+<message name="consultaDeProponenteWeb">
+<part name="parameters" element="tns:consultaDeProponenteWeb"/>
 </message>
-<message name="altaPropuestaResponse">
-<part name="parameters" element="tns:altaPropuestaResponse"/>
+<message name="consultaDeProponenteWebResponse">
+<part name="parameters" element="tns:consultaDeProponenteWebResponse"/>
 </message>
-<message name="dejarSeguirUsuario">
-<part name="parameters" element="tns:dejarSeguirUsuario"/>
+<message name="consultaDeColaboradorWeb">
+<part name="parameters" element="tns:consultaDeColaboradorWeb"/>
 </message>
-<message name="dejarSeguirUsuarioResponse">
-<part name="parameters" element="tns:dejarSeguirUsuarioResponse"/>
+<message name="consultaDeColaboradorWebResponse">
+<part name="parameters" element="tns:consultaDeColaboradorWebResponse"/>
 </message>
-<message name="seguirUsuario">
-<part name="parameters" element="tns:seguirUsuario"/>
+<message name="cargarCategoriasWeb">
+<part name="parameters" element="tns:cargarCategoriasWeb"/>
 </message>
-<message name="seguirUsuarioResponse">
-<part name="parameters" element="tns:seguirUsuarioResponse"/>
+<message name="cargarCategoriasWebResponse">
+<part name="parameters" element="tns:cargarCategoriasWebResponse"/>
 </message>
-<message name="getPropuestas">
-<part name="parameters" element="tns:getPropuestas"/>
+<message name="consultaDePropuesta">
+<part name="parameters" element="tns:consultaDePropuesta"/>
 </message>
-<message name="getPropuestasResponse">
-<part name="parameters" element="tns:getPropuestasResponse"/>
+<message name="consultaDePropuestaResponse">
+<part name="parameters" element="tns:consultaDePropuestaResponse"/>
 </message>
 <message name="altaAporte">
 <part name="parameters" element="tns:altaAporte"/>
@@ -46,17 +46,101 @@
 <message name="getUsuarioResponse">
 <part name="parameters" element="tns:getUsuarioResponse"/>
 </message>
+<message name="getDataUsuarios">
+<part name="parameters" element="tns:getDataUsuarios"/>
+</message>
+<message name="getDataUsuariosResponse">
+<part name="parameters" element="tns:getDataUsuariosResponse"/>
+</message>
+<message name="dejarSeguirUsuario">
+<part name="parameters" element="tns:dejarSeguirUsuario"/>
+</message>
+<message name="dejarSeguirUsuarioResponse">
+<part name="parameters" element="tns:dejarSeguirUsuarioResponse"/>
+</message>
+<message name="getPropuestas">
+<part name="parameters" element="tns:getPropuestas"/>
+</message>
+<message name="getPropuestasResponse">
+<part name="parameters" element="tns:getPropuestasResponse"/>
+</message>
 <message name="getDataUsuarioWeb">
 <part name="parameters" element="tns:getDataUsuarioWeb"/>
 </message>
 <message name="getDataUsuarioWebResponse">
 <part name="parameters" element="tns:getDataUsuarioWebResponse"/>
 </message>
-<message name="getDataUsuarios">
-<part name="parameters" element="tns:getDataUsuarios"/>
+<message name="seguirUsuario">
+<part name="parameters" element="tns:seguirUsuario"/>
 </message>
-<message name="getDataUsuariosResponse">
-<part name="parameters" element="tns:getDataUsuariosResponse"/>
+<message name="seguirUsuarioResponse">
+<part name="parameters" element="tns:seguirUsuarioResponse"/>
+</message>
+<message name="altaPropuesta">
+<part name="parameters" element="tns:altaPropuesta"/>
+</message>
+<message name="altaPropuestaResponse">
+<part name="parameters" element="tns:altaPropuestaResponse"/>
+</message>
+<message name="existeNick">
+<part name="parameters" element="tns:existeNick"/>
+</message>
+<message name="existeNickResponse">
+<part name="parameters" element="tns:existeNickResponse"/>
+</message>
+<message name="existeTitulo">
+<part name="parameters" element="tns:existeTitulo"/>
+</message>
+<message name="existeTituloResponse">
+<part name="parameters" element="tns:existeTituloResponse"/>
+</message>
+<message name="getUsuarioPorMail">
+<part name="parameters" element="tns:getUsuarioPorMail"/>
+</message>
+<message name="getUsuarioPorMailResponse">
+<part name="parameters" element="tns:getUsuarioPorMailResponse"/>
+</message>
+<message name="getCategorias">
+<part name="parameters" element="tns:getCategorias"/>
+</message>
+<message name="getCategoriasResponse">
+<part name="parameters" element="tns:getCategoriasResponse"/>
+</message>
+<message name="getDataSugerencia">
+<part name="parameters" element="tns:getDataSugerencia"/>
+</message>
+<message name="getDataSugerenciaResponse">
+<part name="parameters" element="tns:getDataSugerenciaResponse"/>
+</message>
+<message name="getDataComentarios">
+<part name="parameters" element="tns:getDataComentarios"/>
+</message>
+<message name="getDataComentariosResponse">
+<part name="parameters" element="tns:getDataComentariosResponse"/>
+</message>
+<message name="existeCorreo">
+<part name="parameters" element="tns:existeCorreo"/>
+</message>
+<message name="existeCorreoResponse">
+<part name="parameters" element="tns:existeCorreoResponse"/>
+</message>
+<message name="cancelarPropuesta">
+<part name="parameters" element="tns:cancelarPropuesta"/>
+</message>
+<message name="cancelarPropuestaResponse">
+<part name="parameters" element="tns:cancelarPropuestaResponse"/>
+</message>
+<message name="getDataProponente">
+<part name="parameters" element="tns:getDataProponente"/>
+</message>
+<message name="getDataProponenteResponse">
+<part name="parameters" element="tns:getDataProponenteResponse"/>
+</message>
+<message name="verificarUsuario">
+<part name="parameters" element="tns:verificarUsuario"/>
+</message>
+<message name="verificarUsuarioResponse">
+<part name="parameters" element="tns:verificarUsuarioResponse"/>
 </message>
 <message name="cambiarFavorita">
 <part name="parameters" element="tns:cambiarFavorita"/>
@@ -70,47 +154,17 @@
 <message name="esFavoritaResponse">
 <part name="parameters" element="tns:esFavoritaResponse"/>
 </message>
-<message name="getDataColaborador">
-<part name="parameters" element="tns:getDataColaborador"/>
+<message name="getDataAporte">
+<part name="parameters" element="tns:getDataAporte"/>
 </message>
-<message name="getDataColaboradorResponse">
-<part name="parameters" element="tns:getDataColaboradorResponse"/>
+<message name="getDataAporteResponse">
+<part name="parameters" element="tns:getDataAporteResponse"/>
 </message>
-<message name="cancelarPropuesta">
-<part name="parameters" element="tns:cancelarPropuesta"/>
+<message name="getProponentes">
+<part name="parameters" element="tns:getProponentes"/>
 </message>
-<message name="cancelarPropuestaResponse">
-<part name="parameters" element="tns:cancelarPropuestaResponse"/>
-</message>
-<message name="getDataSugerencia">
-<part name="parameters" element="tns:getDataSugerencia"/>
-</message>
-<message name="getDataSugerenciaResponse">
-<part name="parameters" element="tns:getDataSugerenciaResponse"/>
-</message>
-<message name="añadirUsuarioP">
-<part name="parameters" element="tns:añadirUsuarioP"/>
-</message>
-<message name="añadirUsuarioPResponse">
-<part name="parameters" element="tns:añadirUsuarioPResponse"/>
-</message>
-<message name="getUsuarioPorMail">
-<part name="parameters" element="tns:getUsuarioPorMail"/>
-</message>
-<message name="getUsuarioPorMailResponse">
-<part name="parameters" element="tns:getUsuarioPorMailResponse"/>
-</message>
-<message name="getDataComentarios">
-<part name="parameters" element="tns:getDataComentarios"/>
-</message>
-<message name="getDataComentariosResponse">
-<part name="parameters" element="tns:getDataComentariosResponse"/>
-</message>
-<message name="getDataProponente">
-<part name="parameters" element="tns:getDataProponente"/>
-</message>
-<message name="getDataProponenteResponse">
-<part name="parameters" element="tns:getDataProponenteResponse"/>
+<message name="getProponentesResponse">
+<part name="parameters" element="tns:getProponentesResponse"/>
 </message>
 <message name="addComentario">
 <part name="parameters" element="tns:addComentario"/>
@@ -124,41 +178,47 @@
 <message name="eliminarProponenteResponse">
 <part name="parameters" element="tns:eliminarProponenteResponse"/>
 </message>
-<message name="existeCorreo">
-<part name="parameters" element="tns:existeCorreo"/>
+<message name="getDataColaborador">
+<part name="parameters" element="tns:getDataColaborador"/>
 </message>
-<message name="existeCorreoResponse">
-<part name="parameters" element="tns:existeCorreoResponse"/>
+<message name="getDataColaboradorResponse">
+<part name="parameters" element="tns:getDataColaboradorResponse"/>
 </message>
-<message name="getDataAporte">
-<part name="parameters" element="tns:getDataAporte"/>
+<message name="añadirUsuarioP">
+<part name="parameters" element="tns:añadirUsuarioP"/>
 </message>
-<message name="getDataAporteResponse">
-<part name="parameters" element="tns:getDataAporteResponse"/>
+<message name="añadirUsuarioPResponse">
+<part name="parameters" element="tns:añadirUsuarioPResponse"/>
 </message>
-<message name="verificarUsuario">
-<part name="parameters" element="tns:verificarUsuario"/>
+<message name="getDataColaboradorWeb">
+<part name="parameters" element="tns:getDataColaboradorWeb"/>
 </message>
-<message name="verificarUsuarioResponse">
-<part name="parameters" element="tns:verificarUsuarioResponse"/>
+<message name="getDataColaboradorWebResponse">
+<part name="parameters" element="tns:getDataColaboradorWebResponse"/>
 </message>
-<message name="existeTitulo">
-<part name="parameters" element="tns:existeTitulo"/>
+<message name="consultaDeColaborador">
+<part name="parameters" element="tns:consultaDeColaborador"/>
 </message>
-<message name="existeTituloResponse">
-<part name="parameters" element="tns:existeTituloResponse"/>
+<message name="consultaDeColaboradorResponse">
+<part name="parameters" element="tns:consultaDeColaboradorResponse"/>
 </message>
-<message name="existeNick">
-<part name="parameters" element="tns:existeNick"/>
+<message name="ordenarDTUporSeguidores">
+<part name="parameters" element="tns:ordenarDTUporSeguidores"/>
 </message>
-<message name="existeNickResponse">
-<part name="parameters" element="tns:existeNickResponse"/>
+<message name="ordenarDTUporSeguidoresResponse">
+<part name="parameters" element="tns:ordenarDTUporSeguidoresResponse"/>
 </message>
-<message name="getProponentes">
-<part name="parameters" element="tns:getProponentes"/>
+<message name="comprobarPropuestas">
+<part name="parameters" element="tns:comprobarPropuestas"/>
 </message>
-<message name="getProponentesResponse">
-<part name="parameters" element="tns:getProponentesResponse"/>
+<message name="comprobarPropuestasResponse">
+<part name="parameters" element="tns:comprobarPropuestasResponse"/>
+</message>
+<message name="extenderFinanciacion">
+<part name="parameters" element="tns:extenderFinanciacion"/>
+</message>
+<message name="extenderFinanciacionResponse">
+<part name="parameters" element="tns:extenderFinanciacionResponse"/>
 </message>
 <message name="añadirUsuarioC">
 <part name="parameters" element="tns:añadirUsuarioC"/>
@@ -172,80 +232,26 @@
 <message name="altaAporteFResponse">
 <part name="parameters" element="tns:altaAporteFResponse"/>
 </message>
-<message name="getDataPropuestaSimple">
-<part name="parameters" element="tns:getDataPropuestaSimple"/>
-</message>
-<message name="getDataPropuestaSimpleResponse">
-<part name="parameters" element="tns:getDataPropuestaSimpleResponse"/>
-</message>
-<message name="consultaDePropuesta">
-<part name="parameters" element="tns:consultaDePropuesta"/>
-</message>
-<message name="consultaDePropuestaResponse">
-<part name="parameters" element="tns:consultaDePropuestaResponse"/>
-</message>
-<message name="cargarCategoriasWeb">
-<part name="parameters" element="tns:cargarCategoriasWeb"/>
-</message>
-<message name="cargarCategoriasWebResponse">
-<part name="parameters" element="tns:cargarCategoriasWebResponse"/>
-</message>
-<message name="consultaDeColaborador">
-<part name="parameters" element="tns:consultaDeColaborador"/>
-</message>
-<message name="consultaDeColaboradorResponse">
-<part name="parameters" element="tns:consultaDeColaboradorResponse"/>
-</message>
-<message name="consultaDeColaboradorWeb">
-<part name="parameters" element="tns:consultaDeColaboradorWeb"/>
-</message>
-<message name="consultaDeColaboradorWebResponse">
-<part name="parameters" element="tns:consultaDeColaboradorWebResponse"/>
-</message>
-<message name="consultaDeProponenteWeb">
-<part name="parameters" element="tns:consultaDeProponenteWeb"/>
-</message>
-<message name="consultaDeProponenteWebResponse">
-<part name="parameters" element="tns:consultaDeProponenteWebResponse"/>
-</message>
-<message name="getDataColaboradorWeb">
-<part name="parameters" element="tns:getDataColaboradorWeb"/>
-</message>
-<message name="getDataColaboradorWebResponse">
-<part name="parameters" element="tns:getDataColaboradorWebResponse"/>
-</message>
-<message name="extenderFinanciacion">
-<part name="parameters" element="tns:extenderFinanciacion"/>
-</message>
-<message name="extenderFinanciacionResponse">
-<part name="parameters" element="tns:extenderFinanciacionResponse"/>
-</message>
-<message name="comprobarPropuestas">
-<part name="parameters" element="tns:comprobarPropuestas"/>
-</message>
-<message name="comprobarPropuestasResponse">
-<part name="parameters" element="tns:comprobarPropuestasResponse"/>
-</message>
 <portType name="LogicaWS">
-<operation name="getCategorias">
-<input wsam:Action="http://WebServices/LogicaWS/getCategoriasRequest" message="tns:getCategorias"/>
-<output wsam:Action="http://WebServices/LogicaWS/getCategoriasResponse" message="tns:getCategoriasResponse"/>
+<operation name="getDataPropuestaSimple">
+<input wsam:Action="http://WebServices/LogicaWS/getDataPropuestaSimpleRequest" message="tns:getDataPropuestaSimple"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataPropuestaSimpleResponse" message="tns:getDataPropuestaSimpleResponse"/>
 </operation>
-<operation name="altaPropuesta">
-<input wsam:Action="http://WebServices/LogicaWS/altaPropuestaRequest" message="tns:altaPropuesta"/>
-<output wsam:Action="http://WebServices/LogicaWS/altaPropuestaResponse" message="tns:altaPropuestaResponse"/>
+<operation name="consultaDeProponenteWeb">
+<input wsam:Action="http://WebServices/LogicaWS/consultaDeProponenteWebRequest" message="tns:consultaDeProponenteWeb"/>
+<output wsam:Action="http://WebServices/LogicaWS/consultaDeProponenteWebResponse" message="tns:consultaDeProponenteWebResponse"/>
 </operation>
-<operation name="dejarSeguirUsuario">
-<input wsam:Action="http://WebServices/LogicaWS/dejarSeguirUsuarioRequest" message="tns:dejarSeguirUsuario"/>
-<output wsam:Action="http://WebServices/LogicaWS/dejarSeguirUsuarioResponse" message="tns:dejarSeguirUsuarioResponse"/>
+<operation name="consultaDeColaboradorWeb">
+<input wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorWebRequest" message="tns:consultaDeColaboradorWeb"/>
+<output wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorWebResponse" message="tns:consultaDeColaboradorWebResponse"/>
 </operation>
-<operation name="seguirUsuario">
-<input wsam:Action="http://WebServices/LogicaWS/seguirUsuarioRequest" message="tns:seguirUsuario"/>
-<output wsam:Action="http://WebServices/LogicaWS/seguirUsuarioResponse" message="tns:seguirUsuarioResponse"/>
+<operation name="cargarCategoriasWeb">
+<input wsam:Action="http://WebServices/LogicaWS/cargarCategoriasWebRequest" message="tns:cargarCategoriasWeb"/>
+<output wsam:Action="http://WebServices/LogicaWS/cargarCategoriasWebResponse" message="tns:cargarCategoriasWebResponse"/>
 </operation>
-<operation name="getPropuestas">
-<input wsam:Action="http://WebServices/LogicaWS/getPropuestasRequest" message="tns:getPropuestas"/>
-<output wsam:Action="http://WebServices/LogicaWS/getPropuestasResponse" message="tns:getPropuestasResponse"/>
+<operation name="consultaDePropuesta">
+<input wsam:Action="http://WebServices/LogicaWS/consultaDePropuestaRequest" message="tns:consultaDePropuesta"/>
+<output wsam:Action="http://WebServices/LogicaWS/consultaDePropuestaResponse" message="tns:consultaDePropuestaResponse"/>
 </operation>
 <operation name="altaAporte">
 <input wsam:Action="http://WebServices/LogicaWS/altaAporteRequest" message="tns:altaAporte"/>
@@ -255,13 +261,69 @@
 <input wsam:Action="http://WebServices/LogicaWS/getUsuarioRequest" message="tns:getUsuario"/>
 <output wsam:Action="http://WebServices/LogicaWS/getUsuarioResponse" message="tns:getUsuarioResponse"/>
 </operation>
+<operation name="getDataUsuarios">
+<input wsam:Action="http://WebServices/LogicaWS/getDataUsuariosRequest" message="tns:getDataUsuarios"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataUsuariosResponse" message="tns:getDataUsuariosResponse"/>
+</operation>
+<operation name="dejarSeguirUsuario">
+<input wsam:Action="http://WebServices/LogicaWS/dejarSeguirUsuarioRequest" message="tns:dejarSeguirUsuario"/>
+<output wsam:Action="http://WebServices/LogicaWS/dejarSeguirUsuarioResponse" message="tns:dejarSeguirUsuarioResponse"/>
+</operation>
+<operation name="getPropuestas">
+<input wsam:Action="http://WebServices/LogicaWS/getPropuestasRequest" message="tns:getPropuestas"/>
+<output wsam:Action="http://WebServices/LogicaWS/getPropuestasResponse" message="tns:getPropuestasResponse"/>
+</operation>
 <operation name="getDataUsuarioWeb">
 <input wsam:Action="http://WebServices/LogicaWS/getDataUsuarioWebRequest" message="tns:getDataUsuarioWeb"/>
 <output wsam:Action="http://WebServices/LogicaWS/getDataUsuarioWebResponse" message="tns:getDataUsuarioWebResponse"/>
 </operation>
-<operation name="getDataUsuarios">
-<input wsam:Action="http://WebServices/LogicaWS/getDataUsuariosRequest" message="tns:getDataUsuarios"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataUsuariosResponse" message="tns:getDataUsuariosResponse"/>
+<operation name="seguirUsuario">
+<input wsam:Action="http://WebServices/LogicaWS/seguirUsuarioRequest" message="tns:seguirUsuario"/>
+<output wsam:Action="http://WebServices/LogicaWS/seguirUsuarioResponse" message="tns:seguirUsuarioResponse"/>
+</operation>
+<operation name="altaPropuesta">
+<input wsam:Action="http://WebServices/LogicaWS/altaPropuestaRequest" message="tns:altaPropuesta"/>
+<output wsam:Action="http://WebServices/LogicaWS/altaPropuestaResponse" message="tns:altaPropuestaResponse"/>
+</operation>
+<operation name="existeNick">
+<input wsam:Action="http://WebServices/LogicaWS/existeNickRequest" message="tns:existeNick"/>
+<output wsam:Action="http://WebServices/LogicaWS/existeNickResponse" message="tns:existeNickResponse"/>
+</operation>
+<operation name="existeTitulo">
+<input wsam:Action="http://WebServices/LogicaWS/existeTituloRequest" message="tns:existeTitulo"/>
+<output wsam:Action="http://WebServices/LogicaWS/existeTituloResponse" message="tns:existeTituloResponse"/>
+</operation>
+<operation name="getUsuarioPorMail">
+<input wsam:Action="http://WebServices/LogicaWS/getUsuarioPorMailRequest" message="tns:getUsuarioPorMail"/>
+<output wsam:Action="http://WebServices/LogicaWS/getUsuarioPorMailResponse" message="tns:getUsuarioPorMailResponse"/>
+</operation>
+<operation name="getCategorias">
+<input wsam:Action="http://WebServices/LogicaWS/getCategoriasRequest" message="tns:getCategorias"/>
+<output wsam:Action="http://WebServices/LogicaWS/getCategoriasResponse" message="tns:getCategoriasResponse"/>
+</operation>
+<operation name="getDataSugerencia">
+<input wsam:Action="http://WebServices/LogicaWS/getDataSugerenciaRequest" message="tns:getDataSugerencia"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataSugerenciaResponse" message="tns:getDataSugerenciaResponse"/>
+</operation>
+<operation name="getDataComentarios">
+<input wsam:Action="http://WebServices/LogicaWS/getDataComentariosRequest" message="tns:getDataComentarios"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataComentariosResponse" message="tns:getDataComentariosResponse"/>
+</operation>
+<operation name="existeCorreo">
+<input wsam:Action="http://WebServices/LogicaWS/existeCorreoRequest" message="tns:existeCorreo"/>
+<output wsam:Action="http://WebServices/LogicaWS/existeCorreoResponse" message="tns:existeCorreoResponse"/>
+</operation>
+<operation name="cancelarPropuesta">
+<input wsam:Action="http://WebServices/LogicaWS/cancelarPropuestaRequest" message="tns:cancelarPropuesta"/>
+<output wsam:Action="http://WebServices/LogicaWS/cancelarPropuestaResponse" message="tns:cancelarPropuestaResponse"/>
+</operation>
+<operation name="getDataProponente">
+<input wsam:Action="http://WebServices/LogicaWS/getDataProponenteRequest" message="tns:getDataProponente"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataProponenteResponse" message="tns:getDataProponenteResponse"/>
+</operation>
+<operation name="verificarUsuario">
+<input wsam:Action="http://WebServices/LogicaWS/verificarUsuarioRequest" message="tns:verificarUsuario"/>
+<output wsam:Action="http://WebServices/LogicaWS/verificarUsuarioResponse" message="tns:verificarUsuarioResponse"/>
 </operation>
 <operation name="cambiarFavorita">
 <input wsam:Action="http://WebServices/LogicaWS/cambiarFavoritaRequest" message="tns:cambiarFavorita"/>
@@ -271,33 +333,13 @@
 <input wsam:Action="http://WebServices/LogicaWS/esFavoritaRequest" message="tns:esFavorita"/>
 <output wsam:Action="http://WebServices/LogicaWS/esFavoritaResponse" message="tns:esFavoritaResponse"/>
 </operation>
-<operation name="getDataColaborador">
-<input wsam:Action="http://WebServices/LogicaWS/getDataColaboradorRequest" message="tns:getDataColaborador"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataColaboradorResponse" message="tns:getDataColaboradorResponse"/>
+<operation name="getDataAporte">
+<input wsam:Action="http://WebServices/LogicaWS/getDataAporteRequest" message="tns:getDataAporte"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataAporteResponse" message="tns:getDataAporteResponse"/>
 </operation>
-<operation name="cancelarPropuesta">
-<input wsam:Action="http://WebServices/LogicaWS/cancelarPropuestaRequest" message="tns:cancelarPropuesta"/>
-<output wsam:Action="http://WebServices/LogicaWS/cancelarPropuestaResponse" message="tns:cancelarPropuestaResponse"/>
-</operation>
-<operation name="getDataSugerencia">
-<input wsam:Action="http://WebServices/LogicaWS/getDataSugerenciaRequest" message="tns:getDataSugerencia"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataSugerenciaResponse" message="tns:getDataSugerenciaResponse"/>
-</operation>
-<operation name="añadirUsuarioP">
-<input wsam:Action="http://WebServices/LogicaWS/añadirUsuarioPRequest" message="tns:añadirUsuarioP"/>
-<output wsam:Action="http://WebServices/LogicaWS/añadirUsuarioPResponse" message="tns:añadirUsuarioPResponse"/>
-</operation>
-<operation name="getUsuarioPorMail">
-<input wsam:Action="http://WebServices/LogicaWS/getUsuarioPorMailRequest" message="tns:getUsuarioPorMail"/>
-<output wsam:Action="http://WebServices/LogicaWS/getUsuarioPorMailResponse" message="tns:getUsuarioPorMailResponse"/>
-</operation>
-<operation name="getDataComentarios">
-<input wsam:Action="http://WebServices/LogicaWS/getDataComentariosRequest" message="tns:getDataComentarios"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataComentariosResponse" message="tns:getDataComentariosResponse"/>
-</operation>
-<operation name="getDataProponente">
-<input wsam:Action="http://WebServices/LogicaWS/getDataProponenteRequest" message="tns:getDataProponente"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataProponenteResponse" message="tns:getDataProponenteResponse"/>
+<operation name="getProponentes">
+<input wsam:Action="http://WebServices/LogicaWS/getProponentesRequest" message="tns:getProponentes"/>
+<output wsam:Action="http://WebServices/LogicaWS/getProponentesResponse" message="tns:getProponentesResponse"/>
 </operation>
 <operation name="addComentario">
 <input wsam:Action="http://WebServices/LogicaWS/addComentarioRequest" message="tns:addComentario"/>
@@ -307,29 +349,33 @@
 <input wsam:Action="http://WebServices/LogicaWS/eliminarProponenteRequest" message="tns:eliminarProponente"/>
 <output wsam:Action="http://WebServices/LogicaWS/eliminarProponenteResponse" message="tns:eliminarProponenteResponse"/>
 </operation>
-<operation name="existeCorreo">
-<input wsam:Action="http://WebServices/LogicaWS/existeCorreoRequest" message="tns:existeCorreo"/>
-<output wsam:Action="http://WebServices/LogicaWS/existeCorreoResponse" message="tns:existeCorreoResponse"/>
+<operation name="getDataColaborador">
+<input wsam:Action="http://WebServices/LogicaWS/getDataColaboradorRequest" message="tns:getDataColaborador"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataColaboradorResponse" message="tns:getDataColaboradorResponse"/>
 </operation>
-<operation name="getDataAporte">
-<input wsam:Action="http://WebServices/LogicaWS/getDataAporteRequest" message="tns:getDataAporte"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataAporteResponse" message="tns:getDataAporteResponse"/>
+<operation name="añadirUsuarioP">
+<input wsam:Action="http://WebServices/LogicaWS/añadirUsuarioPRequest" message="tns:añadirUsuarioP"/>
+<output wsam:Action="http://WebServices/LogicaWS/añadirUsuarioPResponse" message="tns:añadirUsuarioPResponse"/>
 </operation>
-<operation name="verificarUsuario">
-<input wsam:Action="http://WebServices/LogicaWS/verificarUsuarioRequest" message="tns:verificarUsuario"/>
-<output wsam:Action="http://WebServices/LogicaWS/verificarUsuarioResponse" message="tns:verificarUsuarioResponse"/>
+<operation name="getDataColaboradorWeb">
+<input wsam:Action="http://WebServices/LogicaWS/getDataColaboradorWebRequest" message="tns:getDataColaboradorWeb"/>
+<output wsam:Action="http://WebServices/LogicaWS/getDataColaboradorWebResponse" message="tns:getDataColaboradorWebResponse"/>
 </operation>
-<operation name="existeTitulo">
-<input wsam:Action="http://WebServices/LogicaWS/existeTituloRequest" message="tns:existeTitulo"/>
-<output wsam:Action="http://WebServices/LogicaWS/existeTituloResponse" message="tns:existeTituloResponse"/>
+<operation name="consultaDeColaborador">
+<input wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorRequest" message="tns:consultaDeColaborador"/>
+<output wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorResponse" message="tns:consultaDeColaboradorResponse"/>
 </operation>
-<operation name="existeNick">
-<input wsam:Action="http://WebServices/LogicaWS/existeNickRequest" message="tns:existeNick"/>
-<output wsam:Action="http://WebServices/LogicaWS/existeNickResponse" message="tns:existeNickResponse"/>
+<operation name="ordenarDTUporSeguidores">
+<input wsam:Action="http://WebServices/LogicaWS/ordenarDTUporSeguidoresRequest" message="tns:ordenarDTUporSeguidores"/>
+<output wsam:Action="http://WebServices/LogicaWS/ordenarDTUporSeguidoresResponse" message="tns:ordenarDTUporSeguidoresResponse"/>
 </operation>
-<operation name="getProponentes">
-<input wsam:Action="http://WebServices/LogicaWS/getProponentesRequest" message="tns:getProponentes"/>
-<output wsam:Action="http://WebServices/LogicaWS/getProponentesResponse" message="tns:getProponentesResponse"/>
+<operation name="comprobarPropuestas">
+<input wsam:Action="http://WebServices/LogicaWS/comprobarPropuestasRequest" message="tns:comprobarPropuestas"/>
+<output wsam:Action="http://WebServices/LogicaWS/comprobarPropuestasResponse" message="tns:comprobarPropuestasResponse"/>
+</operation>
+<operation name="extenderFinanciacion">
+<input wsam:Action="http://WebServices/LogicaWS/extenderFinanciacionRequest" message="tns:extenderFinanciacion"/>
+<output wsam:Action="http://WebServices/LogicaWS/extenderFinanciacionResponse" message="tns:extenderFinanciacionResponse"/>
 </operation>
 <operation name="añadirUsuarioC">
 <input wsam:Action="http://WebServices/LogicaWS/añadirUsuarioCRequest" message="tns:añadirUsuarioC"/>
@@ -339,46 +385,10 @@
 <input wsam:Action="http://WebServices/LogicaWS/altaAporteFRequest" message="tns:altaAporteF"/>
 <output wsam:Action="http://WebServices/LogicaWS/altaAporteFResponse" message="tns:altaAporteFResponse"/>
 </operation>
-<operation name="getDataPropuestaSimple">
-<input wsam:Action="http://WebServices/LogicaWS/getDataPropuestaSimpleRequest" message="tns:getDataPropuestaSimple"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataPropuestaSimpleResponse" message="tns:getDataPropuestaSimpleResponse"/>
-</operation>
-<operation name="consultaDePropuesta">
-<input wsam:Action="http://WebServices/LogicaWS/consultaDePropuestaRequest" message="tns:consultaDePropuesta"/>
-<output wsam:Action="http://WebServices/LogicaWS/consultaDePropuestaResponse" message="tns:consultaDePropuestaResponse"/>
-</operation>
-<operation name="cargarCategoriasWeb">
-<input wsam:Action="http://WebServices/LogicaWS/cargarCategoriasWebRequest" message="tns:cargarCategoriasWeb"/>
-<output wsam:Action="http://WebServices/LogicaWS/cargarCategoriasWebResponse" message="tns:cargarCategoriasWebResponse"/>
-</operation>
-<operation name="consultaDeColaborador">
-<input wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorRequest" message="tns:consultaDeColaborador"/>
-<output wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorResponse" message="tns:consultaDeColaboradorResponse"/>
-</operation>
-<operation name="consultaDeColaboradorWeb">
-<input wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorWebRequest" message="tns:consultaDeColaboradorWeb"/>
-<output wsam:Action="http://WebServices/LogicaWS/consultaDeColaboradorWebResponse" message="tns:consultaDeColaboradorWebResponse"/>
-</operation>
-<operation name="consultaDeProponenteWeb">
-<input wsam:Action="http://WebServices/LogicaWS/consultaDeProponenteWebRequest" message="tns:consultaDeProponenteWeb"/>
-<output wsam:Action="http://WebServices/LogicaWS/consultaDeProponenteWebResponse" message="tns:consultaDeProponenteWebResponse"/>
-</operation>
-<operation name="getDataColaboradorWeb">
-<input wsam:Action="http://WebServices/LogicaWS/getDataColaboradorWebRequest" message="tns:getDataColaboradorWeb"/>
-<output wsam:Action="http://WebServices/LogicaWS/getDataColaboradorWebResponse" message="tns:getDataColaboradorWebResponse"/>
-</operation>
-<operation name="extenderFinanciacion">
-<input wsam:Action="http://WebServices/LogicaWS/extenderFinanciacionRequest" message="tns:extenderFinanciacion"/>
-<output wsam:Action="http://WebServices/LogicaWS/extenderFinanciacionResponse" message="tns:extenderFinanciacionResponse"/>
-</operation>
-<operation name="comprobarPropuestas">
-<input wsam:Action="http://WebServices/LogicaWS/comprobarPropuestasRequest" message="tns:comprobarPropuestas"/>
-<output wsam:Action="http://WebServices/LogicaWS/comprobarPropuestasResponse" message="tns:comprobarPropuestasResponse"/>
-</operation>
 </portType>
 <binding name="LogicaWSPortBinding" type="tns:LogicaWS">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-<operation name="getCategorias">
+<operation name="getDataPropuestaSimple">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -387,7 +397,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="altaPropuesta">
+<operation name="consultaDeProponenteWeb">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -396,7 +406,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="dejarSeguirUsuario">
+<operation name="consultaDeColaboradorWeb">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -405,7 +415,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="seguirUsuario">
+<operation name="cargarCategoriasWeb">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -414,7 +424,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getPropuestas">
+<operation name="consultaDePropuesta">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -441,6 +451,33 @@
 <soap:body use="literal"/>
 </output>
 </operation>
+<operation name="getDataUsuarios">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="dejarSeguirUsuario">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getPropuestas">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
 <operation name="getDataUsuarioWeb">
 <soap:operation soapAction=""/>
 <input>
@@ -450,7 +487,106 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getDataUsuarios">
+<operation name="seguirUsuario">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="altaPropuesta">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="existeNick">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="existeTitulo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getUsuarioPorMail">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getCategorias">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getDataSugerencia">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getDataComentarios">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="existeCorreo">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="cancelarPropuesta">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getDataProponente">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="verificarUsuario">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -477,7 +613,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getDataColaborador">
+<operation name="getDataAporte">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -486,52 +622,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="cancelarPropuesta">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDataSugerencia">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="añadirUsuarioP">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getUsuarioPorMail">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDataComentarios">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDataProponente">
+<operation name="getProponentes">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -558,7 +649,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="existeCorreo">
+<operation name="getDataColaborador">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -567,7 +658,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getDataAporte">
+<operation name="añadirUsuarioP">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -576,7 +667,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="verificarUsuario">
+<operation name="getDataColaboradorWeb">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -585,7 +676,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="existeTitulo">
+<operation name="consultaDeColaborador">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -594,7 +685,7 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="existeNick">
+<operation name="ordenarDTUporSeguidores">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -603,7 +694,16 @@
 <soap:body use="literal"/>
 </output>
 </operation>
-<operation name="getProponentes">
+<operation name="comprobarPropuestas">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="extenderFinanciacion">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
@@ -622,87 +722,6 @@
 </output>
 </operation>
 <operation name="altaAporteF">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDataPropuestaSimple">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="consultaDePropuesta">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="cargarCategoriasWeb">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="consultaDeColaborador">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="consultaDeColaboradorWeb">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="consultaDeProponenteWeb">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="getDataColaboradorWeb">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="extenderFinanciacion">
-<soap:operation soapAction=""/>
-<input>
-<soap:body use="literal"/>
-</input>
-<output>
-<soap:body use="literal"/>
-</output>
-</operation>
-<operation name="comprobarPropuestas">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
