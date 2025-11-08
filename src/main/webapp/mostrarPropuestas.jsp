@@ -18,6 +18,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
         <style>
             /* Mantener fijo el panel lateral en pantallas medianas o grandes */
             @media (min-width: 768px) {
@@ -26,6 +27,19 @@
                     top: 1rem;
                 }
             }
+            .rotate {
+                transition: transform 0.3s ease;
+            }
+            .rotate.down {
+                transform: rotate(180deg);
+            }
+            .collapse {
+                transition: height 0.35s ease; /* podés probar con 0.3–0.5s */
+              }
+            .collapsing {
+                transition: height 0.35s ease;
+            }
+
         </style>
     </head>
     <body>
@@ -35,29 +49,35 @@
             <div class="row">
 
                 <!--  Panel lateral --> 
-
+                
                 <div id = "filtros" class="col-12 col-md-3 mb-3">
-
-                    <div class="p-3 border rounded bg-light" style="max-height: 800px; overflow-y: auto;">
-                        <h5 class="mb-3">Filtrar por Categoría</h5>
-
+                    <div class="p-3 border rounded bg-light" style="max-height: 800px; overflow-y: auto;"> 
+                        <h5 class="mb-3">
+                            <a class="text-decoration-none text-dark d-flex align-items-center justify-content-between"
+                               data-bs-toggle="collapse" href="#collapseFiltrosCat"
+                               role="button" aria-expanded="true" aria-controls="collapseFiltrosCat">
+                              Filtrar por Categoría
+                              <i class="bi bi-chevron-down rotate ms-1"></i>
+                            </a>
+                        </h5>
+                     <div class="collapse show" id="collapseFiltrosCat">
                         <div id="filtroCategorias">
-                            <div class="form-check">
-                                <input class="form-check-input categoria-check" type="checkbox" id="cat-todas" value="todas" checked>
-                                <label class="form-check-label" for="cat-todas">Todas</label>
-                            </div>
+                          <div class="form-check">
+                            <input class="form-check-input categoria-check" type="checkbox" id="cat-todas" value="todas" checked>
+                            <label class="form-check-label" for="cat-todas">Todas</label>
+                          </div>
 
-                            <% List<String> categorias = (List) request.getSession().getAttribute("categorias");
-                  for (String cat : categorias) {%> 
+                          <% List<String> categorias = (List) request.getSession().getAttribute("categorias");
+                             for (String cat : categorias) { %>
                             <div class="form-check">
-                                <input class="form-check-input categoria-check" type="checkbox" id="cat-<%=cat%>" value="<%=cat%>">
-                                <label class="form-check-label" for="cat-<%=cat%>"><%=cat%></label>
+                              <input class="form-check-input categoria-check" type="checkbox" id="cat-<%=cat%>" value="<%=cat%>">
+                              <label class="form-check-label" for="cat-<%=cat%>"><%=cat%></label>
                             </div>
-                            <% } %>
+                          <% } %>
                         </div>
+                      </div>
                     </div>
-                </div>
-
+                  </div>
                 <!--  Zona de tarjetas --> 
                 <div class="col-12 col-sm-9">
                     <%
@@ -184,7 +204,21 @@
                     }
                 });
             });
+            document.addEventListener('DOMContentLoaded', function () {
+                const trigger = document.querySelector('[data-bs-toggle="collapse"][href="#collapseFiltrosCat"]');
+                const icon = trigger.querySelector('i');
+                
+                const collapseEl = document.getElementById('collapseFiltrosCat');
+                
+                if (collapseEl.classList.contains('show')) {
+                  icon.classList.add('down');
+                } else {
+                  icon.classList.remove('down');
+                }
 
+                collapseEl.addEventListener('show.bs.collapse', () => icon.classList.add('down'));
+                collapseEl.addEventListener('hide.bs.collapse', () => icon.classList.remove('down'));
+            });
         </script>
 
     </body>

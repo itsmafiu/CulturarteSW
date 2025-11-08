@@ -101,7 +101,7 @@
                                         }
                             %>
 
-                            <div class="usuario" id="Usuario-<%= u.getNickname()%>">
+                            <div class="usuario-lista" id="Usuario-<%= u.getNickname()%>">
                                 <h3><b><%=posicion%></b></h3>
                                 <!-- Tarjeta horizontal -->
                                 <% if (posicion == 1) { %>
@@ -153,41 +153,41 @@
               document.getElementById("tituloExplora").textContent = "No hay usuarios registrados, animate a ser el primero";
               document.getElementById("filtros").style.display = "none";
           }  
-        
-        function filtrarUsuarios(tipo) {
-          const usuarios = document.querySelectorAll('.usuario');
-          const tituloExplora = document.getElementById('tituloExplora');
-          let visibles = 0;
+     
+            function filtrarUsuarios(tipo) {
+              const usuarios = document.querySelectorAll('.usuario');
+              const tituloExplora = document.getElementById('tituloExplora');
+              let visibles = 0;
 
-          usuarios.forEach(u => {
-            const esTipo = u.dataset.tipo.toLowerCase() === tipo.toLowerCase();
-            const mostrar = (tipo === 'todos' || esTipo);
-            u.style.display = mostrar ? 'block' : 'none';
-            if (mostrar) visibles++;
-          });
+              usuarios.forEach(u => {
+                const esTipo = u.dataset.tipo.toLowerCase() === tipo.toLowerCase();
+                const mostrar = (tipo === 'todos' || esTipo);
+                u.style.display = mostrar ? 'block' : 'none';
+                if (mostrar) visibles++;
+              });
+              
+              // Actualizar título dinámicamente
+              const tipoMayus = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
+              if (visibles === 0) {
+                if (tipo === 'todos') {
+                  tituloExplora.textContent = "No hay usuarios en el sistema.";
+                } else {
+                  tituloExplora.textContent = "No hay usuarios del tipo " + tipoMayus + ".";
+                }
+              } else {
+                if (tipo === 'todos') {
+                  tituloExplora.textContent = "Explora entre " + visibles + " Usuarios :";
+                } else {
+                  tituloExplora.textContent = "Explora entre " + visibles + " Usuarios " + tipoMayus + "s :";
+                }
+              }
 
-          // Actualizar título dinámicamente
-          const tipoMayus = tipo.charAt(0).toUpperCase() + tipo.slice(1).toLowerCase();
-          if (visibles === 0) {
-            if (tipo === 'todos') {
-              tituloExplora.textContent = "No hay usuarios en el sistema.";
-            } else {
-              tituloExplora.textContent = "No hay usuarios del tipo " + tipoMayus + ".";
+              // Marcar pestaña activa
+              document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+              const boton = [...document.querySelectorAll('.nav-link')]
+                .find(b => b.textContent.toLowerCase().includes(tipo.toLowerCase()));
+              if (boton) boton.classList.add('active');
             }
-          } else {
-            if (tipo === 'todos') {
-              tituloExplora.textContent = "Explora entre " + visibles + " Usuarios :";
-            } else {
-              tituloExplora.textContent = "Explora entre " + visibles + " Usuarios " + tipoMayus + "s :";
-            }
-          }
-
-          // Marcar pestaña activa
-          document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
-          const boton = [...document.querySelectorAll('.nav-link')]
-            .find(b => b.textContent.toLowerCase().includes(tipo.toLowerCase()));
-          if (boton) boton.classList.add('active');
-        }
       </script>
     </body>
 </html>

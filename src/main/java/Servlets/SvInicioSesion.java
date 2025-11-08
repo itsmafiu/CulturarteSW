@@ -62,6 +62,10 @@ public class SvInicioSesion extends HttpServlet {
         HttpSession misesion = request.getSession();
         Usuario usu;
         switch(existe){
+            case -1: //Existe pero no esta Activo
+                request.setAttribute("error", "Este Proponente esta eliminado.");
+                request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
+                return;
             case 0: //no existe
                 request.setAttribute("error", "Usuario o contraseña incorrecta.");
                 request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
