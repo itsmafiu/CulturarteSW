@@ -66,7 +66,9 @@ public class SvRecomendaciones extends HttpServlet {
             for (DataAporte a : aportes) {
                 
                DataPropuesta prop = ic.consultaDePropuesta(a.getMiPropuesta());
-               
+               if(!prop.isProponenteActivo()){
+                   continue; //Salto esta propuesta ya que tiene a su proponente inactivo
+               }
                int colaboraciones = prop.getMisAportes().size();
                
                double porcentaje = Math.min((prop.getAlcanzada() / prop.getNecesaria()) * 100, 100);
@@ -105,6 +107,9 @@ public class SvRecomendaciones extends HttpServlet {
                         DataColaborador coColaborador = ic.consultaDeColaborador(nickCola);
                         for (DataAporte otrosAportes : coColaborador.getMisAportes()) {
                             DataPropuesta otraProp = ic.consultaDePropuesta(otrosAportes.getMiPropuesta());
+                            if(!otraProp.isProponenteActivo()){
+                                continue;
+                            }
                             if (!otraProp.getTitulo().equals(prop.getTitulo())) {
                                 int coColaboraciones = otraProp.getMisAportes().size();
                                 double coPorcentaje = Math.min((otraProp.getAlcanzada() / otraProp.getNecesaria()) * 100, 100);

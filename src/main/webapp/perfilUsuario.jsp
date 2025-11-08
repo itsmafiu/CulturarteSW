@@ -66,16 +66,19 @@
                     <div class="col-md-4 text-center position-relative">
                         <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
                         <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
-                        <% } else if (esMiPerfil && usuario.getTipo().equals("Proponente")){ %>
+                        <% } else if (esMiPerfil && esProponente){ %>
                         <div class="d-inline-block">
                             <button class="btn btn-danger mb-2" id="botonEliminar" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEliminar"
                                     aria-expanded="false" aria-controls="collapseEliminar">Eliminar perfil</button>
                             <div class="collapse mt-2" id="collapseEliminar">
                                 <div class="card card-body mx-auto" style="max-width: 300px;">
                                     <h4> ¿Estás seguro? </h4>
-                                    <form action="cerrarSesion?eliminarProp=si" method="GET">
+                                    <form action="cerrarSesion" method="GET">
+                                        <input type="hidden" name="eliminarProp" value="si">
+                                        <input type="hidden" name="nickAEliminar" value="<%= request.getSession().getAttribute("nick") %>">
                                         <button type="submit" class="btn btn-warning">Confirmar</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>

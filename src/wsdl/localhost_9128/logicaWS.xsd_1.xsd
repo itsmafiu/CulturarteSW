@@ -245,6 +245,7 @@
 <xs:element name="nickProponenteDe" type="xs:string" minOccurs="0"/>
 <xs:element name="p" type="tns:dataProponente" minOccurs="0"/>
 <xs:element name="posibleRetorno" type="tns:enumRetorno" minOccurs="0"/>
+<xs:element name="proponenteActivo" type="xs:boolean"/>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
@@ -577,18 +578,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="existeCorreo">
-<xs:sequence>
-<xs:element name="correo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreoResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="verificarUsuario">
 <xs:sequence>
 <xs:element name="usuario" type="xs:string" minOccurs="0"/>
@@ -599,6 +588,18 @@
 <xs:complexType name="verificarUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeCorreo">
+<xs:sequence>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeCorreoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -614,18 +615,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="consultaDePropuesta">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="consultaDePropuestaResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="dejarSeguirUsuario">
 <xs:sequence>
 <xs:element name="nick1" type="xs:string" minOccurs="0"/>
@@ -636,6 +625,18 @@
 <xs:complexType name="dejarSeguirUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDePropuesta">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDePropuestaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -653,6 +654,7 @@
 <xs:complexContent>
 <xs:extension base="tns:usuario">
 <xs:sequence>
+<xs:element name="activo" type="xs:boolean"/>
 <xs:element name="biografia" type="xs:string" minOccurs="0"/>
 <xs:element name="direccion" type="xs:string" minOccurs="0"/>
 <xs:element name="sitioWeb" type="xs:string" minOccurs="0"/>
@@ -680,23 +682,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="cargarCategoriasWeb">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="cargarCategoriasWebResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataCategoria" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="dataCategoria">
-<xs:sequence>
-<xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="altaAporteF">
 <xs:sequence>
 <xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
@@ -711,6 +696,23 @@
 <xs:complexType name="altaAporteFResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cargarCategoriasWeb">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="cargarCategoriasWebResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataCategoria" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataCategoria">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
