@@ -87,10 +87,16 @@
                                         <div class="card-body" style="max-height: 300px; overflow: hidden;">
                                             <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
                                             <div class="text-center bg-secondary-subtle rounded">
+                                                <% if(!esMovil){ %>
                                                 <a class="text-decoration-none"
                                                    href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                                                     by <%= p.getNickProponenteDe()%>
                                                 </a>
+                                                <% } else { %>
+                                                <p class="text-decoration-none">
+                                                    by <%= p.getNickProponenteDe()%>
+                                                </p>
+                                                <% } %>
                                             </div>
                                             <p class="card-text"  style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
                                                 <%=p.getDesc()%></p>
