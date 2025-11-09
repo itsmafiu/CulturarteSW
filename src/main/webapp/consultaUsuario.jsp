@@ -87,7 +87,7 @@
                     <!--ranking por seguidores-->
                     <div class="col-md-3">
                         <h3 class=" mb-2 mt-4"><b>Ranking de Usuarios por Seguidores</b></h3>
-                        <div class="d-flex flex-column align-items-start p-2" id="listaSeguidores">
+                        <div class="d-flex flex-column align-items-start p-2" id="rankingUsuarios">
                             <%
                                 List<DataUsuario> DtURanking = (List) request.getSession().getAttribute("DtURanking");
                                 if (DtURanking != null && !DtURanking.isEmpty()) {
@@ -105,13 +105,13 @@
                                 <h3><b><%=posicion%></b></h3>
                                 <!-- Tarjeta horizontal -->
                                 <% if (posicion == 1) { %>
-                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-0 bg-warning" style="max-width: 360px;">
+                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-2 bg-warning" style="width: 18rem;">
                                 <% } else if (posicion == 2) { %>
-                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-0 bg-secondary" style="max-width: 360px;">
+                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-2 bg-secondary" style="width: 18rem;">
                                 <% } else if (posicion == 3) { %>
-                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-0" style="max-width: 360px; background-color: peru">
+                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-2" style="width: 18rem; background-color: peru">
                                 <% } else { %>
-                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-0" style="max-width: 360px;">
+                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden my-2" style="width: 18rem;">
                                 <% }%>
                                     <div class="d-flex align-items-center" style="height: 110px;">
 
