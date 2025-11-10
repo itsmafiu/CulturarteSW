@@ -4,10 +4,11 @@
  */
 package Servlets;
 
-import WebServices.Aporte;
+import WebServices.DataAporte;
 import WebServices.DataColaborador;
 import WebServices.DataComentario;
 import WebServices.DataPropuesta;
+import WebServices.DataUsuario;
 import WebServices.LogicaWS;
 import WebServices.LogicaWS_Service;
 import javax.servlet.ServletException;
@@ -53,13 +54,14 @@ public class SvInfoPropuesta extends HttpServlet {
         DataPropuesta DP = ic.consultaDePropuesta(titulo);
         
         List<DataColaborador> colabs = new ArrayList<>();
-//            
-//        for(Aporte a : DP.getMisAportes()){
-//            a.getMiColaborador();
-//            DataColaborador DC = ic.getDataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac().toString(), a.getMiColaborador().getImagenWeb());
-//            //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
-//            colabs.add(DC);
-//        } 
+            
+        for(DataAporte a : DP.getMisAportes()){
+            String nick = a.getMiColaborador();
+            DataUsuario DU = ic.getDataUsuarioWeb(nick);
+            DataColaborador DC = ic.getDataColaboradorWeb(a.getMiColaborador(), DU.getImagen()); // = ic.getDataColaboradorWeb(a.getMiColaborador(), a., a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), fecha, a.getMiColaborador().getImagenWeb());
+            //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
+            colabs.add(DC);
+        } 
         
         List<DataComentario> DCs = ic.getDataComentarios(titulo);
         
@@ -74,6 +76,17 @@ public class SvInfoPropuesta extends HttpServlet {
             boolean esFavorita = ic.esFavorita(titulo, nick);
             misesion.setAttribute("esFavorita", esFavorita);
             System.out.println("SVINFOPROP: "+esFavorita);
+            
+            String tituloNick = titulo+" by "+DP.getNickProponenteDe();
+            boolean esColaboracion = false;
+            DataAporte DA = ic.getDataAporte(tituloNick, nick);
+            
+            if(DA != null){
+                esColaboracion = true;
+                misesion.setAttribute("DA", DA);
+            }
+            misesion.setAttribute("esColaboracion", esColaboracion);
+                    
         }
         
         response.sendRedirect("infoPropuesta.jsp");

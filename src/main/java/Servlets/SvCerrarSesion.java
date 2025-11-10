@@ -35,6 +35,13 @@ public class SvCerrarSesion extends HttpServlet {
 
         service = new LogicaWS_Service();
         LogicaWS ic = service.getLogicaWSPort();
+        
+        String eliminar = (String) request.getAttribute("eliminarProp");
+        if(eliminar != null && eliminar.equals("si")){
+            String nick = (String) request.getAttribute("nick");
+            ic.eliminarProponente(nick);
+        }
+        
         HttpSession misesion = request.getSession();
         misesion.setAttribute("nick", null);
         misesion.setAttribute("tipoUsuario", null);

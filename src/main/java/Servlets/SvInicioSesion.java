@@ -69,7 +69,15 @@ public class SvInicioSesion extends HttpServlet {
             case 1: //existe, por nick
                 usu = ic.getUsuario(usuario);
                 if(usu instanceof Proponente){ //proponente
-                    misesion.setAttribute("tipoUsuario", "prop");
+                    String user = request.getHeader("User-Agent");
+                    boolean esMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+                    if(esMovil){
+                        request.setAttribute("error", "Solo se permiten usuarios colaboradores en móvil.");
+                        request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
+                        return;
+                    }else{
+                        misesion.setAttribute("tipoUsuario", "prop");
+                    }
                 }else{ //colaborador
                     misesion.setAttribute("tipoUsuario", "cola");
                 }
@@ -82,7 +90,15 @@ public class SvInicioSesion extends HttpServlet {
                 String nick = ic.getUsuarioPorMail(usuario);
                 usu = ic.getUsuario(nick);
                 if(usu instanceof Proponente){ //proponente
-                    misesion.setAttribute("tipoUsuario", "prop");
+                    String user = request.getHeader("User-Agent");
+                    boolean esMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+                    if(esMovil){
+                        request.setAttribute("error", "Solo se permiten usuarios colaboradores en móvil.");
+                        request.getRequestDispatcher("inicioSesion.jsp").forward(request, response);
+                        return;
+                    }else{
+                        misesion.setAttribute("tipoUsuario", "prop");
+                    }
                 }else{ //colaborador
                     misesion.setAttribute("tipoUsuario", "cola");
                 }

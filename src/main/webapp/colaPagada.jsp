@@ -10,17 +10,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Colaboración registrada</title>
+        <title>Culturarte</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
         <%@ include file="header.jsp" %>
         <div class="col text-center mt-5">
             <div class="text-center m-4 pb-5">
-                <h1>¡Colaboración registrada correctamente!</h1>
+                <h1>¡Pago Realizado!</h1>
             </div>
             <div class="text-center mt-4 p-2">
-                <h5 class="text-secondary">Gracias por colaborar. Ya sos parte de la realización de esta propuesta.</h5>
+                <h5 class="text-secondary">El proponente ya fue notificado de tu colaboración.</h5>
+                <h5 class="text-secondary">A la brevedad recibirás un mail con toda la información de tu pago.</h5>
             </div>
             <div class="text-center btn bg-secondary-subtle rounded">
                 <a href="SvCargaProp" class="text-decoration-none text-center">

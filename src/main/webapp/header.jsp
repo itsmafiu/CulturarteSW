@@ -7,6 +7,10 @@
     String user = request.getHeader("User-Agent");
     boolean esMovil = user != null && (user.contains("Movi") || user.contains("Android") || user.contains("iPhone"));
     
+    if(request.getSession().getAttribute("nick") == null){
+        String nick = "vacio";
+    }
+    
     if(!esMovil || request.getSession().getAttribute("nick") != null) { 
     
 %>
@@ -35,6 +39,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="SvConsultaUsuario">Consulta Usuario</a>
                     </li>
+                     <c:choose>
+                        <c:when test="${nick != null and tipoUsuario == 'cola'}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="SvRecomendaciones">Sugerencias</a>
+                            </li>
+                        </c:when>
+                        <c:otherwise>
+
+                        </c:otherwise>
+                    </c:choose>
                 </ul>
 
                 <form id="form-buscar" class="d-flex" role="search" action="SvBuscador" method="POST" style="min-width: 400px">
@@ -59,10 +73,19 @@
                         </ul> 
                     </c:when>
                     <c:otherwise>    
+                        <%
+                        String imagen = "";
+                        Usuario usu = (Usuario) request.getSession().getAttribute("datosUsuario");
+                        if (usu.getImagenWeb() == null || usu.getImagenWeb().isBlank()) {
+                            imagen = "fotos" + File.separator + "default.jpg";
+                        }else{
+                            imagen = usu.getImagenWeb();
+                        }
+                        %>
                         <ul class="navbar-nav ms-2">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="${pageContext.request.contextPath}/${datosUsuario.imagen}" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
+                                    <img src="<%=imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                     <li><a class="dropdown-item" href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a></li>
