@@ -66,16 +66,19 @@
                     <div class="col-md-4 text-center position-relative">
                         <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
                         <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
-                        <% } else if (esMiPerfil && usuario.getTipo().equals("Proponente")){ %>
+                        <% } else if (esMiPerfil && esProponente){ %>
                         <div class="d-inline-block">
                             <button class="btn btn-danger mb-2" id="botonEliminar" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEliminar"
                                     aria-expanded="false" aria-controls="collapseEliminar">Eliminar perfil</button>
                             <div class="collapse mt-2" id="collapseEliminar">
                                 <div class="card card-body mx-auto" style="max-width: 300px;">
                                     <h4> ¿Estás seguro? </h4>
-                                    <form action="cerrarSesion?eliminarProp=si" method="GET">
+                                    <form action="cerrarSesion" method="GET">
+                                        <input type="hidden" name="eliminarProp" value="si">
+                                        <input type="hidden" name="nickAEliminar" value="<%= request.getSession().getAttribute("nick") %>">
                                         <button type="submit" class="btn btn-warning">Confirmar</button>
                                     </form>
+
                                 </div>
                             </div>
                         </div>
@@ -154,7 +157,7 @@
 
          <div class="collapse mb-4" id="collapseSeguidos">
              <h3>Seguidos</h3>
-             <div class="row listaSeguidos">
+             <div class="row justify-content-center text-center listaSeguidos">
                  <%
                      List<DataUsuario> losSigo = usuario.getLosSigo();
                      if (losSigo != null && !losSigo.isEmpty()) {
@@ -196,7 +199,7 @@
 
              <h3>Propuestas favoritas de <%=usuario.getNickname()%></h3>
              <div class="container my-4">
-                 <div class="row row-cols-1 row-cols-md-3 g-4">
+                 <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center text-center">
                      <%
                          List<DataPropuesta> propuestasFavs = usuario.getMisPropuestasFav();
                          if (propuestasFavs != null && !propuestasFavs.isEmpty()) {
@@ -282,7 +285,7 @@
              <h3>Colaboraciones de <%=usuario.getNickname()%></h3>
              <% } %>
              <div class="container my-4">
-                 <div class="row row-cols-1 row-cols-md-3 g-4">
+                 <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center text-center">
                      <%
                          List<DataPropuesta> propuestas = usuario.getMisPropuestas();
                          if (propuestas != null && !propuestas.isEmpty()) {
@@ -389,7 +392,7 @@
 
          <div class="collapse mb-4" id="collapsePropuestasIngresadas">
              <h3>Propuestas en Estado Ingresadas de <%=usuario.getNickname()%></h3>
-             <div class="row row-cols-1 row-cols-md-3 g-4">
+             <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center text-center">
                  <%
                      List<DataPropuesta> propuestasIngresadas = usuario.getMisPropuestasIngresadas();
                      if (propuestasIngresadas != null && !propuestasIngresadas.isEmpty()) {
@@ -533,6 +536,7 @@
                         }, 500); 
                     } 
                 });
+                
                 function generarTarjetaSeguidor(usuario){
                  const listaSeguidores = document.getElementById("listaSeguidores");
                 // Evita duplicados

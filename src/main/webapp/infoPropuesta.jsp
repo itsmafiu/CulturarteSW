@@ -85,10 +85,16 @@
                 <div class="col-md-5">
                     <h2 class="fw-bold mb-2"><%= p.getTitulo()%></h2>
                     <div class="text-center bg-secondary-subtle rounded">
+                        <% if(!esMovil){ %>
                         <a class="text-decoration-none"
                            href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                             by <%= p.getNickProponenteDe()%>
                         </a>
+                        <% } else { %>
+                        <p class="text-decoration-none">
+                            by <%= p.getNickProponenteDe()%>
+                        </p>
+                        <% } %>
                     </div>
                     <p class="text-muted mb-4"><%= p.getDesc()%></p>
 

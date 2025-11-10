@@ -37,9 +37,11 @@ public class SvConsultaUsuario extends HttpServlet {
         LogicaWS ic = service.getLogicaWSPort();
         
         List<DataUsuario> listaUsuarios = ic.getDataUsuarios();
+        List<DataUsuario> listaUsuariosRanking = ic.ordenarDTUporSeguidores(listaUsuarios);
         
         HttpSession misesion = request.getSession();
         misesion.setAttribute("DtU", listaUsuarios);
+        misesion.setAttribute("DtURanking", listaUsuariosRanking);
         
         response.sendRedirect("consultaUsuario.jsp");
     }

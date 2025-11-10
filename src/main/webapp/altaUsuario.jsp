@@ -25,8 +25,8 @@
             String max = LocalDate.now().toString();
             String min = LocalDate.of(1900, 1, 1).toString();
 
-            String usuarioIniciado = request.getHeader("User-Agent");
-            boolean esDispMovil = user != null && (user.contains("Mobi") || user.contains("Android") || user.contains("iPhone"));
+            String userIniciado = request.getHeader("User-Agent");
+            boolean esDispMovil = userIniciado != null && (userIniciado.contains("Mobi") || userIniciado.contains("Android") || userIniciado.contains("iPhone"));
 
             %>
         
