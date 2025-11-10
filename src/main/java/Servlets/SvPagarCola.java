@@ -71,15 +71,13 @@ public class SvPagarCola extends HttpServlet {
             String CVC = request.getParameter("cvc");
             String titular = request.getParameter("nombreTitular");
             ic.setPagoT(titular,nick,titulo, numeroT, fechaT, CVC, enumTarjeta);
-            
-            
+                        
         } else if ("transferencia".equalsIgnoreCase(metodoPago)) {
             String nombreB = request.getParameter("banco");
             String numeroB = request.getParameter("numeroCuenta");
             String titular = request.getParameter("nombreTitular");
             ic.setPagoB(titular, nick, titulo, nombreB, numeroB);
-            
-            
+                        
         } else if ("paypal".equalsIgnoreCase(metodoPago)) {
             String numeroP = request.getParameter("cuentaPaypal");
             String titular = request.getParameter("nombreTitular");

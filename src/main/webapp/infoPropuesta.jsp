@@ -85,16 +85,16 @@
                 <div class="col-md-5">
                     <h2 class="fw-bold mb-2"><%= p.getTitulo()%></h2>
                     <div class="text-center bg-secondary-subtle rounded">
-                        <% if(!esMovil){ %>
+                        <% if (!esMovil) {%>
                         <a class="text-decoration-none"
                            href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                             by <%= p.getNickProponenteDe()%>
                         </a>
-                        <% } else { %>
+                        <% } else {%>
                         <p class="text-decoration-none">
                             by <%= p.getNickProponenteDe()%>
                         </p>
-                        <% } %>
+                        <% }%>
                     </div>
                     <p class="text-muted mb-4"><%= p.getDesc()%></p>
 
@@ -204,21 +204,26 @@
                                 <%
                                     String nick = (String) request.getSession().getAttribute("nick");
                                     Boolean esColaboracion = (Boolean) request.getSession().getAttribute("esColaboracion");
-                                    if (esColaboracion != null && esColaboracion) {
+                                    Boolean estaPagada = (Boolean) request.getSession().getAttribute("estaPagada");
+                                    if (esColaboracion != null && esColaboracion && !estaPagada) {
                                 %>
                                 <a href="pagarCola.jsp" class="btn btn-outline-dark">
                                     Pagar colaboración
                                 </a>
                                 <%
-                                    }
+                                } else if (estaPagada != null && estaPagada) {
                                 %>
+                                <a href="SvConstancia" class="btn btn-outline-danger">
+                                    Obtener constancia de pago
+                                </a>
                             </div>
                             <%
+                                    }
                                 }
                             %>
                         </c:when>
                     </c:choose>
-                            
+
                 </div>
             </div>
         </div>
@@ -274,12 +279,12 @@
                 <c:choose>
                     <c:when test="${not empty nick}">
                         <%
-                            String nick = (String) request.getSession().getAttribute("nick");
+                            String nick1 = (String) request.getSession().getAttribute("nick");
                             boolean esColab = false;
                             boolean hizoComent = false;
                             if (!(colab.isEmpty())) {
                                 for (DataColaborador c : colab) {
-                                    if (c.getNickname().equals(nick)) {
+                                    if (c.getNickname().equals(nick1)) {
                                         esColab = true;
                                     }
                                 }
@@ -287,7 +292,7 @@
 
                             if (!(DCs.isEmpty())) {
                                 for (DataComentario dc : DCs) {
-                                    if (dc.getNickColaborador().equals(nick)) {
+                                    if (dc.getNickColaborador().equals(nick1)) {
                                         hizoComent = true;
                                     }
                                 }
@@ -299,7 +304,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <input type="text" class="form-control" id="comentario" name="comentario" required>
-                                        <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
+                                        <input type="hidden" class="form-control" name="nick" value="<%=nick1%>" required>
                                         <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
                                         <div class="invalid-feedback">Ingrese un comentario.</div>
                                     </div>

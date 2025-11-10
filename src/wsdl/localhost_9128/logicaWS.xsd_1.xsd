@@ -104,6 +104,10 @@
 
 <xs:element name="getDataComentariosResponse" type="tns:getDataComentariosResponse"/>
 
+<xs:element name="getDataPago" type="tns:getDataPago"/>
+
+<xs:element name="getDataPagoResponse" type="tns:getDataPagoResponse"/>
+
 <xs:element name="getDataProponente" type="tns:getDataProponente"/>
 
 <xs:element name="getDataProponenteResponse" type="tns:getDataProponenteResponse"/>
@@ -287,14 +291,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
-</xs:complexType>
-
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -305,6 +301,28 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="setPagoB">
+<xs:sequence>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroB" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreB" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPagoBResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="eliminarProponente">
@@ -570,6 +588,33 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getDataPago">
+<xs:sequence>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDataPagoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataPago" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataPago">
+<xs:sequence>
+<xs:element name="CVC" type="xs:string" minOccurs="0"/>
+<xs:element name="enumPago" type="tns:enumPago" minOccurs="0"/>
+<xs:element name="enumTarjeta" type="tns:enumTarjeta" minOccurs="0"/>
+<xs:element name="fechaT" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreB" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroB" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroP" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroT" type="xs:string" minOccurs="0"/>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getDataProponente">
 <xs:sequence/>
 </xs:complexType>
@@ -645,13 +690,13 @@
 
 <xs:complexType name="consultaDeColaborador">
 <xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="NickName" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="consultaDePropuestaResponse">
+<xs:complexType name="consultaDeColaboradorResponse">
 <xs:sequence>
-<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
+<xs:element name="return" type="tns:dataColaborador" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -665,6 +710,18 @@
 <xs:complexType name="dejarSeguirUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDePropuesta">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDePropuestaResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataPropuesta" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -710,23 +767,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="cargarCategoriasWeb">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="cargarCategoriasWebResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataCategoria" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="dataCategoria">
-<xs:sequence>
-<xs:element name="nombre" type="xs:string" minOccurs="0"/>
-<xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="altaAporteF">
 <xs:sequence>
 <xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
@@ -744,6 +784,23 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="cargarCategoriasWeb">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="cargarCategoriasWebResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataCategoria" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataCategoria">
+<xs:sequence>
+<xs:element name="nombre" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getDataColaborador">
 <xs:sequence>
 <xs:element name="nickname" type="xs:string" minOccurs="0"/>
@@ -758,6 +815,19 @@
 <xs:complexType name="getDataColaboradorResponse">
 <xs:sequence>
 <xs:element name="return" type="tns:dataColaborador" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarFavorita">
+<xs:sequence>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="cambiarFavoritaResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -780,19 +850,6 @@
 <xs:complexType name="añadirUsuarioPResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="cambiarFavorita">
-<xs:sequence>
-<xs:element name="titulo" type="xs:string" minOccurs="0"/>
-<xs:element name="nick" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="cambiarFavoritaResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -861,6 +918,14 @@
 <xs:enumeration value="VISA"/>
 <xs:enumeration value="OCA"/>
 <xs:enumeration value="MASTER"/>
+</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="enumPago">
+<xs:restriction base="xs:string">
+<xs:enumeration value="TARJETA"/>
+<xs:enumeration value="BANCO"/>
+<xs:enumeration value="PAYPAL"/>
 </xs:restriction>
 </xs:simpleType>
 </xs:schema>

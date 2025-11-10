@@ -20,21 +20,6 @@
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
             DataAporte DA = (DataAporte) request.getSession().getAttribute("DA");
 
-            int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
-
-            long diasRestantes;
-
-            java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
-            java.time.LocalDateTime fechaLimit = java.time.LocalDateTime.parse(p.getFechaLimitStr());
-
-            if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
-            } else {
-                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
-            }
-
-            int colabs = p.getMisAportes().size();
-
             String imagen = "";
 
             if (p.getImagen().isBlank()) {
@@ -49,7 +34,7 @@
             <div class="mt-4 p-5 bg-dark-subtle text-bg-color rounded">
 
                 <form action="SvPagarCola" class="needs-validation" method="POST">
-                    
+
                     <div class="row">
                         <div class="col mb-3">
                             <div class="mb-3">
@@ -139,9 +124,12 @@
                         <div class="col">
                             <div id="datosProponente" class="p-4 bg-secondary text-bg-color rounded">
                                 <div class="col">
-                                    <div class="card h-100">
+                                    <div class="card">
                                         <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8")%>">
-                                            <img src="<%= imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; object-fit: cover;">
+                                            <img src="<%=imagen%>" 
+                                                 alt="Imagen de la propuesta" 
+                                                 class="img-fluid rounded shadow-sm mb-3"
+                                                 style="height: 400px; object-fit: contain;">
                                         </a>
                                         <div class="card-body" style="max-height: 300px; overflow: hidden;">
                                             <h5 class="card-title text-center"><%= p.getTitulo()%></h5>
@@ -154,15 +142,9 @@
                                             <p class="card-text" style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; height: 100px;">
                                                 <%= p.getDesc()%>
                                             </p>
-                                            <p><b>Recaudado:</b> <%= p.getAlcanzada()%></p>
-                                            <p><%= diasRestantes%> días restantes · <%= colabs%> colaboradores</p>
-                                            <div class="progress mb-3 position-relative" style="height: 20px;">
-                                                <div class="progress-bar bg-success" role="progressbar" style="width:<%= porcentaje%>%;">
-                                                </div>
-                                                <span class="position-absolute top-50 start-50 translate-middle fw-semibold text-dark">
-                                                    <%= porcentaje%>%
-                                                </span>
-                                            </div>
+                                            <p><b>Tu aporte:</b> <%= DA.getAporte()%></p>
+                                            <p><b>Fecha de aporte:</b> <%= DA.getFechaStr()%></p>
+
                                         </div>
                                     </div>
                                     <br>
