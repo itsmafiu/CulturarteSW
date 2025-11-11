@@ -164,6 +164,7 @@
                 </executions>
             </plugin>
             <!-- netbeans puede intentar agregar un plugin org.jvnet.jax-ws-commons:jaxws-maven-plugin:2.3 - ELIMINARLO si aparece -->
+            
         </plugins>
     </build>
 </project>
