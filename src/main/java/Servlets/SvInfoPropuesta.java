@@ -82,6 +82,8 @@ public class SvInfoPropuesta extends HttpServlet {
             boolean esColaboracion = false;
             boolean estaPagada = false;
             DataAporte DA = ic.getDataAporte(tituloNick, nick);
+            String tipoUsuario = (String) request.getSession().getAttribute("tipoUsuario");
+            if(tipoUsuario.equals("colab")){
             DataPago DPa = ic.getDataPago( nick,  titulo);
             
             if(DA != null){
@@ -94,6 +96,7 @@ public class SvInfoPropuesta extends HttpServlet {
             }
             
             misesion.setAttribute("estaPagada", estaPagada);  
+            }
             misesion.setAttribute("esColaboracion", esColaboracion);
         }
         

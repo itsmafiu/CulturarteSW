@@ -144,24 +144,24 @@
                                 String nickUsuario = (String) request.getSession().getAttribute("nick");
                                 if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado() == EnumEstado.PUBLICADA || p.getEstadoActual().getEstado() == EnumEstado.EN_FINANCIACION)) {
                             %> 
-                            <div class="row align-items-center text-center">
-                                <div class="col bg-primary rounded">
+                            <div class="row">
+                                
                                     <form action="SvExtenderFinanciacion" method="POST">
                                         <button type="submit" class="btn btn-primary">
                                             Extender Financiación
                                         </button>
                                     </form>
-                                </div>
+                                
                                 <%
                                 } else if (p.getEstadoActual().getEstado() == EnumEstado.FINANCIADA) {
                                 %> 
-                                <div class="col bg-danger rounded">
+                                
                                     <form  action="SvCancelarPropuesta" method="POST">
                                         <button type="submit" class="btn btn-danger">
                                             Cancelar Propuesta
                                         </button>
                                     </form>
-                                </div>
+                                
                             </div>
 
                             <%
@@ -202,24 +202,29 @@
                                 </form>
 
                                 <%
-                                    String nick = (String) request.getSession().getAttribute("nick");
-                                    Boolean esColaboracion = (Boolean) request.getSession().getAttribute("esColaboracion");
-                                    Boolean estaPagada = (Boolean) request.getSession().getAttribute("estaPagada");
-                                    if (esColaboracion != null && esColaboracion && !estaPagada) {
+                                    
+                                    String tipoUsuario = (String) request.getSession().getAttribute("tipoUsuario");
+                                    if (tipoUsuario.equals("colab")) {
+                                        Boolean esColaboracion = (Boolean) request.getSession().getAttribute("esColaboracion");
+                                        Boolean estaPagada = (Boolean) request.getSession().getAttribute("estaPagada");
+                                        if (esColaboracion != null && esColaboracion && !estaPagada) {
+
                                 %>
                                 <a href="pagarCola.jsp" class="btn btn-outline-dark">
                                     Pagar colaboración
                                 </a>
-                                <%
-                                } else if (estaPagada != null && estaPagada) {
+                                <%                              
+                                    } else if (estaPagada != null && estaPagada) {
                                 %>
                                 <a href="SvConstancia" class="btn btn-outline-danger">
                                     Obtener constancia de pago
                                 </a>
                             </div>
                             <%
+                                        }
                                     }
                                 }
+
                             %>
                         </c:when>
                     </c:choose>
