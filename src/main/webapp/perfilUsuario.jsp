@@ -13,67 +13,66 @@
     DataUsuario usuario = (DataUsuario) request.getSession().getAttribute("ConsultaPerfil");
     boolean esMiPerfil = false;
     boolean esProponente = false;
-    if(request.getSession().getAttribute("nick")!=null){
+    if (request.getSession().getAttribute("nick") != null) {
         esMiPerfil = request.getSession().getAttribute("nick").equals(usuario.getNickname());
     }
-    if(usuario.getTipo().equals("Proponente") || usuario.getTipo().equals("propo")){
+    if (usuario.getTipo().equals("Proponente") || usuario.getTipo().equals("propo")) {
         esProponente = true;
     }
-    
+
     DataUsuario usuarioIniciado = (DataUsuario) request.getSession().getAttribute("DTUsuario");
     List<DataUsuario> listaSeguidores = usuario.getMeSiguen();
     boolean loSigo = false;
-    if(usuarioIniciado != null && listaSeguidores != null && !esMiPerfil){ //si el usuario iniciado está en la lista de seguidores del usuario consultado entonces sabemos que lo sigue
+    if (usuarioIniciado != null && listaSeguidores != null && !esMiPerfil) { //si el usuario iniciado está en la lista de seguidores del usuario consultado entonces sabemos que lo sigue
         loSigo = listaSeguidores.stream().anyMatch(seguidor -> seguidor.getNickname().equals(usuarioIniciado.getNickname()));
     }
 
 %>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Perfil de <%= usuario.getNickname() %></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
-</head>
-<body>
-<%@ include file="header.jsp" %>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Perfil de <%= usuario.getNickname()%></title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/estilosTarjetasUsuarios.css">
+    </head>
+    <body>
+        <%@ include file="header.jsp" %>
 
-<div class="container mt-4">
-    
-    <%
-    String imagenUserPerfil = "";
-    if (usuario.getImagen() == null || usuario.getImagen().isBlank()) {
-        imagenUserPerfil = "fotos\\default.jpg";
-    }else{
-        imagenUserPerfil = usuario.getImagen();
-    }
-    %>
-        
-    <!-- Datos del usuario -->
-    <!--<div class="d-flex align-items-center">-->
-        <div class="row justify-content-center text-center">
-            <div class="col-12 col-md-5">
-                <img src="<%= imagenUserPerfil%>" alt="Foto de Perfil" class="card-img-top mb-2 rounded-circle" style="max-height:400px; max-width:400px;">
-                <div class="p-2">                    </div>
-            </div>
-            <div class="col-12 col-md-5 text-md-start text-center">
-                <div class="row">
-                    <div class="col-md-8">
-                        <h3><%=usuario.getTipo()%></h3>
-                        <h2>Perfil de <b><%= usuario.getNickname()%></b></h2>
-                    </div>
-                    <div class="col-md-4 text-center position-relative">
-                        <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
-                        <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
-                        <% } else if (esMiPerfil && esProponente && !esMovil){ %>
-                        <form action="SvTrelloPropuesta" method="POST">
-                            <button type="submit" class="btn btn-info">Crear tablero</button>
-                        </form>
-                        
-                        <% } %>
-                    </div>
+        <div class="container mt-4">
+
+            <%
+                String imagenUserPerfil = "";
+                if (usuario.getImagen() == null || usuario.getImagen().isBlank()) {
+                    imagenUserPerfil = "fotos\\default.jpg";
+                } else {
+                    imagenUserPerfil = usuario.getImagen();
+                }
+            %>
+
+            <!-- Datos del usuario -->
+            <!--<div class="d-flex align-items-center">-->
+            <div class="row justify-content-center text-center">
+                <div class="col-12 col-md-5">
+                    <img src="<%= imagenUserPerfil%>" alt="Foto de Perfil" class="card-img-top mb-2 rounded-circle" style="max-height:400px; max-width:400px;">
+                    <div class="p-2"></div>
                 </div>
+                <div class="col-12 col-md-5 text-md-start text-center">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3><%=usuario.getTipo()%></h3>
+                            <h2>Perfil de <b><%= usuario.getNickname()%></b></h2>
+                        </div>
+                        <div class="col-md-4 text-center position-relative">
+                            <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
+                            <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
+                            <% } else if (esMiPerfil && esProponente && !esMovil){ %>
+                            <form action="SvTrelloPropuesta" method="POST">
+                                <button type="submit" class="btn btn-info">Crear tablero</button>
+                            </form>
+                            <% } %>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-8">
                             <br>
@@ -472,167 +471,167 @@
      </div>
 </div>
         <%@include file="footer.jsp" %>
-        
-        
-        <%if (usuarioIniciado!=null){ 
-            String imagenUserIngresado = "";
-            if (usuarioIniciado.getImagen() == null || usuarioIniciado.getImagen().isBlank()) {
-                imagenUserIngresado = "fotos/default.jpg"; // 🔹 Usá "/" en lugar de "\" en rutas web
-            } else {
-                imagenUserIngresado = usuarioIniciado.getImagen();
-            }
+
+
+        <%if (usuarioIniciado != null) {
+                String imagenUserIngresado = "";
+                if (usuarioIniciado.getImagen() == null || usuarioIniciado.getImagen().isBlank()) {
+                    imagenUserIngresado = "fotos/default.jpg"; // 🔹 Usá "/" en lugar de "\" en rutas web
+                } else {
+                    imagenUserIngresado = usuarioIniciado.getImagen();
+                }
 
         %>
         <script>
-            $(document).ready(function() {     
-                const boton = document.getElementById("botonSeguir"); 
+            $(document).ready(function () {
+                const boton = document.getElementById("botonSeguir");
                 const loSigo = <%=loSigo%>;
-                
-                
-                var nicknameSesion = "<%= usuarioIniciado.getNickname() %>";
-                var tipoSesion = "<%= usuarioIniciado.getTipo() %>";
-                var imagenSesion = "<%= imagenUserIngresado %>";
-                
-                if(loSigo){ 
-                    boton.classList.replace("btn-success", "btn-danger"); 
-                    boton.textContent = "Dejar de Seguir"; 
-                }else{ 
-                    boton.classList.replace("btn-danger", "btn-success"); 
-                    boton.textContent = "Seguir"; 
-                } 
-                
-                let timerSeguir; 
-                boton.addEventListener("click", () => { 
-                    clearTimeout(timerSeguir); 
-                    if(boton.textContent === "Seguir"){ 
-                        boton.disabled = true;
-                        boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {
-                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
-                            success: function(respuesta){ 
-                                if(respuesta === "exito"){ 
-                                    boton.classList.replace("btn-success", "btn-danger"); 
-                                    boton.textContent = "Dejar de Seguir"; 
-                                    boton.disabled = false;
-                                    generarTarjetaSeguidor({
-                                        nickname: nicknameSesion,
-                                        tipo: tipoSesion,
-                                        imagen: imagenSesion
-                                    });
-                                } else { 
-                                    console.error("Error: No deberia llegar aqui"); 
-                                    boton.disabled = false;
-                                } 
-                            }, error: function(){ 
-                                console.error("Error fatal"); 
-                            } 
-                        }); 
-                        }, 500); 
-                    }else if(boton.textContent === "Dejar de Seguir"){ 
-                        boton.disabled = true;
-                        boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function() {
-                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: { tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"}, 
-                            success: function(respuesta){ 
-                                if(respuesta === "exito"){ 
-                                    boton.classList.replace("btn-danger", "btn-success"); 
-                                    boton.textContent = "Seguir"; 
-                                    boton.disabled = false;
-                                    ocultarTarjetaSeguidor(nicknameSesion); 
-                                } else { 
-                                    console.error("Error: No deberia llegar aqui");
-                                    boton.disabled = false;
-                                } 
-                            }, error: function(){ 
-                                console.error("Error fatal"); 
-                            } 
-                        }); 
-                        }, 500); 
-                    } 
-                });
-                
-                function generarTarjetaSeguidor(usuario){
-                 const listaSeguidores = document.getElementById("listaSeguidores");
-                // Evita duplicados
-                if (document.getElementById("Seguidor-" + usuario.nickname)) {
-                    return;
-                }
-                const sinSeguidores = document.getElementById("sinSeguidores");
-                if (sinSeguidores){
-                    sinSeguidores.style.display = "none";
-                    console.log(document.getElementById("sinSeguidores"));
-                }
-                
-                // Crear el contenedor principal de la tarjeta
-                const divUsuario = document.createElement("div");
-                divUsuario.classList.add("usuario", "col-md-6", "col-lg-3");
-                divUsuario.id = "Seguidor-" + usuario.nickname; // para identificarla fácil
 
-                // Crear la estructura HTML interna
-                divUsuario.innerHTML =
-                    '<div class="card" style="width: 18rem;">' +
-                        '<a href="SvPerfilUsuario?nickTarjeta=' + usuario.nickname + '&tipoTarjeta=' + usuario.tipo + '">' +
+
+                var nicknameSesion = "<%= usuarioIniciado.getNickname()%>";
+                var tipoSesion = "<%= usuarioIniciado.getTipo()%>";
+                var imagenSesion = "<%= imagenUserIngresado%>";
+
+                if (loSigo) {
+                    boton.classList.replace("btn-success", "btn-danger");
+                    boton.textContent = "Dejar de Seguir";
+                } else {
+                    boton.classList.replace("btn-danger", "btn-success");
+                    boton.textContent = "Seguir";
+                }
+
+                let timerSeguir;
+                boton.addEventListener("click", () => {
+                    clearTimeout(timerSeguir);
+                    if (boton.textContent === "Seguir") {
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
+                        timerSeguir = setTimeout(function () {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
+                                success: function (respuesta) {
+                                    if (respuesta === "exito") {
+                                        boton.classList.replace("btn-success", "btn-danger");
+                                        boton.textContent = "Dejar de Seguir";
+                                        boton.disabled = false;
+                                        generarTarjetaSeguidor({
+                                            nickname: nicknameSesion,
+                                            tipo: tipoSesion,
+                                            imagen: imagenSesion
+                                        });
+                                    } else {
+                                        console.error("Error: No deberia llegar aqui");
+                                        boton.disabled = false;
+                                    }
+                                }, error: function () {
+                                    console.error("Error fatal");
+                                }
+                            });
+                        }, 500);
+                    } else if (boton.textContent === "Dejar de Seguir") {
+                        boton.disabled = true;
+                        boton.textContent = "Cargando...";
+                        timerSeguir = setTimeout(function () {
+                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
+                                success: function (respuesta) {
+                                    if (respuesta === "exito") {
+                                        boton.classList.replace("btn-danger", "btn-success");
+                                        boton.textContent = "Seguir";
+                                        boton.disabled = false;
+                                        ocultarTarjetaSeguidor(nicknameSesion);
+                                    } else {
+                                        console.error("Error: No deberia llegar aqui");
+                                        boton.disabled = false;
+                                    }
+                                }, error: function () {
+                                    console.error("Error fatal");
+                                }
+                            });
+                        }, 500);
+                    }
+                });
+
+                function generarTarjetaSeguidor(usuario) {
+                    const listaSeguidores = document.getElementById("listaSeguidores");
+                    // Evita duplicados
+                    if (document.getElementById("Seguidor-" + usuario.nickname)) {
+                        return;
+                    }
+                    const sinSeguidores = document.getElementById("sinSeguidores");
+                    if (sinSeguidores) {
+                        sinSeguidores.style.display = "none";
+                        console.log(document.getElementById("sinSeguidores"));
+                    }
+
+                    // Crear el contenedor principal de la tarjeta
+                    const divUsuario = document.createElement("div");
+                    divUsuario.classList.add("usuario", "col-md-6", "col-lg-3");
+                    divUsuario.id = "Seguidor-" + usuario.nickname; // para identificarla fácil
+
+                    // Crear la estructura HTML interna
+                    divUsuario.innerHTML =
+                            '<div class="card" style="width: 18rem;">' +
+                            '<a href="SvPerfilUsuario?nickTarjeta=' + usuario.nickname + '&tipoTarjeta=' + usuario.tipo + '">' +
                             '<img src="' + usuario.imagen + '" alt="Foto de Perfil" class="card-img-top" style="width: 100%; height:200px; align-items: center">' +
-                        '</a>' +
-                        '<div class="card-body">' +
+                            '</a>' +
+                            '<div class="card-body">' +
                             '<h5 class="card-title text-center">' + usuario.nickname + '</h5>' +
                             '<p class="card-text text-center">' + usuario.tipo + '</p>' +
-                        '</div>' +
-                    '</div>';
+                            '</div>' +
+                            '</div>';
 
-                //console.log("HTML generado:", divUsuario.innerHTML);
-                // Agregar la tarjeta a la lista
-                const img = new Image();
-                img.src = usuario.imagen;
+                    //console.log("HTML generado:", divUsuario.innerHTML);
+                    // Agregar la tarjeta a la lista
+                    const img = new Image();
+                    img.src = usuario.imagen;
 
-                img.onload = () => {
-                    if (usuario.tipo === "Proponente") {
-                    // Insertar al principio si hay otros seguidores
-                        if (listaSeguidores.firstChild) {
-                            listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
+                    img.onload = () => {
+                        if (usuario.tipo === "Proponente") {
+                            // Insertar al principio si hay otros seguidores
+                            if (listaSeguidores.firstChild) {
+                                listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
+                            } else {
+                                listaSeguidores.appendChild(divUsuario);
+                            }
+                        } else {
+                            // Colaboradores al final
+                            listaSeguidores.appendChild(divUsuario);
+                        }
+                    };
+                    img.onerror = () => {
+                        divUsuario.querySelector("img").src = "fotos/default.jpg";
+                        if (usuario.tipo === "Proponente") {
+                            if (listaSeguidores.firstChild) {
+                                listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
+                            } else {
+                                listaSeguidores.appendChild(divUsuario);
+                            }
                         } else {
                             listaSeguidores.appendChild(divUsuario);
                         }
-                    } else {
-                        // Colaboradores al final
-                        listaSeguidores.appendChild(divUsuario);
-                    }
-                };
-                img.onerror = () => {
-                    divUsuario.querySelector("img").src = "fotos/default.jpg";
-                    if (usuario.tipo === "Proponente") {
-                        if (listaSeguidores.firstChild) {
-                            listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);
-                        } else {
-                            listaSeguidores.appendChild(divUsuario);
-                        }
-                    } else {
-                        listaSeguidores.appendChild(divUsuario);
-                    }
-                };
-            }
-            function ocultarTarjetaSeguidor(nickname){
-                const tarjeta = document.getElementById("Seguidor-" + nickname);
+                    };
+                }
+                function ocultarTarjetaSeguidor(nickname) {
+                    const tarjeta = document.getElementById("Seguidor-" + nickname);
 
-                if (tarjeta) {
-                     tarjeta.remove();
-                }
-                
-                const listaSeguidores = document.getElementById("listaSeguidores");
-                const tarjetas = listaSeguidores.querySelectorAll(".usuario");
-                
-                if (tarjetas.length === 0){
-                    const sinSeguidores = document.getElementById("sinSeguidores");
-                    if (sinSeguidores){
-                        sinSeguidores.style.display = "block";
-                        sinSeguidores.innerHTML = "<b>No tiene seguidores aún.</b>";
+                    if (tarjeta) {
+                        tarjeta.remove();
+                    }
+
+                    const listaSeguidores = document.getElementById("listaSeguidores");
+                    const tarjetas = listaSeguidores.querySelectorAll(".usuario");
+
+                    if (tarjetas.length === 0) {
+                        const sinSeguidores = document.getElementById("sinSeguidores");
+                        if (sinSeguidores) {
+                            sinSeguidores.style.display = "block";
+                            sinSeguidores.innerHTML = "<b>No tiene seguidores aún.</b>";
+                        }
                     }
                 }
-            }
-               
+
             });
         </script>
-        <% } %>
-</body>
+        <% }%>
+    </body>
 </html>
 
