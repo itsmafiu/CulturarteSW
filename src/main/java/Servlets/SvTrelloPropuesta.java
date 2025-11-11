@@ -4,6 +4,7 @@
  */
 package Servlets;
 
+import WebServices.DataAporte;
 import WebServices.DataProponente;
 import WebServices.DataPropuesta;
 import WebServices.DataUsuario;
@@ -48,32 +49,6 @@ public class SvTrelloPropuesta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-//        String nickUsu = ((DataPropuesta) request.getAttribute("p")).getP().getNickname();
-//        String tableroID = TrelloAPI.getTableroID("Propuestas " + nickUsu);
-//        String accion;
-//        if(tableroID != null){
-//            accion = "crearTablero";
-//        }else{
-//            accion = "crearLista";
-//        }
-//        
-//        switch(accion){ //capas hacer con ajax?? 
-//            //(posible solucion: clickea crear tablero en web --> ajax hace crear llamando con post aqui --> si da bien mandamos mensaje feliz (o redireccionar a trello?), sino mensaje error)
-//            //todo depende de como hay que hacerlo
-//            case "crearTablero":
-//                String respuestaTablero = TrelloAPI.crearTablero("Propuestas " + nickUsu);
-//                //no se que deberia hacer despues (capas redireccionar a trello?)
-//                break;
-//            case "crearLista":
-//                String nombreLista = ((DataPropuesta) request.getAttribute("p")).getTitulo();
-//                if(TrelloAPI.buscarListaPorIDTablero(tableroID, nombreLista) == null){ //si busca la lista y no existe
-//                    String respuestaLista = TrelloAPI.crearLista(tableroID, nombreLista);
-//                }else{ //buscó y si existe
-//                    //no se que deberia hacer despues
-//                }
-//                break;
-//        }
-
         service = new LogicaWS_Service();
         LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
@@ -102,7 +77,11 @@ public class SvTrelloPropuesta extends HttpServlet {
             File imagen = new File(rutaAbsoluta);
             TrelloAPI.subirImagenATarjeta(tarjetaConImagen.getString("id"), imagen); //le agrega imagen a la tarjeta anterior
             
-            TrelloAPI.crearTarjeta(JSONLista.getString("id"), "Descripción", dp.getDesc()); //le agrega tarjeta con descripcion
+            DataPropuesta prop = ic.consultaDePropuesta(dp.getTitulo());
+            for(DataAporte da : prop.getMisAportes()){
+                TrelloAPI.crearTarjeta(JSONLista.getString("id"), da.getMiColaborador(), "Aporte: " + da.getAporte().toString());
+            }
+//            TrelloAPI.crearTarjeta(JSONLista.getString("id"), "Descripción", dp.getDesc()); //le agrega tarjeta con descripcion
             //datos adicionales
         }
         
@@ -110,9 +89,11 @@ public class SvTrelloPropuesta extends HttpServlet {
         
 //        JSONObject obj = new JSONObject(JSONTablero);
 //        String urlTablero = obj.getString("url");
-        String link = "https://trello.com/b/" + tableroID;
-        
-        response.sendRedirect(link);
+//        String link = "https://trello.com/b/" + tableroID;
+//        
+//        response.sendRedirect(link);
+
+        response.getWriter().write("exito");
     }
 
     
