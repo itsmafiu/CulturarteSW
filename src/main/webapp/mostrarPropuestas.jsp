@@ -34,7 +34,7 @@
                 transform: rotate(180deg);
             }
             .collapse {
-                transition: height 0.35s ease; /* podés probar con 0.3–0.5s */
+                transition: height 0.35s ease; 
               }
             .collapsing {
                 transition: height 0.35s ease;
@@ -60,7 +60,11 @@
                               <i class="bi bi-chevron-down rotate ms-1"></i>
                             </a>
                         </h5>
+                     <% if(!esMovil){ %>
                      <div class="collapse show" id="collapseFiltrosCat">
+                    <% }else{ %>
+                    <div class="collapse" id="collapseFiltrosCat">
+                    <%} %>
                         <div id="filtroCategorias">
                           <div class="form-check">
                             <input class="form-check-input categoria-check" type="checkbox" id="cat-todas" value="todas" checked>

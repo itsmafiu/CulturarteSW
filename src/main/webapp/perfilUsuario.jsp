@@ -67,9 +67,9 @@
                             <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
                             <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
                             <% } else if (esMiPerfil && esProponente && !esMovil){ %>
-                            <form action="SvTrelloPropuesta" method="POST">
-                                <button type="submit" class="btn btn-info">Crear tablero</button>
-                            </form>
+                            <!--<form action="SvTrelloPropuesta" method="POST">-->
+                            <button class="btn btn-info" id="botonTablero">Crear tablero</button>
+                            <!--</form>-->
                             <% } %>
                         </div>
                     </div>
@@ -485,6 +485,7 @@
         <script>
             $(document).ready(function () {
                 const boton = document.getElementById("botonSeguir");
+                const botonT = document.getElementById("botonTablero");
                 const loSigo = <%=loSigo%>;
 
 
@@ -492,63 +493,65 @@
                 var tipoSesion = "<%= usuarioIniciado.getTipo()%>";
                 var imagenSesion = "<%= imagenUserIngresado%>";
 
-                if (loSigo) {
-                    boton.classList.replace("btn-success", "btn-danger");
-                    boton.textContent = "Dejar de Seguir";
-                } else {
-                    boton.classList.replace("btn-danger", "btn-success");
-                    boton.textContent = "Seguir";
-                }
-
-                let timerSeguir;
-                boton.addEventListener("click", () => {
-                    clearTimeout(timerSeguir);
-                    if (boton.textContent === "Seguir") {
-                        boton.disabled = true;
-                        boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function () {
-                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
-                                success: function (respuesta) {
-                                    if (respuesta === "exito") {
-                                        boton.classList.replace("btn-success", "btn-danger");
-                                        boton.textContent = "Dejar de Seguir";
-                                        boton.disabled = false;
-                                        generarTarjetaSeguidor({
-                                            nickname: nicknameSesion,
-                                            tipo: tipoSesion,
-                                            imagen: imagenSesion
-                                        });
-                                    } else {
-                                        console.error("Error: No deberia llegar aqui");
-                                        boton.disabled = false;
-                                    }
-                                }, error: function () {
-                                    console.error("Error fatal");
-                                }
-                            });
-                        }, 500);
-                    } else if (boton.textContent === "Dejar de Seguir") {
-                        boton.disabled = true;
-                        boton.textContent = "Cargando...";
-                        timerSeguir = setTimeout(function () {
-                            $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
-                                success: function (respuesta) {
-                                    if (respuesta === "exito") {
-                                        boton.classList.replace("btn-danger", "btn-success");
-                                        boton.textContent = "Seguir";
-                                        boton.disabled = false;
-                                        ocultarTarjetaSeguidor(nicknameSesion);
-                                    } else {
-                                        console.error("Error: No deberia llegar aqui");
-                                        boton.disabled = false;
-                                    }
-                                }, error: function () {
-                                    console.error("Error fatal");
-                                }
-                            });
-                        }, 500);
+                if(boton){
+                    if (loSigo) {
+                        boton.classList.replace("btn-success", "btn-danger");
+                        boton.textContent = "Dejar de Seguir";
+                    } else {
+                        boton.classList.replace("btn-danger", "btn-success");
+                        boton.textContent = "Seguir";
                     }
-                });
+
+                    let timerSeguir;
+                    boton.addEventListener("click", () => {
+                        clearTimeout(timerSeguir);
+                        if (boton.textContent === "Seguir") {
+                            boton.disabled = true;
+                            boton.textContent = "Cargando...";
+                            timerSeguir = setTimeout(function () {
+                                $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "seguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
+                                    success: function (respuesta) {
+                                        if (respuesta === "exito") {
+                                            boton.classList.replace("btn-success", "btn-danger");
+                                            boton.textContent = "Dejar de Seguir";
+                                            boton.disabled = false;
+                                            generarTarjetaSeguidor({
+                                                nickname: nicknameSesion,
+                                                tipo: tipoSesion,
+                                                imagen: imagenSesion
+                                            });
+                                        } else {
+                                            console.error("Error: No deberia llegar aqui");
+                                            boton.disabled = false;
+                                        }
+                                    }, error: function () {
+                                        console.error("Error fatal");
+                                    }
+                                });
+                            }, 500);
+                        } else if (boton.textContent === "Dejar de Seguir") {
+                            boton.disabled = true;
+                            boton.textContent = "Cargando...";
+                            timerSeguir = setTimeout(function () {
+                                $.ajax({url: "SvPerfilUsuario", method: "GET", data: {tipoInputSeguirUsuario: "dejarSeguir", usuarioSeguidor1: "<%=request.getSession().getAttribute("nick")%>", usuarioSeguido2: "<%=usuario.getNickname()%>"},
+                                    success: function (respuesta) {
+                                        if (respuesta === "exito") {
+                                            boton.classList.replace("btn-danger", "btn-success");
+                                            boton.textContent = "Seguir";
+                                            boton.disabled = false;
+                                            ocultarTarjetaSeguidor(nicknameSesion);
+                                        } else {
+                                            console.error("Error: No deberia llegar aqui");
+                                            boton.disabled = false;
+                                        }
+                                    }, error: function () {
+                                        console.error("Error fatal");
+                                    }
+                                });
+                            }, 500);
+                        }
+                    });
+                }
 
                 function generarTarjetaSeguidor(usuario) {
                     const listaSeguidores = document.getElementById("listaSeguidores");
@@ -610,6 +613,7 @@
                         }
                     };
                 }
+                
                 function ocultarTarjetaSeguidor(nickname) {
                     const tarjeta = document.getElementById("Seguidor-" + nickname);
 
@@ -628,7 +632,36 @@
                         }
                     }
                 }
-
+                
+                
+                if(botonT){
+                    let timerTablero;
+                    botonT.addEventListener("click", () => {
+                        clearTimeout(timerTablero);
+                        if (botonT.textContent === "Crear tablero") {
+                            botonT.disabled = true;
+                            botonT.classList.replace("btn-info", "btn-secondary");
+                            botonT.textContent = "Cargando...";
+                            timerTablero = setTimeout(function () {
+                                $.ajax({url: "SvTrelloPropuesta", method: "POST", data: {},
+                                    success: function (respuesta) {
+                                        if (respuesta === "exito") {
+                                            botonT.classList.replace("btn-secondary", "btn-success");
+                                            botonT.textContent = "Tablero creado!";
+                                            botonT.disabled = false;
+                                        } else {
+                                            console.error("Error: No deberia llegar aqui");
+                                            botonT.textContent = "Error";
+                                        }
+                                    }, error: function () {
+                                        console.error("Error fatal");
+                                        botonT.textContent = "Error fatal";
+                                    }
+                                });
+                            }, 500);
+                        }
+                    });
+                }
             });
         </script>
         <% }%>
