@@ -85,7 +85,6 @@
                         }
                         %>
                         <ul class="navbar-nav ms-2">
-                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <img src="<%=imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
@@ -96,9 +95,6 @@
                                     <li><a class="dropdown-item" href="cerrarSesion">Cerrar Sesión</a></li>
                                 </ul>
                             </li>
-                            
-                            
-                            
                         </ul>                     
                     </c:otherwise>
                 </c:choose>

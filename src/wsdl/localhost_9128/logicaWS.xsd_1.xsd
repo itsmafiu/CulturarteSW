@@ -48,6 +48,10 @@
 
 <xs:element name="consultaDeColaboradorWebResponse" type="tns:consultaDeColaboradorWebResponse"/>
 
+<xs:element name="consultaDeProponente" type="tns:consultaDeProponente"/>
+
+<xs:element name="consultaDeProponenteResponse" type="tns:consultaDeProponenteResponse"/>
+
 <xs:element name="consultaDeProponenteWeb" type="tns:consultaDeProponenteWeb"/>
 
 <xs:element name="consultaDeProponenteWebResponse" type="tns:consultaDeProponenteWebResponse"/>
@@ -291,14 +295,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
-</xs:complexType>
-
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -309,6 +305,14 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="setPagoB">
@@ -677,6 +681,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="existeCorreo">
+<xs:sequence>
+<xs:element name="correo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="existeCorreoResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="verificarUsuario">
 <xs:sequence>
 <xs:element name="usuario" type="xs:string" minOccurs="0"/>
@@ -687,18 +703,6 @@
 <xs:complexType name="verificarUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreo">
-<xs:sequence>
-<xs:element name="correo" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="existeCorreoResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:boolean"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -868,6 +872,18 @@
 <xs:complexType name="altaAporteResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDeProponente">
+<xs:sequence>
+<xs:element name="NickName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDeProponenteResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataProponente" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
