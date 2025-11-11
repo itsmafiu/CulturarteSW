@@ -108,7 +108,7 @@
                             <div id="camposPaypal" class="mt-3 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Número de Cuenta PayPal:</label>
-                                    <input type="email" class="form-control" name="cuentaPaypal" placeholder="1234 56 7890">
+                                    <input type="text" class="form-control" name="cuentaPaypal" placeholder="1234 56 7890">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>

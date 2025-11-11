@@ -13,6 +13,7 @@ import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -75,10 +76,10 @@ public class SvConstancia extends HttpServlet {
                 document.add(new Paragraph("Aporte: " + DA.getAporte().toString(), normalFont));
                 document.add(new Paragraph("Tipo de Retorno: " + DA.getRetorno().toString(), normalFont));
                 document.add(new Paragraph("Fecha de Aporte: " + DA.getFechaStr(), normalFont));
-                //document.add(new Paragraph("Fecha de Pago: " + , normalFont));
+                document.add(new Paragraph("Fecha de Pago: " + DPa.getFechaPagoStr(), normalFont));
                 
                 
-                document.add(new Paragraph("\n\nConstancia emitida el: " + new java.util.Date(), normalFont));
+                document.add(new Paragraph("\n\nConstancia emitida el: " + LocalDateTime.now(), normalFont));
                 document.close();
                 
         } catch (Exception e) {
