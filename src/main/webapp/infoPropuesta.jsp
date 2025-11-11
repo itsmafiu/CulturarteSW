@@ -33,7 +33,7 @@
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
 
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
-            
+
             long diasRestantes;
 
             java.time.LocalDate fechaPubli = java.time.LocalDate.parse(p.getFechaPubliStr());
@@ -42,9 +42,8 @@
             if (fechaLimit.isAfter(fechaPubli.atStartOfDay())) {
                 diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDate.now(), fechaPubli), 0);
             } else {
-             diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
+                diasRestantes = Math.max(ChronoUnit.DAYS.between(LocalDateTime.now(), fechaLimit), 0);
             }
-            
 
             int colabs = p.getMisAportes().size();
 
@@ -84,18 +83,18 @@
                 </div>
 
                 <div class="col-md-5">
-                    <h2 class="fw-bold mb-2"><%= p.getTitulo() %></h2>
+                    <h2 class="fw-bold mb-2"><%= p.getTitulo()%></h2>
                     <div class="text-center bg-secondary-subtle rounded">
-                        <% if(!esMovil){ %>
+                        <% if (!esMovil) {%>
                         <a class="text-decoration-none"
                            href="SvPerfilUsuario?nickTarjeta=<%= p.getNickProponenteDe()%>&tipoTarjeta=Proponente">
                             by <%= p.getNickProponenteDe()%>
                         </a>
-                        <% } else { %>
+                        <% } else {%>
                         <p class="text-decoration-none">
                             by <%= p.getNickProponenteDe()%>
                         </p>
-                        <% } %>
+                        <% }%>
                     </div>
                     <p class="text-muted mb-4"><%= p.getDesc()%></p>
 
@@ -139,11 +138,11 @@
                                 Contribuir con esta propuesta
                             </a>
                         </c:when>
-                            
+
                         <c:otherwise>
                             <%
                                 String nickUsuario = (String) request.getSession().getAttribute("nick");
-                                if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado()==EnumEstado.PUBLICADA || p.getEstadoActual().getEstado()==EnumEstado.EN_FINANCIACION)) {
+                                if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado() == EnumEstado.PUBLICADA || p.getEstadoActual().getEstado() == EnumEstado.EN_FINANCIACION)) {
                             %> 
                             <div class="row align-items-center text-center">
                                 <div class="col bg-primary rounded">
@@ -153,9 +152,9 @@
                                         </button>
                                     </form>
                                 </div>
-                            <%
-                                }else if (p.getEstadoActual().getEstado()==EnumEstado.FINANCIADA){
-                            %> 
+                                <%
+                                } else if (p.getEstadoActual().getEstado() == EnumEstado.FINANCIADA) {
+                                %> 
                                 <div class="col bg-danger rounded">
                                     <form  action="SvCancelarPropuesta" method="POST">
                                         <button type="submit" class="btn btn-danger">
@@ -164,16 +163,15 @@
                                     </form>
                                 </div>
                             </div>
-                            
+
                             <%
-                                }else{
+                            } else {
                             %>    
                             <p class="text-center text-secondary-subtle">Solo los colaboradores tienen permitido colaborar</p>
                             <%
                                 }
                             %> 
                         </c:otherwise>
-
                     </c:choose>                                          
 
                     <c:choose>
@@ -181,125 +179,137 @@
                             <%
                                 if (p.getEstadoActual().getEstado() != EnumEstado.INGRESADA) {
                             %>
-                            <form action="SvFavorita" method="POST">
-                                <input type="hidden" class="form-control" autocomplete="off" name="titulo" value="<%= p.getTitulo()%>" required>
-                                <%
-                                    Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
-                                    if (esFavorita != null && esFavorita) {
-                                %>
-                                <div class="mt-3">
+                            <!-- Contenedor flexible -->
+                            <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+                                <form action="SvFavorita" method="POST" class="m-0">
+                                    <input type="hidden" name="titulo" value="<%= p.getTitulo()%>" required>
+                                    <%
+                                        Boolean esFavorita = (Boolean) request.getSession().getAttribute("esFavorita");
+                                        if (esFavorita != null && esFavorita) {
+                                    %>
                                     <button type="submit" class="btn btn-warning fw-bold text-light">
                                         Favorita
                                     </button>
-                                </div>
-                                <%
-                                } else {
-                                %>
-                                <div class="mt-3">
-                                    <button type="submit" class="btn btn-outline-warning fw-bold" style="whith">
+                                    <%
+                                    } else {
+                                    %>
+                                    <button type="submit" class="btn btn-outline-warning fw-bold">
                                         Favorita
                                     </button>
-                                </div>
-                                <%
+                                    <%
                                         }
-                                    }
+                                    %>
+                                </form>
+
+                                <%
+                                    String nick = (String) request.getSession().getAttribute("nick");
+                                    Boolean esColaboracion = (Boolean) request.getSession().getAttribute("esColaboracion");
+                                    Boolean estaPagada = (Boolean) request.getSession().getAttribute("estaPagada");
+                                    if (esColaboracion != null && esColaboracion && !estaPagada) {
                                 %>
-                            </form>
+                                <a href="pagarCola.jsp" class="btn btn-outline-dark">
+                                    Pagar colaboración
+                                </a>
+                                <%
+                                } else if (estaPagada != null && estaPagada) {
+                                %>
+                                <a href="SvConstancia" class="btn btn-outline-danger">
+                                    Obtener constancia de pago
+                                </a>
+                            </div>
+                            <%
+                                    }
+                                }
+                            %>
                         </c:when>
                     </c:choose>
-
-
 
                 </div>
             </div>
         </div>
         <div class="container my-4">
-        <div class="mt-3">                
-            <button class="btn btn-outline-primary mb-2" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
-                    aria-expanded="false" aria-controls="collapseColaboradores">
-                Mostrar/Ocultar Colaboradores
-            </button>
-        </div>
-          
-        
-        
-           
-        <div class="collapse mb-4" id="collapseColaboradores">
-            <div class="my-4">
-                <h3>Colaboradores</h3>
+            <div class="mt-3">                
+                <button class="btn btn-outline-primary mb-2" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapseColaboradores"
+                        aria-expanded="false" aria-controls="collapseColaboradores">
+                    Mostrar/Ocultar Colaboradores
+                </button>
             </div>
-            <%if(!(colab.isEmpty())){ %>
-            <div class="row row-cols-1 row-cols-md-3 g-4" id="listaColaboradores">
-                <%
-                    String img;
-                    for (DataColaborador c : colab) {
-                    if (c.getImagen().isBlank()) {
-                            img = "fotos\\default.jpg";
-                    }else{
-                            img = c.getImagen();
-                    }
-                %>
-                            <div class="usuario col-sm-6 col-lg-4">
-                                <div class="card" style="width: 18rem;">
-                                    <% if (!esMovil) { %>
-                                    <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname() %>&tipoTarjeta=Colaborador" >
-                                        <img src="<%= img %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
-                                    </a>
-                                    <% } else { %>
-                                    <img src="<%= img %>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
-                                    <% } %>
-                                    <div class="card-body">
-                                        <h5 class="card-title text-center"><%= c.getNickname() %></h5>
-                                    </div>
-                                </div>
+
+
+
+
+            <div class="collapse mb-4" id="collapseColaboradores">
+                <div class="my-4">
+                    <h3>Colaboradores</h3>
+                </div>
+                <%if (!(colab.isEmpty())) { %>
+                <div class="row row-cols-1 row-cols-md-3 g-4" id="listaColaboradores">
+                    <%
+                        String img;
+                        for (DataColaborador c : colab) {
+                            if (c.getImagen().isBlank()) {
+                                img = "fotos\\default.jpg";
+                            } else {
+                                img = c.getImagen();
+                            }
+                    %>
+                    <div class="usuario col-sm-6 col-lg-4">
+                        <div class="card" style="width: 18rem;">
+                            <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname()%>&tipoTarjeta="Colaborador" >
+                                <img src="<%= img%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title text-center"><%= c.getNickname()%></h5>
                             </div>
-                <%}%>
+                        </div>
+                    </div>
+                    <%}%>
+                </div>
             </div>
-        </div>
-       <% } else {%> 
+            <% } else {%> 
             <p>No tiene colaboradores aún.</p>
-       <%}%>
+            <%}%>
         </div>
-       <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>--%>                      
-      <div class="m-1">
-          <p class="mx-3">Comentarios</p>
-          <ul class="list-group list-group-flush">
-              <% List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs"); %>
-              <c:choose>
-                  <c:when test="${not empty nick}">
-                      <%
-                          String nick = (String) request.getSession().getAttribute("nick");
-                          boolean esColab = false;
-                          boolean hizoComent = false;
-                          if (!(colab.isEmpty())) {
-                              for (DataColaborador c : colab) {
-                                  if (c.getNickname().equals(nick)) {
-                                      esColab = true;
-                                  }
-                              }
-                          }
-                        
-                          if (!(DCs.isEmpty())) {
-                              for (DataComentario dc : DCs) {
-                                  if (dc.getNickColaborador().equals(nick)) {
+        <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>--%>                      
+        <div class="m-1">
+            <p class="mx-3">Comentarios</p>
+            <ul class="list-group list-group-flush">
+                <% List<DataComentario> DCs = (List<DataComentario>) request.getSession().getAttribute("DCs"); %>
+                <c:choose>
+                    <c:when test="${not empty nick}">
+                        <%
+                            String nick1 = (String) request.getSession().getAttribute("nick");
+                            boolean esColab = false;
+                            boolean hizoComent = false;
+                            if (!(colab.isEmpty())) {
+                                for (DataColaborador c : colab) {
+                                    if (c.getNickname().equals(nick1)) {
+                                        esColab = true;
+                                    }
+                                }
+                            }
+
+                            if (!(DCs.isEmpty())) {
+                                for (DataComentario dc : DCs) {
+                                    if (dc.getNickColaborador().equals(nick1)) {
                                         hizoComent = true;
                                     }
                                 }
                             }
-                        
+
                             if (esColab && !hizoComent) {%>
                         <li class="list-group-item">
                             <form action="SvComentario" class="needs-validation" method="POST">
                                 <div class="row">
                                     <div class="col-6">
-                                    <input type="text" class="form-control" id="comentario" name="comentario" required>
-                                    <input type="hidden" class="form-control" name="nick" value="<%=nick%>" required>
-                                    <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
-                                    <div class="invalid-feedback">Ingrese un comentario.</div>
+                                        <input type="text" class="form-control" id="comentario" name="comentario" required>
+                                        <input type="hidden" class="form-control" name="nick" value="<%=nick1%>" required>
+                                        <input type="hidden" class="form-control" name="titulo" value="<%=p.getTitulo()%>" required>
+                                        <div class="invalid-feedback">Ingrese un comentario.</div>
                                     </div>
                                     <div class="col-1">
-                                    <button type="submit" class="btn btn-primary">Comentar</button>
+                                        <button type="submit" class="btn btn-primary">Comentar</button>
                                     </div>
                                 </div>
                             </form>
@@ -309,8 +319,7 @@
                 </c:choose>
 
                 <%
-                    
-                   
+
                     if (!(DCs.isEmpty())) {
                         for (DataComentario dc : DCs) {
                 %>
@@ -323,8 +332,9 @@
                         <small class="opacity-50 text-nowrap"><%=dc.getFecComentario()%></small> 
                     </div>
                 </li>     
-                <%}}else{%>
-                
+                <%}
+                } else {%>
+
                 <li class="list-group-item">
                     <div class="d-flex gap-2 w-100 justify-content-between">
                         <div> 
@@ -334,11 +344,11 @@
                     </div>
                 </li> 
 
-                   
+
                 <%}%>
             </ul>
         </div>
-                <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>  --%> 
+        <%--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>  --%> 
         <%@include file="footer.jsp" %>
     </body>
 </html>

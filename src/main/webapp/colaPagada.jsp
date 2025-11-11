@@ -17,10 +17,11 @@
         <%@ include file="header.jsp" %>
         <div class="col text-center mt-5">
             <div class="text-center m-4 pb-5">
-                <h1>¡Financiación Extendida!</h1>
+                <h1>¡Pago Realizado!</h1>
             </div>
             <div class="text-center mt-4 p-2">
-                <h5 class="text-secondary">Ahora tu propuesta tiene 30 días más para ser financiada.</h5>
+                <h5 class="text-secondary">El proponente ya fue notificado de tu colaboración.</h5>
+                <h5 class="text-secondary">A la brevedad recibirás un mail con toda la información de tu pago.</h5>
             </div>
             <div class="text-center btn bg-secondary-subtle rounded">
                 <a href="SvCargaProp" class="text-decoration-none text-center">

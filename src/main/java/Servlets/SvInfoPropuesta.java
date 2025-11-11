@@ -7,6 +7,7 @@ package Servlets;
 import WebServices.DataAporte;
 import WebServices.DataColaborador;
 import WebServices.DataComentario;
+import WebServices.DataPago;
 import WebServices.DataPropuesta;
 import WebServices.DataUsuario;
 import WebServices.LogicaWS;
@@ -76,6 +77,24 @@ public class SvInfoPropuesta extends HttpServlet {
             boolean esFavorita = ic.esFavorita(titulo, nick);
             misesion.setAttribute("esFavorita", esFavorita);
             System.out.println("SVINFOPROP: "+esFavorita);
+            
+            String tituloNick = titulo+" by "+DP.getNickProponenteDe();
+            boolean esColaboracion = false;
+            boolean estaPagada = false;
+            DataAporte DA = ic.getDataAporte(tituloNick, nick);
+            DataPago DPa = ic.getDataPago( nick,  titulo);
+            
+            if(DA != null){
+                esColaboracion = true;
+                misesion.setAttribute("DA", DA);
+                if(DPa != null){
+                    estaPagada = true;
+                    misesion.setAttribute("DPa", DPa);
+                }
+            }
+            
+            misesion.setAttribute("estaPagada", estaPagada);  
+            misesion.setAttribute("esColaboracion", esColaboracion);
         }
         
         response.sendRedirect("infoPropuesta.jsp");
