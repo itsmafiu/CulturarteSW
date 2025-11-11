@@ -66,40 +66,51 @@
                     <div class="col-md-4 text-center position-relative">
                         <% if (!esMiPerfil && request.getSession().getAttribute("nick") != null) { %>
                         <button class="btn btn-success mb-2" id="botonSeguir">Seguir</button>
-                        <% } else if (esMiPerfil && esProponente){ %>
-                        <div class="d-inline-block">
-                            <button class="btn btn-danger mb-2" id="botonEliminar" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEliminar"
-                                    aria-expanded="false" aria-controls="collapseEliminar">Eliminar perfil</button>
-                            <div class="collapse mt-2" id="collapseEliminar">
-                                <div class="card card-body mx-auto" style="max-width: 300px;">
-                                    <h4> ¿Estás seguro? </h4>
-                                    <form action="cerrarSesion" method="GET">
-                                        <input type="hidden" name="eliminarProp" value="si">
-                                        <input type="hidden" name="nickAEliminar" value="<%= request.getSession().getAttribute("nick") %>">
-                                        <button type="submit" class="btn btn-warning">Confirmar</button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
+                        <% } else if (esMiPerfil && esProponente && !esMovil){ %>
+                        <form action="SvTrelloPropuesta" method="POST">
+                            <button type="submit" class="btn btn-info">Crear tablero</button>
+                        </form>
                         
                         <% } %>
                     </div>
                 </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <br>
+                            <p><b>Nombre:</b> <%= usuario.getNombre()%> <%= usuario.getApellido()%></p>
+                            <p><b>Email:</b> <%= usuario.getEmail()%></p>
+                            <% if (!usuario.getBiografia().isEmpty() && usuario.getTipo().equals("Proponente")) {%>
+                            <p><b>Biografía:</b> <%= usuario.getBiografia()%></p>
+                            <% } %>
+                            <% if (!usuario.getDireccion().isEmpty()) {%>
+                            <p><b>Dirección:</b> <%= usuario.getDireccion()%></p>
+                            <% } %>
+                            <% if (!usuario.getSitioWeb().isEmpty() && usuario.getTipo().equals("Proponente")) {%>
+                            <p><b>Sitio Web:</b> <a href="<%= usuario.getSitioWeb()%>" target="_blank"><%= usuario.getSitioWeb()%></a></p>
+                                <% } %>
+                            <!--button seguir-->
+                        </div>
+                        <div class="col-md-4 text-center position-relative">
+                            <% if (esMiPerfil && esProponente && !esMovil){ %>
+                            <div class="d-inline-block">
+                                <button class="btn btn-danger mb-2" id="botonEliminar" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEliminar"
+                                        aria-expanded="false" aria-controls="collapseEliminar">Eliminar perfil</button>
+                                <div class="collapse mt-2" id="collapseEliminar">
+                                    <div class="card card-body mx-auto" style="max-width: 300px;">
+                                        <h4> ¿Estás seguro? </h4>
+                                        <form action="cerrarSesion" method="GET">
+                                            <input type="hidden" name="eliminarProp" value="si">
+                                            <input type="hidden" name="nickAEliminar" value="<%= request.getSession().getAttribute("nick") %>">
+                                            <button type="submit" class="btn btn-warning">Confirmar</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+                        </div>
+                    </div>
                 
-                <br>
-                <p><b>Nombre:</b> <%= usuario.getNombre()%> <%= usuario.getApellido()%></p>
-                <p><b>Email:</b> <%= usuario.getEmail()%></p>
-                <% if (!usuario.getBiografia().isEmpty() && usuario.getTipo().equals("Proponente")) {%>
-                <p><b>Biografía:</b> <%= usuario.getBiografia()%></p>
-                <% } %>
-                <% if (!usuario.getDireccion().isEmpty()) {%>
-                <p><b>Dirección:</b> <%= usuario.getDireccion()%></p>
-                <% } %>
-                <% if (!usuario.getSitioWeb().isEmpty() && usuario.getTipo().equals("Proponente")) {%>
-                <p><b>Sitio Web:</b> <a href="<%= usuario.getSitioWeb()%>" target="_blank"><%= usuario.getSitioWeb()%></a></p>
-                    <% } %>
-                <!--button seguir-->
             </div>
         </div>
     <!--</div>-->
@@ -109,6 +120,7 @@
     
      <!-- 🔽 BOTÓN para mostrar/ocultar Seguidores -->
      <div class="justify-content-center text-center mb-5">
+         <% if(!esMovil){ %>
          <button class="btn btn-outline-secondary mb-2" type="button"
                  data-bs-toggle="collapse" data-bs-target="#collapseSeguidores"
                  aria-expanded="false" aria-controls="collapseSeguidores">
@@ -187,6 +199,7 @@
                  <% }%>
              </div>
          </div>
+             <% } %>
          <!-- Propuestas Favoritas -->
          <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Favoritas -->
          <button class="btn btn-outline-secondary mb-2" type="button"
@@ -233,13 +246,13 @@
 
                              <div class="card-body d-flex flex-column">
                                  <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
-
+                                <% if (!esProponente && !esMovil) {%>
                                  <div class="text-center bg-secondary-subtle rounded mb-2">
                                      <a class="text-decoration-none"
                                         href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente"> by <%= prop.getNickProponenteDe()%>
                                      </a>
                                  </div>
-
+                                <% } %>
                                  <p class="card-text flex-grow-1"  
                                     style="display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;">
                                      <%=prop.getDesc()%>
@@ -268,6 +281,7 @@
                  </div>
              </div>
          </div>
+                 
          <!-- Propuestas -->
          <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas -->
          <button class="btn btn-outline-secondary mb-2" type="button"
@@ -320,7 +334,7 @@
                              <div class="card-body d-flex flex-column">
                                  <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
 
-                                 <% if (!esProponente) {%>
+                                 <% if (!esProponente && !esMovil) {%>
                                  <div class="text-center bg-secondary-subtle rounded mb-2">
                                      <a class="text-decoration-none"
                                         href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente"> by <%= prop.getNickProponenteDe()%>
@@ -425,7 +439,7 @@
                          </a>
                          <div class="card-body" style="max-height: 300px; overflow: hidden;">
                              <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
-                             <% if (!esProponente) {%>
+                             <% if (!esProponente && !esMovil) {%>
                              <div class="text-center bg-secondary-subtle rounded">
                                  <a class="text-decoration-none"
                                     href="SvPerfilUsuario?nickTarjeta=<%= prop.getNickProponenteDe()%>&tipoTarjeta=Proponente">

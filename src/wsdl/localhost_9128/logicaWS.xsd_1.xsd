@@ -48,6 +48,10 @@
 
 <xs:element name="consultaDeColaboradorWebResponse" type="tns:consultaDeColaboradorWebResponse"/>
 
+<xs:element name="consultaDeProponente" type="tns:consultaDeProponente"/>
+
+<xs:element name="consultaDeProponenteResponse" type="tns:consultaDeProponenteResponse"/>
+
 <xs:element name="consultaDeProponenteWeb" type="tns:consultaDeProponenteWeb"/>
 
 <xs:element name="consultaDeProponenteWebResponse" type="tns:consultaDeProponenteWebResponse"/>
@@ -104,6 +108,10 @@
 
 <xs:element name="getDataComentariosResponse" type="tns:getDataComentariosResponse"/>
 
+<xs:element name="getDataPago" type="tns:getDataPago"/>
+
+<xs:element name="getDataPagoResponse" type="tns:getDataPagoResponse"/>
+
 <xs:element name="getDataProponente" type="tns:getDataProponente"/>
 
 <xs:element name="getDataProponenteResponse" type="tns:getDataProponenteResponse"/>
@@ -147,6 +155,18 @@
 <xs:element name="seguirUsuario" type="tns:seguirUsuario"/>
 
 <xs:element name="seguirUsuarioResponse" type="tns:seguirUsuarioResponse"/>
+
+<xs:element name="setPagoB" type="tns:setPagoB"/>
+
+<xs:element name="setPagoBResponse" type="tns:setPagoBResponse"/>
+
+<xs:element name="setPagoP" type="tns:setPagoP"/>
+
+<xs:element name="setPagoPResponse" type="tns:setPagoPResponse"/>
+
+<xs:element name="setPagoT" type="tns:setPagoT"/>
+
+<xs:element name="setPagoTResponse" type="tns:setPagoTResponse"/>
 
 <xs:element name="verificarUsuario" type="tns:verificarUsuario"/>
 
@@ -275,14 +295,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="comprobarPropuestas">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="comprobarPropuestasResponse">
-<xs:sequence/>
-</xs:complexType>
-
 <xs:complexType name="extenderFinanciacion">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -293,6 +305,28 @@
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestas">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="comprobarPropuestasResponse">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="setPagoB">
+<xs:sequence>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroB" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreB" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPagoBResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="eliminarProponente">
@@ -418,6 +452,19 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="setPagoP">
+<xs:sequence>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroP" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPagoPResponse">
+<xs:sequence/>
+</xs:complexType>
+
 <xs:complexType name="getPropuestas">
 <xs:sequence/>
 </xs:complexType>
@@ -451,6 +498,22 @@
 <xs:element name="nickname" type="xs:string" minOccurs="0"/>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPagoT">
+<xs:sequence>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroT" type="xs:string" minOccurs="0"/>
+<xs:element name="fechaT" type="xs:string" minOccurs="0"/>
+<xs:element name="CVC" type="xs:string" minOccurs="0"/>
+<xs:element name="enumTarjeta" type="tns:enumTarjeta" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="setPagoTResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="getDataComentarios">
@@ -529,6 +592,33 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="getDataPago">
+<xs:sequence>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+<xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDataPagoResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataPago" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="dataPago">
+<xs:sequence>
+<xs:element name="CVC" type="xs:string" minOccurs="0"/>
+<xs:element name="enumPago" type="tns:enumPago" minOccurs="0"/>
+<xs:element name="enumTarjeta" type="tns:enumTarjeta" minOccurs="0"/>
+<xs:element name="fechaT" type="xs:string" minOccurs="0"/>
+<xs:element name="nombreB" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroB" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroP" type="xs:string" minOccurs="0"/>
+<xs:element name="numeroT" type="xs:string" minOccurs="0"/>
+<xs:element name="titular" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="getDataProponente">
 <xs:sequence/>
 </xs:complexType>
@@ -551,24 +641,10 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="seguirUsuario">
-<xs:sequence>
-<xs:element name="nick1" type="xs:string" minOccurs="0"/>
-<xs:element name="nick2" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="seguirUsuarioResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getDataAporte">
 <xs:sequence>
-<xs:element name="aporte" type="xs:double"/>
-<xs:element name="fechaHora" type="xs:string" minOccurs="0"/>
-<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
+<xs:element name="tituloNick" type="xs:string" minOccurs="0"/>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -578,14 +654,14 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="verificarUsuario">
+<xs:complexType name="seguirUsuario">
 <xs:sequence>
-<xs:element name="usuario" type="xs:string" minOccurs="0"/>
-<xs:element name="contraseña" type="xs:string" minOccurs="0"/>
+<xs:element name="nick1" type="xs:string" minOccurs="0"/>
+<xs:element name="nick2" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="verificarUsuarioResponse">
+<xs:complexType name="seguirUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
@@ -600,6 +676,19 @@
 <xs:complexType name="existeCorreoResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="verificarUsuario">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="contraseña" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="verificarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -682,23 +771,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="altaAporteF">
-<xs:sequence>
-<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
-<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
-<xs:element name="aporte" type="xs:double"/>
-<xs:element name="cantidad" type="xs:int"/>
-<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
-<xs:element name="fecAp" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="altaAporteFResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="cargarCategoriasWeb">
 <xs:sequence/>
 </xs:complexType>
@@ -713,6 +785,23 @@
 <xs:sequence>
 <xs:element name="nombre" type="xs:string" minOccurs="0"/>
 <xs:element name="nombreCatPadre" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaAporteF">
+<xs:sequence>
+<xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
+<xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
+<xs:element name="aporte" type="xs:double"/>
+<xs:element name="cantidad" type="xs:int"/>
+<xs:element name="retorno" type="tns:enumRetorno" minOccurs="0"/>
+<xs:element name="fecAp" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="altaAporteFResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -796,6 +885,18 @@
 </xs:sequence>
 </xs:complexType>
 
+<xs:complexType name="consultaDeProponente">
+<xs:sequence>
+<xs:element name="NickName" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="consultaDeProponenteResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataProponente" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
 <xs:complexType name="consultaDeColaboradorWeb">
 <xs:sequence>
 <xs:element name="NickName" type="xs:string" minOccurs="0"/>
@@ -825,6 +926,22 @@
 <xs:enumeration value="FINANCIADA"/>
 <xs:enumeration value="NO_FINANCIADA"/>
 <xs:enumeration value="CANCELADA"/>
+</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="enumTarjeta">
+<xs:restriction base="xs:string">
+<xs:enumeration value="VISA"/>
+<xs:enumeration value="OCA"/>
+<xs:enumeration value="MASTER"/>
+</xs:restriction>
+</xs:simpleType>
+
+<xs:simpleType name="enumPago">
+<xs:restriction base="xs:string">
+<xs:enumeration value="TARJETA"/>
+<xs:enumeration value="BANCO"/>
+<xs:enumeration value="PAYPAL"/>
 </xs:restriction>
 </xs:simpleType>
 </xs:schema>
