@@ -144,6 +144,10 @@
 
 <xs:element name="ordenarDTUporSeguidoresResponse" type="tns:ordenarDTUporSeguidoresResponse"/>
 
+<xs:element name="registrarSesion" type="tns:registrarSesion"/>
+
+<xs:element name="registrarSesionResponse" type="tns:registrarSesionResponse"/>
+
 <xs:element name="seguirUsuario" type="tns:seguirUsuario"/>
 
 <xs:element name="seguirUsuarioResponse" type="tns:seguirUsuarioResponse"/>
@@ -386,18 +390,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getDataUsuarioWeb">
-<xs:sequence>
-<xs:element name="nick" type="xs:string" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
-<xs:complexType name="getDataUsuarioWebResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataUsuario" minOccurs="0"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="getDataSugerencia">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -415,6 +407,18 @@
 <xs:sequence>
 <xs:element name="Propuesta" type="xs:string" minOccurs="0"/>
 <xs:element name="puntaje" type="xs:int"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDataUsuarioWeb">
+<xs:sequence>
+<xs:element name="nick" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getDataUsuarioWebResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataUsuario" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
@@ -474,16 +478,6 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="getDataUsuarios">
-<xs:sequence/>
-</xs:complexType>
-
-<xs:complexType name="getDataUsuariosResponse">
-<xs:sequence>
-<xs:element name="return" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
-</xs:sequence>
-</xs:complexType>
-
 <xs:complexType name="addComentario">
 <xs:sequence>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
@@ -494,6 +488,16 @@
 
 <xs:complexType name="addComentarioResponse">
 <xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getDataUsuarios">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getDataUsuariosResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:dataUsuario" minOccurs="0" maxOccurs="unbounded"/>
+</xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="cancelarPropuesta">
@@ -551,17 +555,23 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="seguirUsuario">
+<xs:complexType name="registrarSesion">
 <xs:sequence>
-<xs:element name="nick1" type="xs:string" minOccurs="0"/>
-<xs:element name="nick2" type="xs:string" minOccurs="0"/>
+<xs:element name="dataSesion" type="tns:dataRegistro" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="seguirUsuarioResponse">
+<xs:complexType name="dataRegistro">
 <xs:sequence>
-<xs:element name="return" type="xs:int"/>
+<xs:element name="IP" type="xs:string" minOccurs="0"/>
+<xs:element name="navegador" type="xs:string" minOccurs="0"/>
+<xs:element name="SO" type="xs:string" minOccurs="0"/>
+<xs:element name="URL" type="xs:string" minOccurs="0"/>
 </xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="registrarSesionResponse">
+<xs:sequence/>
 </xs:complexType>
 
 <xs:complexType name="getDataAporte">
@@ -578,14 +588,14 @@
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="verificarUsuario">
+<xs:complexType name="seguirUsuario">
 <xs:sequence>
-<xs:element name="usuario" type="xs:string" minOccurs="0"/>
-<xs:element name="contraseña" type="xs:string" minOccurs="0"/>
+<xs:element name="nick1" type="xs:string" minOccurs="0"/>
+<xs:element name="nick2" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 
-<xs:complexType name="verificarUsuarioResponse">
+<xs:complexType name="seguirUsuarioResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:int"/>
 </xs:sequence>
@@ -600,6 +610,19 @@
 <xs:complexType name="existeCorreoResponse">
 <xs:sequence>
 <xs:element name="return" type="xs:boolean"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="verificarUsuario">
+<xs:sequence>
+<xs:element name="usuario" type="xs:string" minOccurs="0"/>
+<xs:element name="contraseña" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="verificarUsuarioResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:int"/>
 </xs:sequence>
 </xs:complexType>
 
