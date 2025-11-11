@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import org.json.JSONObject;
 
 /**
@@ -94,6 +95,9 @@ public class SvTrelloPropuesta extends HttpServlet {
             JSONObject tarjetaConImagen = TrelloAPI.crearTarjeta(JSONLista.getString("id"), "Imagen Propuesta", ""); //le agrega tarjeta de imagen (sin nada)
             
             String rutaRelativa = dp.getImagen();
+            if(rutaRelativa == null || rutaRelativa.isBlank()){
+                rutaRelativa = "fotos" + File.separator + "default.jpg";
+            }
             String rutaAbsoluta = getServletContext().getRealPath(rutaRelativa);
             File imagen = new File(rutaAbsoluta);
             TrelloAPI.subirImagenATarjeta(tarjetaConImagen.getString("id"), imagen); //le agrega imagen a la tarjeta anterior
