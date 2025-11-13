@@ -31,85 +31,84 @@ public class SvInfoPropuesta extends HttpServlet {
 
 //    protected final IControlador ic = Fabrica.getInstancia().getIControlador();
     LogicaWS_Service service;
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         service = new LogicaWS_Service();
         LogicaWS ic = service.getLogicaWSPort();
-        
+
         ic.comprobarPropuestas();
-        
+
         HttpSession misesion = request.getSession();
-        
+
         String titulo = request.getParameter("titulo");
-        
+
         misesion.setAttribute("titulo", titulo);
-        
+
         DataPropuesta DP = ic.consultaDePropuesta(titulo);
-        
+
         List<DataColaborador> colabs = new ArrayList<>();
-            
-        for(DataAporte a : DP.getMisAportes()){
+
+        for (DataAporte a : DP.getMisAportes()) {
             String nick = a.getMiColaborador();
             DataUsuario DU = ic.getDataUsuarioWeb(nick);
             DataColaborador DC = ic.getDataColaboradorWeb(a.getMiColaborador(), DU.getImagen()); // = ic.getDataColaboradorWeb(a.getMiColaborador(), a., a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), fecha, a.getMiColaborador().getImagenWeb());
             //DataColaborador DC = new DataColaborador(a.getMiColaborador().getNickname(), a.getMiColaborador().getNombre(), a.getMiColaborador().getApellido(), a.getMiColaborador().getEmail(), a.getMiColaborador().getFecNac(), a.getMiColaborador().getImagenWeb());
             colabs.add(DC);
-        } 
-        
+        }
+
         List<DataComentario> DCs = ic.getDataComentarios(titulo);
-        
+
         misesion.setAttribute("DCs", DCs);
-        
+
         misesion.setAttribute("colabs", colabs);
-        
+
         misesion.setAttribute("p", DP);
-        
+
         String nick = (String) misesion.getAttribute("nick");
-        if(nick!=null){
+        if (nick != null) {
             boolean esFavorita = ic.esFavorita(titulo, nick);
             misesion.setAttribute("esFavorita", esFavorita);
-            System.out.println("SVINFOPROP: "+esFavorita);
-            
-            String tituloNick = titulo+" by "+DP.getNickProponenteDe();
+            System.out.println("SVINFOPROP: " + esFavorita);
+
+            String tituloNick = titulo + " by " + DP.getNickProponenteDe();
             boolean esColaboracion = false;
             boolean estaPagada = false;
             DataAporte DA = ic.getDataAporte(tituloNick, nick);
-            String tipoUsuario = (String) request.getSession().getAttribute("tipoUsuario");
-            if(tipoUsuario.equals("colab")){
-            DataPago DPa = ic.getDataPago( nick,  titulo);
-            
-            if(DA != null){
-                esColaboracion = true;
-                misesion.setAttribute("DA", DA);
-                if(DPa != null){
-                    estaPagada = true;
-                    misesion.setAttribute("DPa", DPa);
-                }
-            }
-            
-            misesion.setAttribute("estaPagada", estaPagada);  
+            String tipoUsuario = (String) misesion.getAttribute("tipoUsuario");
+
+            if (tipoUsuario.equals("cola")) {
+                DataPago DPa = ic.getDataPago(nick, titulo);
+
+                if (DA != null) {
+                    esColaboracion = true;
+                    misesion.setAttribute("DA", DA);
+                    if (DPa != null) {
+                        estaPagada = true;
+                        misesion.setAttribute("DPa", DPa);
+                    }
+                }                
+                misesion.setAttribute("estaPagadaNoImpresa", estaPagada);
             }
             misesion.setAttribute("esColaboracion", esColaboracion);
         }
-        
+
         response.sendRedirect("infoPropuesta.jsp");
     }
- 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -145,23 +145,23 @@
                                 if (nickUsuario.equals(p.getNickProponenteDe()) && (p.getEstadoActual().getEstado() == EnumEstado.PUBLICADA || p.getEstadoActual().getEstado() == EnumEstado.EN_FINANCIACION)) {
                             %> 
                             <div class="row">
-                                
-                                    <form action="SvExtenderFinanciacion" method="POST">
-                                        <button type="submit" class="btn btn-primary">
-                                            Extender Financiación
-                                        </button>
-                                    </form>
-                                
+
+                                <form action="SvExtenderFinanciacion" method="POST">
+                                    <button type="submit" class="btn btn-primary">
+                                        Extender Financiación
+                                    </button>
+                                </form>
+
                                 <%
                                 } else if (p.getEstadoActual().getEstado() == EnumEstado.FINANCIADA) {
                                 %> 
-                                
-                                    <form  action="SvCancelarPropuesta" method="POST">
-                                        <button type="submit" class="btn btn-danger">
-                                            Cancelar Propuesta
-                                        </button>
-                                    </form>
-                                
+
+                                <form  action="SvCancelarPropuesta" method="POST">
+                                    <button type="submit" class="btn btn-danger">
+                                        Cancelar Propuesta
+                                    </button>
+                                </form>
+
                             </div>
 
                             <%
@@ -191,7 +191,7 @@
                                         Favorita
                                     </button>
                                     <%
-                                    } else {
+                                        } else {
                                     %>
                                     <button type="submit" class="btn btn-outline-warning fw-bold">
                                         Favorita
@@ -202,19 +202,18 @@
                                 </form>
 
                                 <%
-                                    
                                     String tipoUsuario = (String) request.getSession().getAttribute("tipoUsuario");
-                                    if (tipoUsuario.equals("colab")) {
+                                    if (tipoUsuario.equals("cola")) {
                                         Boolean esColaboracion = (Boolean) request.getSession().getAttribute("esColaboracion");
-                                        Boolean estaPagada = (Boolean) request.getSession().getAttribute("estaPagada");
-                                        if (esColaboracion != null && esColaboracion && !estaPagada) {
+                                        Boolean estaPagadaNoImpresa = (Boolean) request.getSession().getAttribute("estaPagadaNoImpresa");
+                                        if (esColaboracion != null && esColaboracion && !estaPagadaNoImpresa) {
 
                                 %>
                                 <a href="pagarCola.jsp" class="btn btn-outline-dark">
                                     Pagar colaboración
                                 </a>
-                                <%                              
-                                    } else if (estaPagada != null && estaPagada) {
+                                <%                                
+                                    } else if (estaPagadaNoImpresa != null && estaPagadaNoImpresa) {
                                 %>
                                 <a href="SvConstancia" class="btn btn-outline-danger">
                                     Obtener constancia de pago

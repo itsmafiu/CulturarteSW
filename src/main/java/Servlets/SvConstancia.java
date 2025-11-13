@@ -48,7 +48,7 @@ public class SvConstancia extends HttpServlet {
         DataAporte DA = (DataAporte) misesion.getAttribute("DA");
         DataPago DPa = (DataPago) misesion.getAttribute("DPa");
         DataColaborador DC = ic.consultaDeColaborador(nick);
-        
+        //misesion.setAttribute("estaPagadaNoImpresa",false);
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment; filename=constancia.pdf");
         try {

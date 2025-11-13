@@ -113,9 +113,9 @@ public class SvPagarCola extends HttpServlet {
             propMsg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dp.getEmail()));
             propMsg.setSubject("[Culturarte] " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " Pago de colaboracion registrado");
             propMsg.setText("Estimado/a " + dp.getNombre() + " " + dp.getApellido()
-                    + ", El pago correspondiente a la colaboración de la propuesta"
+                    + ", El pago correspondiente a la colaboracion de la propuesta"
                     + p.getTitulo() + "realizada por " + dc.getNickname() + " ha sido registrado en forma exitosa.\n\n"
-                    + "--Detalles de la Colaboración\n"
+                    + "--Detalles de la Colaboracion\n"
                     + "-Propuesta:\n"
                     + "  -" + p.getTitulo() + "\n"
                     + "-Proponente:\n"
@@ -138,9 +138,9 @@ public class SvPagarCola extends HttpServlet {
             colabMsg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(dc.getEmail()));
             colabMsg.setSubject("[Culturarte] " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")) + " Pago de colaboracion registrado");
             colabMsg.setText("Estimado/a " + dc.getNombre() + " " + dc.getApellido()
-                    + ", El pago correspondiente a la colaboración de la propuesta"
+                    + ", El pago correspondiente a la colaboracion de la propuesta"
                     + p.getTitulo() + "realizada por " + dc.getNickname() + " ha sido registrado en forma exitosa.\n\n"
-                    + "--Detalles de la Colaboración\n"
+                    + "--Detalles de la Colaboracion\n"
                     + "-Propuesta:\n"
                     + "  -" + p.getTitulo() + "\n"
                     + "-Proponente:\n"

@@ -70,21 +70,21 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Número de tarjeta:</label>
-                                    <input type="text" class="form-control" name="numeroTarjeta" placeholder="1234 5678 9012 3456">
+                                    <input type="text" class="form-control" name="numeroTarjeta" placeholder="1234 5678 9012 3456" required>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Fecha de expiración:</label>
-                                        <input type="text" class="form-control" name="fechaExp" placeholder="MM/AA">
+                                        <input type="text" class="form-control" name="fechaExp" placeholder="MM/AA" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">CVC:</label>
-                                        <input type="text" class="form-control" name="cvc" placeholder="123">
+                                        <input type="text" class="form-control" name="cvc" placeholder="123" required>
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez">
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
                                 </div>
                             </div>
 
@@ -92,15 +92,15 @@
                             <div id="camposTransferencia" class="mt-3 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Banco:</label>
-                                    <input type="text" class="form-control" name="banco" placeholder="Nombre del banco">
+                                    <input type="text" class="form-control" name="banco" placeholder="Nombre del banco" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Número de cuenta:</label>
-                                    <input type="text" class="form-control" name="numeroCuenta" placeholder="123456 789012">
+                                    <input type="text" class="form-control" name="numeroCuenta" placeholder="123456 789012" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez">
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
                                 </div>
                             </div>
 
@@ -108,11 +108,11 @@
                             <div id="camposPaypal" class="mt-3 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Número de Cuenta PayPal:</label>
-                                    <input type="text" class="form-control" name="cuentaPaypal" placeholder="1234 56 7890">
+                                    <input type="text" class="form-control" name="crequireduentaPaypal" placeholder="1234 56 7890" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez">
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
                                 </div>
                             </div>
 
