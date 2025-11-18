@@ -1,5 +1,7 @@
 package Servlets;
 
+import WebServices.LogicaWS;
+import WebServices.LogicaWS_Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Files;
+import java.util.List;
 import java.util.Properties;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,26 +23,31 @@ import org.json.JSONObject;
 public class TrelloAPI {
     
     private static final Properties props = new Properties();
+    private static LogicaWS ic;
     
     
     static {
-        try (InputStream input = TrelloAPI.class.getClassLoader().getResourceAsStream("trello.properties")){
-            if(input == null) {
-                throw new RuntimeException("No se encontró el archivo trello.properties");
-            }
-            props.load(input);
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+//        try (InputStream input = TrelloAPI.class.getClassLoader().getResourceAsStream("trello.properties")){
+//            if(input == null) {
+//                throw new RuntimeException("No se encontró el archivo trello.properties");
+//            }
+//            props.load(input);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+        LogicaWS_Service service = new LogicaWS_Service();
+        ic = service.getLogicaWSPort();
     }
     
     public static String get(String key){
         return props.getProperty(key);
     }
     
-    private static final String KEY = TrelloAPI.get("trello.key");
-    private static final String TOKEN = TrelloAPI.get("trello.token");
-    private static final String BASE_URL = TrelloAPI.get("trello.api_base");
+     private static final List<String> listaTrello = ic.getTrello();
+
+    private static final String KEY = listaTrello.get(0);  //TrelloAPI.get("trello.key");
+    private static final String TOKEN = listaTrello.get(1);  //TrelloAPI.get("trello.token");
+    private static final String BASE_URL = listaTrello.get(2);  //TrelloAPI.get("trello.api_base");
     //////////////////////////////////////////////////////////////////////
     
     public static JSONObject crearTablero(String nombre) throws IOException{

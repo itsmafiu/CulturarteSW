@@ -140,6 +140,10 @@
 
 <xs:element name="getPropuestasResponse" type="tns:getPropuestasResponse"/>
 
+<xs:element name="getTrello" type="tns:getTrello"/>
+
+<xs:element name="getTrelloResponse" type="tns:getTrelloResponse"/>
+
 <xs:element name="getUsuario" type="tns:getUsuario"/>
 
 <xs:element name="getUsuarioPorMail" type="tns:getUsuarioPorMail"/>
@@ -593,6 +597,16 @@
 <xs:element name="enumEstado" type="tns:enumEstado" minOccurs="0"/>
 <xs:element name="lugar" type="xs:string" minOccurs="0"/>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getTrello">
+<xs:sequence/>
+</xs:complexType>
+
+<xs:complexType name="getTrelloResponse">
+<xs:sequence>
+<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 </xs:sequence>
 </xs:complexType>
 

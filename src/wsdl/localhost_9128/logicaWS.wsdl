@@ -244,6 +244,12 @@
 <message name="getDataPagoResponse">
 <part name="parameters" element="tns:getDataPagoResponse"/>
 </message>
+<message name="getTrello">
+<part name="parameters" element="tns:getTrello"/>
+</message>
+<message name="getTrelloResponse">
+<part name="parameters" element="tns:getTrelloResponse"/>
+</message>
 <message name="añadirUsuarioP">
 <part name="parameters" element="tns:añadirUsuarioP"/>
 </message>
@@ -428,6 +434,10 @@
 <operation name="getDataPago">
 <input wsam:Action="http://WebServices/LogicaWS/getDataPagoRequest" message="tns:getDataPago"/>
 <output wsam:Action="http://WebServices/LogicaWS/getDataPagoResponse" message="tns:getDataPagoResponse"/>
+</operation>
+<operation name="getTrello">
+<input wsam:Action="http://WebServices/LogicaWS/getTrelloRequest" message="tns:getTrello"/>
+<output wsam:Action="http://WebServices/LogicaWS/getTrelloResponse" message="tns:getTrelloResponse"/>
 </operation>
 <operation name="añadirUsuarioP">
 <input wsam:Action="http://WebServices/LogicaWS/añadirUsuarioPRequest" message="tns:añadirUsuarioP"/>
@@ -800,6 +810,15 @@
 </output>
 </operation>
 <operation name="getDataPago">
+<soap:operation soapAction=""/>
+<input>
+<soap:body use="literal"/>
+</input>
+<output>
+<soap:body use="literal"/>
+</output>
+</operation>
+<operation name="getTrello">
 <soap:operation soapAction=""/>
 <input>
 <soap:body use="literal"/>
