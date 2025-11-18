@@ -27,7 +27,7 @@ public class FiltroRegistroAccesos implements Filter {
         if (ip.contains(",")) {
             ip = ip.split(",")[0]; // tomar solo la primera IP
         }
-        if ("0:0:0:0:0:0:0:1".equals(ip)) {
+        if ("0:0:0:0:0:0:0:1".equals(ip) || "127.0.0.1".equals(ip)) {
             ip = "localhost"; // opcional, para pruebas locales
         }
 

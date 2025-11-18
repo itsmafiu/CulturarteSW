@@ -241,6 +241,7 @@
 <xs:element name="fechaHora" type="tns:localDateTime" minOccurs="0"/>
 <xs:element name="fechaStr" type="xs:string" minOccurs="0"/>
 <xs:element name="imagen" type="xs:string" minOccurs="0"/>
+<xs:element name="imagenLocal" type="xs:string" minOccurs="0"/>
 <xs:element name="miColaborador" type="xs:string" minOccurs="0"/>
 <xs:element name="miPropuesta" type="xs:string" minOccurs="0"/>
 <xs:element name="necesaria" type="xs:double" minOccurs="0"/>
@@ -267,6 +268,7 @@
 <xs:element name="fechaPubli" type="tns:localDate" minOccurs="0"/>
 <xs:element name="fechaPubliStr" type="xs:string" minOccurs="0"/>
 <xs:element name="imagen" type="xs:string" minOccurs="0"/>
+<xs:element name="imagenLocal" type="xs:string" minOccurs="0"/>
 <xs:element name="lugar" type="xs:string" minOccurs="0"/>
 <xs:element name="misAportes" type="tns:dataAporte" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
 <xs:element name="necesaria" type="xs:double"/>

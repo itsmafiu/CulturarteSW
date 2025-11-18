@@ -119,7 +119,6 @@
     
      <!-- 🔽 BOTÓN para mostrar/ocultar Seguidores -->
      <div class="justify-content-center text-center mb-5">
-         <% if(!esMovil){ %>
          <button class="btn btn-outline-secondary mb-2" type="button"
                  data-bs-toggle="collapse" data-bs-target="#collapseSeguidores"
                  aria-expanded="false" aria-controls="collapseSeguidores">
@@ -141,18 +140,22 @@
                  %>
 
                  <div class="usuario col-md-6 col-lg-3" id="Seguidor-<%= u.getNickname()%>">
-                     <div class="card" style="width: 18rem;">                                    
-                         <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
-                             <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
-                         </a>
-                         <div class="card-body">
+                     <div class="card" style="width: 18rem;">
+                         <% if(!esMovil){ %>
+                            <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
+                                <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                            </a>
+                            <% } else{ %> 
+                                <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                            <% } %>
+                        <div class="card-body">
                              <h5 class="card-title text-center"><%= u.getNickname()%></h5>
                              <p class="card-text text-center"><%= u.getTipo()%></p>
                          </div>
                      </div>
                  </div>
-                 <%      }
-            } else { %>
+                 <%      
+            } } else { %>
                  <p  id="sinSeguidores"><b>No tiene seguidores aún.</b></p>
                  <% } %>
              </div>
@@ -183,9 +186,13 @@
 
                  <div class="usuario col-md-6 col-lg-3">
                      <div class="card" style="width: 18rem;">
-                         <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
-                             <img src="<%= imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
-                         </a>
+                         <% if(!esMovil){ %>
+                            <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
+                                <img src="<%= imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                            </a>
+                            <% } else{ %> 
+                                <img src="<%= imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                            <% } %>
                          <div class="card-body">
                              <h5 class="card-title text-center"><%= u.getNickname()%></h5>
                              <p class="card-text text-center"><%= u.getTipo()%></p>
@@ -198,7 +205,7 @@
                  <% }%>
              </div>
          </div>
-             <% } %>
+             
          <!-- Propuestas Favoritas -->
          <!-- 🔽 BOTÓN para mostrar/ocultar Propuestas Favoritas -->
          <button class="btn btn-outline-secondary mb-2" type="button"
