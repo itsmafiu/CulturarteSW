@@ -56,7 +56,6 @@ public class SvPagarCola extends HttpServlet {
         DataAporte da = (DataAporte) request.getSession().getAttribute("DA");
         DataUsuario dp = (DataUsuario) ic.consultaDeProponenteWeb(p.getNickProponenteDe());
         DataUsuario dc = (DataUsuario) ic.consultaDeColaboradorWeb(nick);
-        
 
         String titulo = p.getTitulo();
         String metodoPago = request.getParameter("metodoPago");
@@ -97,7 +96,7 @@ public class SvPagarCola extends HttpServlet {
             DataPago dpa = (DataPago) ic.getDataPago(nick, p.getTitulo());
             Properties props = new Properties();
             props.put("mail.smtp.host", "localhost");
-            props.put("mail.smtp.port", "1025"); 
+            props.put("mail.smtp.port", "1025");
 
             Session session = Session.getInstance(props, null);
             Message msg = new MimeMessage(session);
@@ -126,7 +125,6 @@ public class SvPagarCola extends HttpServlet {
                     + "  -" + da.getAporte().toString() + "\n"
                     + "- Fecha de pago:\n"
                     + "  -" + dpa.getFechaPagoStr() + "\n"
-                    + "Si es colaborador, link al sitio Culturarte para solicitar la constancia de pago realizado.\n"
                     + "Gracias por preferirnos,\n"
                     + "Saludos,\n"
                     + "Tus amigos de Culturarte."
@@ -151,13 +149,13 @@ public class SvPagarCola extends HttpServlet {
                     + "  -" + da.getAporte().toString() + "\n"
                     + "- Fecha de pago:\n"
                     + "  -" + dpa.getFechaPagoStr() + "\n"
-                    + "Si es colaborador, link al sitio Culturarte para solicitar la constancia de pago realizado.\n"
-                    + "Gracias por preferirnos,\n"
+                    + "http://localhost:8080/CulturarteOnline"
+                    + "\n\nGracias por preferirnos,\n"
                     + "Saludos,\n"
                     + "Tus amigos de Culturarte."
             );
             Transport.send(colabMsg);
-         
+
         } catch (MessagingException e) {
             e.printStackTrace();
         }

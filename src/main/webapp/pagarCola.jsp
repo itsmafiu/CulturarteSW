@@ -70,21 +70,21 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Número de tarjeta:</label>
-                                    <input type="text" class="form-control" name="numeroTarjeta" placeholder="1234 5678 9012 3456" required>
+                                    <input type="text" class="form-control" name="numeroTarjeta" placeholder="1234 5678 9012 3456" >
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Fecha de expiración:</label>
-                                        <input type="text" class="form-control" name="fechaExp" placeholder="MM/AA" required>
+                                        <input type="text" class="form-control" name="fechaExp" placeholder="MM/AA" >
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">CVC:</label>
-                                        <input type="text" class="form-control" name="cvc" placeholder="123" required>
+                                        <input type="text" class="form-control" name="cvc" placeholder="123" >
                                     </div>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" >
                                 </div>
                             </div>
 
@@ -92,15 +92,15 @@
                             <div id="camposTransferencia" class="mt-3 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Banco:</label>
-                                    <input type="text" class="form-control" name="banco" placeholder="Nombre del banco" required>
+                                    <input type="text" class="form-control" name="banco" placeholder="Nombre del banco" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Número de cuenta:</label>
-                                    <input type="text" class="form-control" name="numeroCuenta" placeholder="123456 789012" required>
+                                    <input type="text" class="form-control" name="numeroCuenta" placeholder="123456 789012" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" >
                                 </div>
                             </div>
 
@@ -108,11 +108,11 @@
                             <div id="camposPaypal" class="mt-3 d-none">
                                 <div class="mb-3">
                                     <label class="form-label">Número de Cuenta PayPal:</label>
-                                    <input type="text" class="form-control" name="crequireduentaPaypal" placeholder="1234 56 7890" required>
+                                    <input type="text" class="form-control" name="cuentaPaypal" placeholder="1234 56 7890" >
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Nombre del titular:</label>
-                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" required>
+                                    <input type="text" class="form-control" name="nombreTitular" placeholder="Ej: Juan Pérez" >
                                 </div>
                             </div>
 
@@ -157,34 +157,45 @@
 
             <%@include file="footer.jsp" %>
             <script>
-                // Referencias a radios
-                const radioTarjeta = document.getElementById('radioTarjeta');
-                const radioTransferencia = document.getElementById('radioTransferencia');
-                const radioPaypal = document.getElementById('radioPaypal');
+                // Radios de método de pago
+                const radios = document.getElementsByName("metodoPago");
 
-                // Referencias a bloques de campos
-                const camposTarjeta = document.getElementById('camposTarjeta');
-                const camposTransferencia = document.getElementById('camposTransferencia');
-                const camposPaypal = document.getElementById('camposPaypal');
+                // Contenedores de campos
+                const camposTarjeta = document.getElementById("camposTarjeta");
+                const camposTransferencia = document.getElementById("camposTransferencia");
+                const camposPaypal = document.getElementById("camposPaypal");
 
-                // Función para actualizar los campos visibles
                 function actualizarCampos() {
-                    camposTarjeta.classList.add('d-none');
-                    camposTransferencia.classList.add('d-none');
-                    camposPaypal.classList.add('d-none');
+                    const metodo = document.querySelector('input[name="metodoPago"]:checked').value;
 
-                    if (radioTarjeta.checked)
-                        camposTarjeta.classList.remove('d-none');
-                    else if (radioTransferencia.checked)
-                        camposTransferencia.classList.remove('d-none');
-                    else if (radioPaypal.checked)
-                        camposPaypal.classList.remove('d-none');
+                    // Ocultar todos
+                    camposTarjeta.classList.add("d-none");
+                    camposTransferencia.classList.add("d-none");
+                    camposPaypal.classList.add("d-none");
+
+                    // Remover required
+                    camposTarjeta.querySelectorAll("input").forEach(i => i.required = false);
+                    camposTransferencia.querySelectorAll("input").forEach(i => i.required = false);
+                    camposPaypal.querySelectorAll("input").forEach(i => i.required = false);
+
+                    // Activar según el método
+                    if (metodo === "tarjeta") {
+                        camposTarjeta.classList.remove("d-none");
+                        camposTarjeta.querySelectorAll("input").forEach(i => i.required = true);
+                    } else if (metodo === "transferencia") {
+                        camposTransferencia.classList.remove("d-none");
+                        camposTransferencia.querySelectorAll("input").forEach(i => i.required = true);
+                    } else if (metodo === "paypal") {
+                        camposPaypal.classList.remove("d-none");
+                        camposPaypal.querySelectorAll("input").forEach(i => i.required = true);
+                    }
                 }
 
-                // Escuchar cambios
-                [radioTarjeta, radioTransferencia, radioPaypal].forEach(radio => {
-                    radio.addEventListener('change', actualizarCampos);
-                });
+                // Evento inicial
+                actualizarCampos();
+
+                // Eventos por cambio de método
+                radios.forEach(r => r.addEventListener("change", actualizarCampos));
             </script>
     </body>
 </html>
