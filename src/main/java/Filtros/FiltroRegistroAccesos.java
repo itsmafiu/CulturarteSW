@@ -66,13 +66,17 @@ public class FiltroRegistroAccesos implements Filter {
     }
 
     private String extraerSO(String userAgent) {
+        userAgent = userAgent.toLowerCase();
         if (userAgent == null) return "Desconocido";
-        if (userAgent.contains("Windows")) return "Windows";
-        if (userAgent.contains("iPhone") || userAgent.contains("iPad")) return "iOS";
-        if (userAgent.contains("Mac")) return "macOS";
-        if (userAgent.contains("X11")) return "Unix";
-        if (userAgent.contains("Android")) return "Android";
-        if (userAgent.contains("Linux")) return "Linux";
+        if (userAgent.contains("windows")) return "Windows";
+        if (userAgent.contains("iphone") || userAgent.contains("iPad")) return "iOS";
+        if (userAgent.contains("mac")) return "macOS";
+        
+        if (userAgent.contains("ubuntu")) return "Ubuntu";
+        if (userAgent.contains("android")) return "Android";
+        
+        if (userAgent.contains("x11")) return "Unix";
+        if (userAgent.contains("linux")) return "Linux";
         return "Desconocido";
     }
 
