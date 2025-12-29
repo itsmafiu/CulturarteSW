@@ -4,12 +4,10 @@
  */
 package Servlets;
 
-import WebServices.DataAporte;
-import WebServices.DataPropuesta;
-import WebServices.DataProponente;
-import WebServices.EnumEstado;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataPropuesta;
+import uy.culturarte.wsclient.EnumEstado;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -20,9 +18,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
+import utilidades.ConexionCentral;
+import utilidades.WSConfig;
 
 @WebServlet(name = "SvCargaProp", urlPatterns = {"/SvCargaProp"})
 public class SvCargaProp extends HttpServlet {
@@ -34,10 +31,37 @@ public class SvCargaProp extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        URL wsdlURL = new URL("http://localhost:9128/logicaWS?wsdl");
-        QName qname = new QName("http://WebServices/", "LogicaWS");
-        service = new LogicaWS_Service(wsdlURL, qname);
-        LogicaWS ic = service.getLogicaWSPort();
+        String host = WSConfig.getCentralHost();
+        int puerto = Integer.parseInt(WSConfig.getWsPort());
+
+        if (!ConexionCentral.hayConexion(host, puerto, 2000)) {
+            request.setAttribute("error",
+                "No se pudo conectar con el servidor central");
+            request.getRequestDispatcher("/error.jsp")
+                   .forward(request, response);
+            return;
+        }
+        
+        LogicaWS ic;
+        try {
+            service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
+            ic = service.getLogicaWSPort();
+            ic.ping();
+        } catch (Exception e) {
+            request.setAttribute("error","Servidor central con error interno");
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            return;
+        }
+        
+        HttpSession session = request.getSession(true);
+
+        String baseHost = WSConfig.getBasePhotosUrl();
+        String photosContext = ic.getPhotosPortAndContext();
+
+        String baseCentralUrl = baseHost + photosContext + "/";
+
+        session.setAttribute("centralBaseUrl", baseCentralUrl);
+
         
         ic.comprobarPropuestas();
         

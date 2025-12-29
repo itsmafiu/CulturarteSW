@@ -3,13 +3,19 @@
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
-<%@page import="WebServices.DataAporte"%>
-<%@page import="WebServices.DataUsuario"%>
-<%@page import="WebServices.DataPropuesta"%>
+<%@page import="uy.culturarte.wsclient.DataAporte"%>
+<%@page import="uy.culturarte.wsclient.DataUsuario"%>
+<%@page import="uy.culturarte.wsclient.DataPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%
+<%  
+    if (session == null || session.getAttribute("centralBaseUrl") == null) {
+        response.sendRedirect("CargaProp");
+        return;
+    }    
+    String baseURLPhotos = (String) session.getAttribute("centralBaseUrl");
+
     DataUsuario usuario = (DataUsuario) request.getSession().getAttribute("ConsultaPerfil");
     boolean esMiPerfil = false;
     boolean esProponente = false;
@@ -44,7 +50,7 @@
             <%
                 String imagenUserPerfil = "";
                 if (usuario.getImagen() == null || usuario.getImagen().isBlank()) {
-                    imagenUserPerfil = "fotos\\default.jpg";
+                    imagenUserPerfil = "default.jpg";
                 } else {
                     imagenUserPerfil = usuario.getImagen();
                 }
@@ -54,7 +60,7 @@
             <!--<div class="d-flex align-items-center">-->
             <div class="row justify-content-center text-center">
                 <div class="col-12 col-md-5">
-                    <img src="<%= imagenUserPerfil%>" alt="Foto de Perfil" class="card-img-top mb-2 rounded-circle" style="max-height:400px; max-width:400px;">
+                    <img src="<%= baseURLPhotos + imagenUserPerfil%>" alt="Foto de Perfil" class="card-img-top mb-2 rounded-circle" style="max-height:400px; max-width:400px;">
                     <div class="p-2"></div>
                 </div>
                 <div class="col-12 col-md-5 text-md-start text-center">
@@ -133,7 +139,7 @@
                          for (DataUsuario u : seguidores) {
                              String imagenSeguidor = "";
                              if (u.getImagen() == null || u.getImagen().isBlank()) {
-                                 imagenSeguidor = "fotos\\default.jpg";
+                                 imagenSeguidor = "default.jpg";
                              } else {
                                  imagenSeguidor = u.getImagen();
                              }
@@ -143,10 +149,10 @@
                      <div class="card" style="width: 18rem;">
                          <% if(!esMovil){ %>
                             <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
-                                <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                <img src="<%= baseURLPhotos + imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                             </a>
                             <% } else{ %> 
-                                <img src="<%= imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                <img src="<%= baseURLPhotos + imagenSeguidor%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                             <% } %>
                         <div class="card-body">
                              <h5 class="card-title text-center"><%= u.getNickname()%></h5>
@@ -178,7 +184,7 @@
                          for (DataUsuario u : losSigo) {
                              String imagenSeguidos = "";
                              if (u.getImagen() == null || u.getImagen().isBlank()) {
-                                 imagenSeguidos = "fotos\\default.jpg";
+                                 imagenSeguidos = "default.jpg";
                              } else {
                                  imagenSeguidos = u.getImagen();
                              }
@@ -188,10 +194,10 @@
                      <div class="card" style="width: 18rem;">
                          <% if(!esMovil){ %>
                             <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>" >
-                                <img src="<%= imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                <img src="<%= baseURLPhotos + imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                             </a>
                             <% } else{ %> 
-                                <img src="<%= imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                <img src="<%= baseURLPhotos + imagenSeguidos%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                             <% } %>
                          <div class="card-body">
                              <h5 class="card-title text-center"><%= u.getNickname()%></h5>
@@ -225,7 +231,7 @@
                              for (DataPropuesta prop : propuestasFavs) {
                                  String imagenPropuestaFavs = "";
                                  if (prop.getImagen() == null || prop.getImagen().isBlank()) {
-                                     imagenPropuestaFavs = "fotos/default.jpg";
+                                     imagenPropuestaFavs = "default.jpg";
                                  } else {
                                      imagenPropuestaFavs = prop.getImagen();
                                  }
@@ -247,7 +253,7 @@
                      <div class="col-md-6 col-lg-4 d-flex">
                          <div class="card h-100 d-flex flex-column justify-content-between">
                              <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8")%>">
-                                 <img src="<%=imagenPropuestaFavs%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
+                                 <img src="<%=baseURLPhotos + imagenPropuestaFavs%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
                              </a>
 
                              <div class="card-body d-flex flex-column">
@@ -312,7 +318,7 @@
                              for (DataPropuesta prop : propuestas) {
                                  String imagenPropuesta = "";
                                  if (prop.getImagen() == null || prop.getImagen().isBlank()) {
-                                     imagenPropuesta = "fotos/default.jpg";
+                                     imagenPropuesta = "default.jpg";
                                  } else {
                                      imagenPropuesta = prop.getImagen();
                                  }
@@ -334,7 +340,7 @@
                      <div class="col-md-6 col-lg-4 d-flex">
                          <div class="card h-100 d-flex flex-column justify-content-between">
                              <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8")%>">
-                                 <img src="<%=imagenPropuesta%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
+                                 <img src="<%=baseURLPhotos + imagenPropuesta%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center;">
                              </a>
 
                              <div class="card-body d-flex flex-column">
@@ -419,7 +425,7 @@
                          for (DataPropuesta prop : propuestasIngresadas) {
                              String imagen = "";
                              if (prop.getImagen() == null || prop.getImagen().isBlank()) {
-                                 imagen = "fotos/default.jpg";
+                                 imagen = "default.jpg";
                              } else {
                                  imagen = prop.getImagen();
                              }
@@ -441,7 +447,7 @@
                  <div class="col-md-6 col-lg-4">
                      <div class="card h-100">
                          <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(prop.getTitulo(), "UTF-8")%>">
-                             <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+                             <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
                          </a>
                          <div class="card-body" style="max-height: 300px; overflow: hidden;">
                              <h5 class="card-title text-center"><%=prop.getTitulo()%></h5>
@@ -483,7 +489,7 @@
         <%if (usuarioIniciado != null) {
                 String imagenUserIngresado = "";
                 if (usuarioIniciado.getImagen() == null || usuarioIniciado.getImagen().isBlank()) {
-                    imagenUserIngresado = "fotos/default.jpg"; // 🔹 Usá "/" en lugar de "\" en rutas web
+                    imagenUserIngresado = "default.jpg"; // 🔹 Usá "/" en lugar de "\" en rutas web
                 } else {
                     imagenUserIngresado = usuarioIniciado.getImagen();
                 }
@@ -581,7 +587,7 @@
                     divUsuario.innerHTML =
                             '<div class="card" style="width: 18rem;">' +
                             '<a href="SvPerfilUsuario?nickTarjeta=' + usuario.nickname + '&tipoTarjeta=' + usuario.tipo + '">' +
-                            '<img src="' + usuario.imagen + '" alt="Foto de Perfil" class="card-img-top" style="width: 100%; height:200px; align-items: center">' +
+                            '<img src="' + baseURLPhotos + usuario.imagen + '" alt="Foto de Perfil" class="card-img-top" style="width: 100%; height:200px; align-items: center">' +
                             '</a>' +
                             '<div class="card-body">' +
                             '<h5 class="card-title text-center">' + usuario.nickname + '</h5>' +
@@ -608,7 +614,7 @@
                         }
                     };
                     img.onerror = () => {
-                        divUsuario.querySelector("img").src = "fotos/default.jpg";
+                        divUsuario.querySelector("img").src = "default.jpg";
                         if (usuario.tipo === "Proponente") {
                             if (listaSeguidores.firstChild) {
                                 listaSeguidores.insertBefore(divUsuario, listaSeguidores.firstChild);

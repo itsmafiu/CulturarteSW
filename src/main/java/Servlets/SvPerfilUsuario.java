@@ -1,7 +1,7 @@
 package Servlets;
 
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
+import utilidades.WSConfig;
 
 @WebServlet(name = "SvPerfilUsuario", urlPatterns = {"/SvPerfilUsuario"})
 public class SvPerfilUsuario extends HttpServlet {
@@ -25,7 +27,7 @@ public class SvPerfilUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         //ajax: seguir/dejar de seguir usuarios//(si no vino desde perfilUsuario.jsp lo ignora)

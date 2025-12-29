@@ -1,12 +1,14 @@
 package Filtros;
 
-import WebServices.DataRegistro;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataRegistro;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import java.io.IOException;
+import java.net.URL;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import utilidades.WSConfig;
 
 
 @WebFilter(filterName = "FiltroRegistroAccesos", urlPatterns = {"/*"})
@@ -16,7 +18,7 @@ public class FiltroRegistroAccesos implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         HttpServletRequest req = (HttpServletRequest) request;
 

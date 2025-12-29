@@ -4,7 +4,7 @@
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.net.URLEncoder"%>
-<%@page import="WebServices.DataPropuesta"%>
+<%@page import="uy.culturarte.wsclient.DataPropuesta"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

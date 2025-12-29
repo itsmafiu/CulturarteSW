@@ -4,7 +4,7 @@
     Author     : nahud
 --%>
 
-<%@page import="WebServices.DataSugerencias"%>
+<%@page import="uy.culturarte.wsclient.DataSugerencias"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>

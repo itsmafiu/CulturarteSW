@@ -4,10 +4,10 @@
  */
 package Servlets;
 
-import WebServices.DataPropuesta;
-import WebServices.EnumEstado;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataPropuesta;
+import uy.culturarte.wsclient.EnumEstado;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import utilidades.WSConfig;
 
 /**
  *
@@ -39,7 +41,7 @@ public class SvConsultaPropuesta extends HttpServlet {
             throws ServletException, IOException {
         
 //        ic = Fabrica.getInstancia().getIControlador();
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();

@@ -4,10 +4,10 @@
  */
 package Servlets;
 
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
-import WebServices.Proponente;
-import WebServices.Usuario;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
+import uy.culturarte.wsclient.Proponente;
+import uy.culturarte.wsclient.Usuario;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,8 +15,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import utilidades.WSConfig;
 
 /**
  *
@@ -44,7 +46,7 @@ public class SvInicioSesion extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));

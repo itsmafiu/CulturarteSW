@@ -1,4 +1,4 @@
-<%@page import="WebServices.DataPropuesta"%>
+<%@page import="uy.culturarte.wsclient.DataPropuesta"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
@@ -17,7 +17,13 @@
     <%@ include file="header.jsp" %>
     
     <%
-    
+        
+    if (session == null || session.getAttribute("centralBaseUrl") == null) {
+            response.sendRedirect("CargaProp");
+            return;
+    }    
+    String baseURLPhotos = (String) session.getAttribute("centralBaseUrl");
+
     List<DataPropuesta> DPcreadas = (List) request.getSession().getAttribute("propuestasCreadas");
     List<DataPropuesta> DPef = (List) request.getSession().getAttribute("propuestasEnFinanciacion");
     List<DataPropuesta> DPf = (List) request.getSession().getAttribute("propuestasFinanciadas");
@@ -82,7 +88,7 @@
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
+            imagen = "default.jpg";
         }else{
             imagen = p.getImagen();
         }
@@ -90,7 +96,7 @@
           <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+              <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
@@ -132,7 +138,7 @@
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
+            imagen = "default.jpg";
         }else{
             imagen = p.getImagen();
         }
@@ -140,7 +146,7 @@
           <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+              <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
@@ -183,7 +189,7 @@
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
+            imagen = "default.jpg";
         }else{
             imagen = p.getImagen();
         }
@@ -191,7 +197,7 @@
           <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+              <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
@@ -234,7 +240,7 @@
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
+            imagen = "default.jpg";
         }else{
             imagen = p.getImagen();
         }
@@ -242,7 +248,7 @@
           <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+              <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>
@@ -285,7 +291,7 @@
         int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
         String imagen = "";
         if (p.getImagen().isBlank()) {
-            imagen = "fotos/default.jpg";
+            imagen = "default.jpg";
         }else{
             imagen = p.getImagen();
         }
@@ -293,7 +299,7 @@
           <div class="col-md-6 col-lg-4">
           <div class="card h-100">
               <a href="SvInfoPropuesta?titulo=<%= URLEncoder.encode(p.getTitulo(), "UTF-8") %>">
-              <img src="<%=imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
+              <img src="<%=baseURLPhotos + imagen%>" alt="Foto de la propuesta" style="width: 100%; height: 300px; align-items: center">
               </a>
               <div class="card-body" style="max-height: 300px; overflow: hidden;">
               <h5 class="card-title text-center"><%=p.getTitulo()%></h5>

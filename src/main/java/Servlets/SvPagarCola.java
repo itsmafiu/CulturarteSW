@@ -4,13 +4,13 @@
  */
 package Servlets;
 
-import WebServices.DataAporte;
-import WebServices.DataPago;
-import WebServices.DataPropuesta;
-import WebServices.DataUsuario;
-import WebServices.EnumTarjeta;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataAporte;
+import uy.culturarte.wsclient.DataPago;
+import uy.culturarte.wsclient.DataPropuesta;
+import uy.culturarte.wsclient.DataUsuario;
+import uy.culturarte.wsclient.EnumTarjeta;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
+import utilidades.WSConfig;
 
 /**
  *
@@ -47,7 +49,7 @@ public class SvPagarCola extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
 
         HttpSession misesion = request.getSession();

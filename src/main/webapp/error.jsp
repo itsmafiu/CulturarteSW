@@ -1,0 +1,12 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Error</title>
+</head>
+<body>
+    <h2>Error</h2>
+    <p>${error}</p>
+    <a href="index.jsp">Volver</a>
+</body>
+</html>

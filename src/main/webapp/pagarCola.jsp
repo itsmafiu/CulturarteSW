@@ -1,7 +1,7 @@
-<%@page import="WebServices.DataAporte"%>
+<%@page import="uy.culturarte.wsclient.DataAporte"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDateTime"%>
-<%@page import="WebServices.DataPropuesta"%>
+<%@page import="uy.culturarte.wsclient.DataPropuesta"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
 <%@page import="java.time.LocalDate"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

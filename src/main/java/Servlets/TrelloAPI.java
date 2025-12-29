@@ -1,24 +1,26 @@
 package Servlets;
 
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import utilidades.WSConfig;
 
 public class TrelloAPI {
     
@@ -35,8 +37,14 @@ public class TrelloAPI {
 //        } catch (Exception e){
 //            e.printStackTrace();
 //        }
-        LogicaWS_Service service = new LogicaWS_Service();
-        ic = service.getLogicaWSPort();
+        LogicaWS_Service service;
+        try {
+            service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
+            ic = service.getLogicaWSPort();
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(TrelloAPI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
     
     public static String get(String key){

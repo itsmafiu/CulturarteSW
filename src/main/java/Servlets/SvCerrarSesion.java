@@ -4,8 +4,8 @@
  */
 package Servlets;
 
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
+import utilidades.WSConfig;
 
 /**
  *
@@ -35,7 +37,7 @@ public class SvCerrarSesion extends HttpServlet {
         //System.out.println("URL: " + request.getRequestURL());
         //System.out.println("Query: " + request.getQueryString());
 
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         String eliminar = request.getParameter("eliminarProp");

@@ -4,10 +4,10 @@
  */
 package Servlets;
 
-import WebServices.DataCategoria;
-import WebServices.EnumRetorno;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataCategoria;
+import uy.culturarte.wsclient.EnumRetorno;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -18,9 +18,15 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.List;
+import utilidades.WSConfig;
 
 @MultipartConfig(
     fileSizeThreshold = 1024 * 1024, // 1 MB
@@ -47,7 +53,7 @@ public class SvAltaProp extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        ic = Fabrica.getInstancia().getIControlador();
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         List<DataCategoria> listaCategorias = ic.cargarCategoriasWeb();
@@ -65,7 +71,7 @@ public class SvAltaProp extends HttpServlet {
         
         //FALTAN CONTROLES DE SI LAS COSAS VIENEN VACIAS!
         
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
         
@@ -89,19 +95,18 @@ public class SvAltaProp extends HttpServlet {
         
         if(archivo != null && archivo.getSize() > 0){
             nombreArchivo = Paths.get(archivo.getSubmittedFileName()).getFileName().toString();
+            
+            //Enviar la foto al servidor central
+            
+             try (InputStream is = archivo.getInputStream()){
+                byte[] bytesFoto = is.readAllBytes();
+                String base64 = Base64.getEncoder().encodeToString(bytesFoto);
 
-            File base = new File(getServletContext().getRealPath(""));
-        
-            File ubi = base.getParentFile().getParentFile();
-
-            String uploadPath = ubi.getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "fotos";
-
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdirs();
+                ic.subirFoto(nombreArchivo, base64);
+             }catch(Exception e){
+                e.printStackTrace();
             }
-
-            archivo.write(uploadPath + File.separator + nombreArchivo);
+            
         }else{
             nombreArchivo = "default.jpg";
         }

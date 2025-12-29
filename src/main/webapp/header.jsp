@@ -1,6 +1,6 @@
-<%@page import="WebServices.Usuario"%>
+<%@page import="uy.culturarte.wsclient.Usuario"%>
 <%@page import="java.io.File"%>
-<%@page import="WebServices.DataUsuario"%>
+<%@page import="uy.culturarte.wsclient.DataUsuario"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -78,16 +78,18 @@
                         <%
                         String imagen = "";
                         Usuario usu = (Usuario) request.getSession().getAttribute("datosUsuario");
-                        if (usu.getImagenWeb() == null || usu.getImagenWeb().isBlank()) {
+                        if (usu.getImagen() == null || usu.getImagen().isBlank()) {
                             imagen = "fotos" + File.separator + "default.jpg";
                         }else{
-                            imagen = usu.getImagenWeb();
+                            imagen = usu.getImagen();
                         }
+                        String baseURLPhoto = (String) session.getAttribute("centralBaseUrl");
+
                         %>
                         <ul class="navbar-nav ms-2">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="perfilDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <img src="<%=imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
+                                    <img src="<%=baseURLPhoto + imagen%>" alt="Imagen" class="rounded-circle border" style="width: 40px; height: 40px">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="perfilDropdown">
                                     <li><a class="dropdown-item" href="SvPerfilUsuario?nickTarjeta=${nick}&tipoTarjeta=${tipoUsuario}"><%=request.getSession().getAttribute("nick")%></a></li>

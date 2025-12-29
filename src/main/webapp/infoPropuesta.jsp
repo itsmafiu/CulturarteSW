@@ -4,15 +4,15 @@
     Author     : nahud
 --%>
 
-<%@page import="WebServices.EnumEstado"%>
-<%@page import="WebServices.DataComentario"%>
+<%@page import="uy.culturarte.wsclient.EnumEstado"%>
+<%@page import="uy.culturarte.wsclient.DataComentario"%>
 <%@page import="java.util.List"%>
-<%@page import="WebServices.DataColaborador"%>
+<%@page import="uy.culturarte.wsclient.DataColaborador"%>
 <%@page import="java.net.URLEncoder"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.temporal.ChronoUnit"%>
-<%@page import="WebServices.DataPropuesta"%>
+<%@page import="uy.culturarte.wsclient.DataPropuesta"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,6 +30,12 @@
         <%@ include file="header.jsp" %>
 
         <%
+        if (session == null || session.getAttribute("centralBaseUrl") == null) {
+            response.sendRedirect("CargaProp");
+            return;
+        }
+        String baseURLPhotos = (String) session.getAttribute("centralBaseUrl");
+
             DataPropuesta p = (DataPropuesta) request.getSession().getAttribute("p");
 
             int porcentaje = (int) Math.min((p.getAlcanzada() / p.getNecesaria()) * 100, 100);
@@ -50,7 +56,7 @@
             String imagen = "";
 
             if (p.getImagen().isBlank()) {
-                imagen = "fotos/default.jpg";
+                imagen = "default.jpg";
             } else {
                 imagen = p.getImagen();
             }
@@ -76,7 +82,7 @@
             <div class="row align-items-start">
 
                 <div class="col-md-7 text-center">
-                    <img src="<%=imagen%>" 
+                    <img src="<%=baseURLPhotos + imagen%>" 
                          alt="Imagen de la propuesta" 
                          class="img-fluid rounded shadow-sm mb-3"
                          style="height: 400px; object-fit: contain;">
@@ -253,7 +259,7 @@
                         String img;
                         for (DataColaborador c : colab) {
                             if (c.getImagen().isBlank()) {
-                                img = "fotos\\default.jpg";
+                                img = "default.jpg";
                             } else {
                                 img = c.getImagen();
                             }
@@ -262,7 +268,7 @@
                         <div class="card" style="width: 18rem;">
                             <% if(!esMovil){ %>
                             <a href="SvPerfilUsuario?nickTarjeta=<%= c.getNickname()%>&tipoTarjeta=Colaborador" >
-                                <img src="<%= img%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
+                                <img src="<%=baseURLPhotos + img%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">
                             </a>
                             <% } else{ %>
                                 <img src="<%= img%>" alt="Foto de Perfil" class="card-img-top" style="width: 100% ; height:200px; align-items: center">

@@ -4,15 +4,16 @@
  */
 package Servlets;
 
-import WebServices.DataPropuesta;
-import WebServices.DataPropuestaSimple;
-import WebServices.EnumEstado;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataPropuesta;
+import uy.culturarte.wsclient.DataPropuestaSimple;
+import uy.culturarte.wsclient.EnumEstado;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import com.google.gson.Gson;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Comparator;
+import utilidades.WSConfig;
 
 /**
  *
@@ -42,7 +44,7 @@ public class SvBuscador extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         ic.comprobarPropuestas();
@@ -83,7 +85,7 @@ public class SvBuscador extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         String query = request.getParameter("query");

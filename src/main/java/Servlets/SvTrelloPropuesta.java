@@ -4,23 +4,23 @@
  */
 package Servlets;
 
-import WebServices.DataAporte;
-import WebServices.DataProponente;
-import WebServices.DataPropuesta;
-import WebServices.DataUsuario;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataAporte;
+import uy.culturarte.wsclient.DataProponente;
+import uy.culturarte.wsclient.DataPropuesta;
+import uy.culturarte.wsclient.DataUsuario;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
 import org.json.JSONObject;
+import utilidades.WSConfig;
 
 /**
  *
@@ -49,7 +49,7 @@ public class SvTrelloPropuesta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
         

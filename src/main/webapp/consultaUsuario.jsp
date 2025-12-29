@@ -1,4 +1,4 @@
-<%@page import="WebServices.DataUsuario"%>
+<%@page import="uy.culturarte.wsclient.DataUsuario"%>
 <%@page import="java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,9 +15,21 @@
         <%@ include file="header.jsp" %>
         
         <% 
+        if (session == null || session.getAttribute("centralBaseUrl") == null) {
+            response.sendRedirect("CargaProp");
+            return;
+        }
         boolean NoHayUsuarios = false;
-        List<DataUsuario> DtU = (List) request.getSession().getAttribute("DtU");
-        int tamanio = DtU.size();
+        List<DataUsuario> DtU = (List) session.getAttribute("DtU");
+        int tamanio=0;
+        if (DtU == null || DtU.isEmpty()) {
+            NoHayUsuarios = true;
+        } else {
+            tamanio = DtU.size();
+        }
+
+        String baseURLPhotos = (String) session.getAttribute("centralBaseUrl");
+
         %>
         
         <div class="container my-4">
@@ -51,7 +63,7 @@
                                     for (DataUsuario usu : DtU) {
                                         String imagen = "";
                                         if (usu.getImagen() == null || usu.getImagen().isBlank()) {
-                                            imagen = "fotos" + File.separator + "default.jpg";
+                                            imagen = "default.jpg";
                                         } else {
                                             imagen = usu.getImagen();
                                         }
@@ -60,7 +72,7 @@
                             <div class="col-12 col-sm-6 col-md-4 col-lg-3 usuario" data-tipo="<%=usu.getTipo()%>">
                                 <div class="card" style="width: 18rem;">
                                     <a href="SvPerfilUsuario?nickTarjeta=<%= usu.getNickname()%>&tipoTarjeta=<%= usu.getTipo()%>" >
-                                        <img src="<%=imagen%>" alt="Foto de Perfil" style=" width: 100% ; height: 200px; align-items: center">
+                                        <img src="<%=baseURLPhotos+imagen%>" alt="Foto de Perfil" style=" width: 100% ; height: 200px; align-items: center">
                                     </a>
                                     <div class="card-body" style="max-height: 300px; overflow: hidden;">
                                         <h5 class="card-title text-center"><%= usu.getNickname()%></h5>
@@ -95,7 +107,7 @@
                                     for (DataUsuario u : DtURanking) {
                                         String imagenUsuario = "";
                                         if (u.getImagen() == null || u.getImagen().isBlank()) {
-                                            imagenUsuario = ("fotos" + File.separator + "default.jpg");
+                                            imagenUsuario = "default.jpg";
                                         } else {
                                             imagenUsuario = u.getImagen();
                                         }
@@ -118,7 +130,7 @@
                                         <!-- Imagen -->
                                         <div class="flex-shrink-0" style="width: 40%; height: 100%;">
                                             <a href="SvPerfilUsuario?nickTarjeta=<%= u.getNickname()%>&tipoTarjeta=<%= u.getTipo()%>">
-                                                <img src="<%= imagenUsuario%>"
+                                                <img src="<%=baseURLPhotos + imagenUsuario%>"
                                                      alt="Foto de Perfil"
                                                      class="img-fluid object-fit-cover w-100 h-100">
                                             </a>

@@ -4,9 +4,9 @@
  */
 package Servlets;
 
-import WebServices.DataUsuario;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataUsuario;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
+import utilidades.WSConfig;
 
 
 @WebServlet(name = "SvConsultaUsuario", urlPatterns = {"/SvConsultaUsuario"})
@@ -33,7 +35,7 @@ public class SvConsultaUsuario extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        ic = Fabrica.getInstancia().getIControlador();
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         List<DataUsuario> listaUsuarios = ic.getDataUsuarios();

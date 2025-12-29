@@ -4,9 +4,9 @@
  */
 package Servlets;
 
-import WebServices.EnumRetorno;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.EnumRetorno;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.net.URL;
+import utilidades.WSConfig;
 
 @WebServlet(name = "SvRegistraCola", urlPatterns = {"/SvRegistraCola"})
 public class SvRegistraCola extends HttpServlet {
@@ -37,7 +38,7 @@ public class SvRegistraCola extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
 

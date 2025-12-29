@@ -4,10 +4,9 @@
  */
 package Servlets;
 
-import WebServices.DataUsuario;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
-import WebServices.Usuario;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
+import uy.culturarte.wsclient.Usuario;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -19,12 +18,15 @@ import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
+import java.nio.file.Path;
+import java.util.Base64;
 import java.util.ArrayList;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
+import utilidades.WSConfig;
 
 /**
  *
@@ -44,7 +46,7 @@ public class SvAltaUsuario extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         String tipo = request.getParameter("tipoVerificarUsuario");
@@ -93,7 +95,7 @@ public class SvAltaUsuario extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         
         List <String> nicksProhibidos = new ArrayList<>(List.of("--Seleccionar--", "---"));
@@ -110,24 +112,15 @@ public class SvAltaUsuario extends HttpServlet {
         //String confirmacion = request.getParameter("confirmacion");
         
         Part imagen = request.getPart("imagen"); //agarra la imagen subida
-        String rutaImagen;
-        String rutaWeb;
-        
-        File base = new File(getServletContext().getRealPath("")); //path al servlet (test)
-        base = base.getParentFile().getParentFile();
-        String rutaBase = base.getAbsolutePath() + File.separator + "src" + File.separator + "main" + File.separator + "webapp" + File.separator + "fotos"; 
-        
+        String nombreImagen;
         if(imagen == null || imagen.getSize() == 0){
-            rutaImagen = rutaBase + File.separator + "default.jpg";
-            rutaWeb = "fotos" + File.separator + "default.jpg";
+            nombreImagen = "default.jpg";
         }else{
             String nombreOriginal = Paths.get(imagen.getSubmittedFileName()).getFileName().toString(); //nombre real de la imagen.extension
             String extension = nombreOriginal.substring(nombreOriginal.lastIndexOf(".")); //solo extension (.jpg, .png, etc)
             String nombreUnico = nombreOriginal.subSequence(0, nombreOriginal.lastIndexOf(".")).toString() + ((int)(Math.random()*1001)) + extension; //nombre img + id unico para que no se repita + extension
-
-            Files.createDirectories(Paths.get(rutaBase));
-            rutaImagen = rutaBase + File.separator + nombreUnico; //ruta para el servidor
-            rutaWeb = "fotos" + File.separator + nombreUnico; //ruta para la web
+            
+            nombreImagen = nombreUnico;
         }
         
         
@@ -183,7 +176,7 @@ public class SvAltaUsuario extends HttpServlet {
                 return;
             }
             
-            aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, direccion, bio, sitioWeb, rutaWeb); //CAMBIAR DATE A STRING 
+            aux = ic.añadirUsuarioP(nick, nombre, apellido, correo, fecNac, nombreImagen, passHash, direccion, bio, sitioWeb); //CAMBIAR DATE A STRING 
             //usu = new Proponente(direccion, bio, sitioWeb, nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
                 usu = ic.getUsuario(nick);
@@ -192,7 +185,7 @@ public class SvAltaUsuario extends HttpServlet {
             }
             tipoUsu = true;
         }else{ //tipoUsuario.equals("Colaborador")
-            aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, fecNac, rutaImagen, passHash, rutaWeb); //CAMBIAR DATE A STRING
+            aux = ic.añadirUsuarioC(nick, nombre, apellido, correo, fecNac, nombreImagen, passHash); //CAMBIAR DATE A STRING
             //usu = new Colaborador(nick, correo, nombre, apellido, LocalDate.parse(fecNac), rutaImagen, passHash, rutaWeb);
             if(aux == 1){
                 usu = ic.getUsuario(nick);
@@ -213,8 +206,15 @@ public class SvAltaUsuario extends HttpServlet {
                 return;
             case 1:
                 if(!(imagen == null || imagen.getSize() == 0)){ //si no se insertó imagen no copia nada
-                    try(InputStream contenido = imagen.getInputStream()){
-                        Files.copy(contenido, Paths.get(rutaImagen));
+                    
+                    //Enviar foto al servidor central
+                    try (InputStream is = imagen.getInputStream()) {
+                        byte[] bytesFoto = is.readAllBytes();
+                        String base64 = Base64.getEncoder().encodeToString(bytesFoto);
+
+                        ic.subirFoto(nombreImagen, base64);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
                 HttpSession misesion = request.getSession();

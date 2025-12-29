@@ -4,15 +4,15 @@
  */
 package Servlets;
 
-import WebServices.DataAporte;
-import WebServices.DataColaborador;
-import WebServices.DataPago;
-import WebServices.LogicaWS;
-import WebServices.LogicaWS_Service;
+import uy.culturarte.wsclient.DataAporte;
+import uy.culturarte.wsclient.DataColaborador;
+import uy.culturarte.wsclient.DataPago;
+import uy.culturarte.wsclient.LogicaWS;
+import uy.culturarte.wsclient.LogicaWS_Service;
 import com.lowagie.text.*;
 import com.lowagie.text.pdf.*;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URL;
 import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utilidades.WSConfig;
 
 /**
  *
@@ -40,7 +41,7 @@ public class SvConstancia extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        service = new LogicaWS_Service();
+        service = new LogicaWS_Service(new URL (WSConfig.getWsdlUrl()));
         LogicaWS ic = service.getLogicaWSPort();
         HttpSession misesion = request.getSession();
         
